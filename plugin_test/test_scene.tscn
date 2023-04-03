@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2nj0gw0054b6"]
+
+[ext_resource type="Script" path="res://addons/my_custom_node/my_button.gd" id="1_n0vsj"]
+
+[node name="TestScene" type="Node"]
+
+[node name="MyButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -65.5
+offset_right = 140.5
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n0vsj")
