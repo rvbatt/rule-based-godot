@@ -16,4 +16,4 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/my_custom_node/plugin.cfg")
+enabled=PackedStringArray("res://addons/my_custom_node/plugin.cfg", "res://addons/my_custom_dock/plugin.cfg")
