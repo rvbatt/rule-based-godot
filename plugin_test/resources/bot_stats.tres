@@ -3,4 +3,8 @@
 [ext_resource type="Script" path="res://resources/bot_stats.gd" id="1_kcmfk"]
 
 [resource]
+resource_local_to_scene = true
+resource_name = "BotStats"
 script = ExtResource("1_kcmfk")
+health = 0
+strings = PackedStringArray()

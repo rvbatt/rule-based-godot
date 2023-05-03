@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var stats: Resource
+@export var stats: BotStats
 
 func _ready():
 	# Uses an implicit, duck-typed interface for any 'health'-compatible resources.

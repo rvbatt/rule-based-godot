@@ -1,3 +1,4 @@
+class_name BotStats
 extends Resource
 
 @export var health: int
