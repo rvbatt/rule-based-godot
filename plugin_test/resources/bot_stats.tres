@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b4ixm6h8ja6hf"]
+
+[ext_resource type="Script" path="res://resources/bot_stats.gd" id="1_kcmfk"]
+
+[resource]
+script = ExtResource("1_kcmfk")
