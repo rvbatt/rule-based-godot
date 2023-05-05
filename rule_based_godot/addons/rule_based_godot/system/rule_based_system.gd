@@ -1,4 +1,4 @@
 @tool
 extends Node
 
-@export var rules: Array[Resource]
+@export var rules: Array[Rule]
