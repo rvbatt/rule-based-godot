@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ORMatch" load_steps=2 format=3 uid="uid://ba522cukrsnq5"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/OR_match.gd" id="1_5d722"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "ORMatch"
+script = ExtResource("1_5d722")
+subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([])

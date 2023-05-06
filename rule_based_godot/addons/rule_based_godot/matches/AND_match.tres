@@ -6,4 +6,4 @@
 resource_local_to_scene = true
 resource_name = "ANDMatch"
 script = ExtResource("1_0jaev")
-conditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([])
+subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([])
