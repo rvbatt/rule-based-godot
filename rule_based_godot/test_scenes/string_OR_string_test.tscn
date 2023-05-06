@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_2xyp6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_mb7kj"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/OR_match.gd" id="3_tel5h"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/OR_match.gd" id="3_umodj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_ehs0x"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_y8e4y"]
 
@@ -19,7 +19,7 @@ test_string_property = &"text"
 string_value = "black"
 
 [sub_resource type="Resource" id="Resource_mqdq8"]
-script = ExtResource("3_tel5h")
+script = ExtResource("3_umodj")
 subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_0mrtk"), SubResource("Resource_y10yn")])
 
 [sub_resource type="Resource" id="Resource_htj61"]

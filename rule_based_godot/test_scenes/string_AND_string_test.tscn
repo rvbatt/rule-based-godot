@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv2qlgtte8pxp"]
+[gd_scene load_steps=10 format=3 uid="uid://keynecavesnn"]
 
 [ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_fquq6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_vyyuy"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/AND_match.gd" id="3_bh166"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/AND_match.gd" id="3_jfb67"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_wljfk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_srn5c"]
 
@@ -19,7 +19,7 @@ test_string_property = &"text"
 string_value = "yellow"
 
 [sub_resource type="Resource" id="Resource_2n1cu"]
-script = ExtResource("3_bh166")
+script = ExtResource("3_jfb67")
 subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
 
 [sub_resource type="Resource" id="Resource_oktlq"]
