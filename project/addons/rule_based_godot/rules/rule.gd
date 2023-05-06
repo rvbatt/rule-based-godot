@@ -3,17 +3,10 @@ extends Resource
 
 @export var condition: AbstractMatch
 @export var agent_path: NodePath
-@export var action_or_property: StringName
+@export var property_or_method: StringName
 @export var arguments: Array
 
 var _system_node: Node
-
-func _init(condition = null, agent_path = "",
-		action_or_property = "", arguments = []):
-	self.condition = condition
-	self.agent_path = agent_path
-	self.action_or_property = action_or_property
-	self.arguments = arguments
 
 func set_system_node(system_node: Node) -> void:
 	_system_node = system_node
@@ -22,12 +15,12 @@ func set_system_node(system_node: Node) -> void:
 func trigger():
 	var agent: Node = _system_node.get_node(agent_path)
 	if agent == null:
-		print("Invalid Agent at " + str(self))
+		print_debug("Invalid Rule agent")
 		return
 
-	if agent.has_method(action_or_property):
-		return agent.callv(action_or_property, arguments)
-	elif action_or_property in agent:
-		agent.set(action_or_property, arguments[0])
+	if property_or_method in agent:
+		agent.set(property_or_method, arguments[0])
+	elif agent.has_method(property_or_method):
+		return agent.callv(property_or_method, arguments)
 	else:
-		print("Invalid Action or Property")
+		print_debug("Invalid Rule action or property")
