@@ -1,0 +1,73 @@
+[gd_scene load_steps=14 format=3 uid="uid://cwu547oxqe6os"]
+
+[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_muyg0"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0337j"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_surw2"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_cdyhw"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/OR_match.gd" id="6_c5pin"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="7_j22rl"]
+
+[sub_resource type="Resource" id="Resource_b2rrd"]
+script = ExtResource("4_surw2")
+test_node_path = NodePath("../LineEdit")
+test_string_property = &"text"
+string_value = "red"
+
+[sub_resource type="Resource" id="Resource_pb5t1"]
+script = ExtResource("7_j22rl")
+negated_condition = SubResource("Resource_b2rrd")
+
+[sub_resource type="Resource" id="Resource_glk3c"]
+script = ExtResource("4_surw2")
+test_node_path = NodePath("../LineEdit2")
+test_string_property = &"text"
+string_value = "yellow"
+
+[sub_resource type="Resource" id="Resource_chtr6"]
+script = ExtResource("7_j22rl")
+negated_condition = SubResource("Resource_glk3c")
+
+[sub_resource type="Resource" id="Resource_lliql"]
+script = ExtResource("6_c5pin")
+subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_pb5t1"), SubResource("Resource_chtr6")])
+
+[sub_resource type="Resource" id="Resource_b37ny"]
+script = ExtResource("7_j22rl")
+negated_condition = SubResource("Resource_lliql")
+
+[sub_resource type="Resource" id="Resource_tmlmr"]
+script = ExtResource("5_cdyhw")
+condition = SubResource("Resource_b37ny")
+agent_path = NodePath("../ColorRect")
+action_or_property = &"color"
+arguments = [Color(1, 0.443137, 0.129412, 1)]
+
+[node name="DeMorganStringTest" type="Node2D"]
+script = ExtResource("1_muyg0")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_0337j")
+rules = Array[ExtResource("5_cdyhw")]([SubResource("Resource_tmlmr")])
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 57.0
+offset_top = 410.0
+offset_right = 1078.0
+offset_bottom = 466.0
+
+[node name="LineEdit2" type="LineEdit" parent="."]
+offset_left = 59.0
+offset_top = 512.0
+offset_right = 1080.0
+offset_bottom = 568.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 392.0
+offset_top = 76.0
+offset_right = 783.0
+offset_bottom = 327.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEdit2" to="." method="_on_line_edit_text_submitted"]
