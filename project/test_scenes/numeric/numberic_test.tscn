@@ -8,7 +8,8 @@
 [sub_resource type="Resource" id="Resource_n3fhw"]
 script = ExtResource("3_pu3ms")
 test_node_path = NodePath("../SpinBox")
-test_number_property = &"value"
+property_or_method = &"value"
+method_arguments = []
 min_value = 5.0
 max_value = 10.0
 
@@ -16,7 +17,7 @@ max_value = 10.0
 script = ExtResource("4_xiuvb")
 condition = SubResource("Resource_n3fhw")
 agent_path = NodePath("../ColorRect")
-action_or_property = &"color"
+property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="NumbericTest" type="Node2D"]

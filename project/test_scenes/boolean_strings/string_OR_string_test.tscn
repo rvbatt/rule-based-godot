@@ -9,13 +9,15 @@
 [sub_resource type="Resource" id="Resource_0mrtk"]
 script = ExtResource("4_vemx7")
 test_node_path = NodePath("../LineEdit")
-test_string_property = &"text"
+property_or_method = &"text"
+method_arguments = []
 string_value = "black"
 
 [sub_resource type="Resource" id="Resource_y10yn"]
 script = ExtResource("4_vemx7")
 test_node_path = NodePath("../LineEdit2")
-test_string_property = &"text"
+property_or_method = &"text"
+method_arguments = []
 string_value = "black"
 
 [sub_resource type="Resource" id="Resource_mqdq8"]
@@ -26,7 +28,7 @@ subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_m
 script = ExtResource("5_ogy8g")
 condition = SubResource("Resource_mqdq8")
 agent_path = NodePath("../ColorRect")
-action_or_property = &"color"
+property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="StringORStringTest" type="Node2D"]

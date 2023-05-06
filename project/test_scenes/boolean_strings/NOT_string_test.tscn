@@ -9,7 +9,8 @@
 [sub_resource type="Resource" id="Resource_rant8"]
 script = ExtResource("3_77o1w")
 test_node_path = NodePath("../LineEdit")
-test_string_property = &"text"
+property_or_method = &"text"
+method_arguments = []
 string_value = ""
 
 [sub_resource type="Resource" id="Resource_4uo2h"]
@@ -20,7 +21,7 @@ negated_condition = SubResource("Resource_rant8")
 script = ExtResource("5_p2st8")
 condition = SubResource("Resource_4uo2h")
 agent_path = NodePath("../ColorRect")
-action_or_property = &"color"
+property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="NOTStringTest" type="Node2D"]

@@ -7,5 +7,6 @@ resource_local_to_scene = true
 resource_name = "StringMatch"
 script = ExtResource("1_dsf6p")
 test_node_path = NodePath("")
-test_string_property = &""
+property_or_method = &""
+method_arguments = []
 string_value = ""
