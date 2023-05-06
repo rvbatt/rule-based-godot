@@ -9,5 +9,5 @@ func set_system_node(system_node: Node) -> void:
 
 func is_satisfied() -> bool:
 	# Abstract method
-	print("ABSTRACT METHOD CALL AT " + str(self))
+	printerr("ABSTRACT METHOD CALL AT " + str(self))
 	return false

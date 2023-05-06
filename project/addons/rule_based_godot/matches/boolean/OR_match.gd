@@ -1,9 +1,7 @@
 class_name ORMatch
 extends AbstractMatch
 
-@export var subconditions: Array[AbstractMatch] = []
-# We can't set a default value for subconditions in _init(),
-# Godot crashes with Arrays for some reason
+@export var subconditions: Array[AbstractMatch]
 
 func set_system_node(system_node: Node) -> void:
 	for condition in subconditions:
@@ -11,6 +9,10 @@ func set_system_node(system_node: Node) -> void:
 		condition.set_system_node(system_node)
 
 func is_satisfied() -> bool:
+	if subconditions.is_empty():
+		print_debug("Empty ANDMatch")
+		return false
+
 	for condition in subconditions:
 		if condition == null: continue
 		if condition.is_satisfied():
