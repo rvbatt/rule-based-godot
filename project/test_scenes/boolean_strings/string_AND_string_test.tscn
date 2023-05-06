@@ -1,40 +1,40 @@
 [gd_scene load_steps=10 format=3 uid="uid://keynecavesnn"]
 
-[ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_fquq6"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_vyyuy"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/AND_match.gd" id="3_jfb67"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_wljfk"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_srn5c"]
+[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_djlq4"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_ft21d"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/AND_match.gd" id="3_4iqvf"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_lufgx"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_12xfb"]
 
 [sub_resource type="Resource" id="Resource_ykt17"]
-script = ExtResource("4_wljfk")
+script = ExtResource("4_lufgx")
 test_node_path = NodePath("../LineEdit")
 test_string_property = &"text"
 string_value = "red"
 
 [sub_resource type="Resource" id="Resource_ltuxf"]
-script = ExtResource("4_wljfk")
+script = ExtResource("4_lufgx")
 test_node_path = NodePath("../LineEdit2")
 test_string_property = &"text"
 string_value = "yellow"
 
 [sub_resource type="Resource" id="Resource_2n1cu"]
-script = ExtResource("3_jfb67")
+script = ExtResource("3_4iqvf")
 subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
 
 [sub_resource type="Resource" id="Resource_oktlq"]
-script = ExtResource("5_srn5c")
+script = ExtResource("5_12xfb")
 condition = SubResource("Resource_2n1cu")
 agent_path = NodePath("../ColorRect")
 action_or_property = &"color"
 arguments = [Color(1, 0.443137, 0.129412, 1)]
 
 [node name="StringANDStringTest" type="Node2D"]
-script = ExtResource("1_fquq6")
+script = ExtResource("1_djlq4")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
-script = ExtResource("2_vyyuy")
-rules = Array[ExtResource("5_srn5c")]([SubResource("Resource_oktlq")])
+script = ExtResource("2_ft21d")
+rules = Array[ExtResource("5_12xfb")]([SubResource("Resource_oktlq")])
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0

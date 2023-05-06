@@ -1,34 +1,34 @@
 [gd_scene load_steps=9 format=3 uid="uid://prs0yjjg84d0"]
 
-[ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_yp5ql"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_dtxy5"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="4_1cmp6"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_aoii5"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_0fc6m"]
+[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_1obqm"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_stkeu"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="3_77o1w"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="4_yl5pb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_p2st8"]
 
 [sub_resource type="Resource" id="Resource_rant8"]
-script = ExtResource("4_aoii5")
+script = ExtResource("3_77o1w")
 test_node_path = NodePath("../LineEdit")
 test_string_property = &"text"
 string_value = ""
 
 [sub_resource type="Resource" id="Resource_4uo2h"]
-script = ExtResource("4_1cmp6")
+script = ExtResource("4_yl5pb")
 negated_condition = SubResource("Resource_rant8")
 
 [sub_resource type="Resource" id="Resource_ukoww"]
-script = ExtResource("5_0fc6m")
+script = ExtResource("5_p2st8")
 condition = SubResource("Resource_4uo2h")
 agent_path = NodePath("../ColorRect")
 action_or_property = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="NOTStringTest" type="Node2D"]
-script = ExtResource("1_yp5ql")
+script = ExtResource("1_1obqm")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
-script = ExtResource("2_dtxy5")
-rules = Array[ExtResource("5_0fc6m")]([SubResource("Resource_ukoww")])
+script = ExtResource("2_stkeu")
+rules = Array[ExtResource("5_p2st8")]([SubResource("Resource_ukoww")])
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0
