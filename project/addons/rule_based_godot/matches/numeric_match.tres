@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NumericMatch" load_steps=2 format=3 uid="uid://kje1yhwwktmx"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/numeric_match.gd" id="1_yww4b"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "NumericMatch"
+script = ExtResource("1_yww4b")
+test_node_path = NodePath("")
+test_number_property = &""
+min_value = 0.0
+max_value = 0.0
