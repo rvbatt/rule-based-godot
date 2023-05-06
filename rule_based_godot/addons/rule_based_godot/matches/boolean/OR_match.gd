@@ -2,9 +2,8 @@ class_name ORMatch
 extends AbstractMatch
 
 @export var subconditions: Array[AbstractMatch] = []
-# We can't set a default value for subconditions in _init,
-# because the resource tree is constructed from bottom up,
-# so its children will be already initialized
+# We can't set a default value for subconditions in _init(),
+# Godot crashes with Arrays for some reason
 
 func set_system_node(system_node: Node) -> void:
 	for condition in subconditions:

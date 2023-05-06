@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="NOTMatch" load_steps=2 format=3 uid="uid://4a5x5j2spok8"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="1_7v4ww"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "NOTMatch"
+script = ExtResource("1_7v4ww")
