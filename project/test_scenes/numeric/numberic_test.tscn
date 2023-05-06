@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk2osru8ec132"]
+
+[ext_resource type="Script" path="res://test_scenes/numeric/numberic_test.gd" id="1_qwgnh"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_8847e"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/numeric_match.gd" id="3_pu3ms"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_xiuvb"]
+
+[sub_resource type="Resource" id="Resource_n3fhw"]
+script = ExtResource("3_pu3ms")
+test_node_path = NodePath("../SpinBox")
+test_number_property = &"value"
+min_value = 5.0
+max_value = 10.0
+
+[sub_resource type="Resource" id="Resource_eo24t"]
+script = ExtResource("4_xiuvb")
+condition = SubResource("Resource_n3fhw")
+agent_path = NodePath("../ColorRect")
+action_or_property = &"color"
+arguments = [Color(0, 0, 0, 1)]
+
+[node name="NumbericTest" type="Node2D"]
+script = ExtResource("1_qwgnh")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_8847e")
+rules = Array[ExtResource("4_xiuvb")]([SubResource("Resource_eo24t")])
+
+[node name="SpinBox" type="SpinBox" parent="."]
+offset_left = 530.0
+offset_top = 491.0
+offset_right = 643.0
+offset_bottom = 537.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 393.0
+offset_top = 115.0
+offset_right = 754.0
+offset_bottom = 344.0
+
+[connection signal="value_changed" from="SpinBox" to="." method="_on_spin_box_value_changed"]
