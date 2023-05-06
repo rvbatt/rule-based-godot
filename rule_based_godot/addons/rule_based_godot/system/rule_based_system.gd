@@ -1,4 +1,5 @@
 @tool
+@icon("../ruler_icon.png")
 extends Node
 
 @export var rules: Array[Rule]
