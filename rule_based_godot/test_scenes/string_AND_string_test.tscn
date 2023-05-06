@@ -1,36 +1,36 @@
 [gd_scene load_steps=10 format=3 uid="uid://dv2qlgtte8pxp"]
 
-[ext_resource type="Script" path="res://test_scenes/string_AND_string_test.gd" id="1_ufxdw"]
+[ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_fquq6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_vyyuy"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/AND_match.gd" id="3_bh166"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_wljfk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_srn5c"]
 
-[sub_resource type="Resource" id="Resource_8u5nr"]
+[sub_resource type="Resource" id="Resource_ykt17"]
 script = ExtResource("4_wljfk")
 test_node_path = NodePath("../LineEdit")
 test_string_property = &"text"
 string_value = "red"
 
-[sub_resource type="Resource" id="Resource_gphj5"]
+[sub_resource type="Resource" id="Resource_ltuxf"]
 script = ExtResource("4_wljfk")
 test_node_path = NodePath("../LineEdit2")
 test_string_property = &"text"
 string_value = "yellow"
 
-[sub_resource type="Resource" id="Resource_g3j34"]
+[sub_resource type="Resource" id="Resource_2n1cu"]
 script = ExtResource("3_bh166")
-subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_8u5nr"), SubResource("Resource_gphj5")])
+subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
 
 [sub_resource type="Resource" id="Resource_oktlq"]
 script = ExtResource("5_srn5c")
-condition = SubResource("Resource_g3j34")
+condition = SubResource("Resource_2n1cu")
 agent_path = NodePath("../ColorRect")
 action_or_property = &"color"
 arguments = [Color(1, 0.443137, 0.129412, 1)]
 
 [node name="StringANDStringTest" type="Node2D"]
-script = ExtResource("1_ufxdw")
+script = ExtResource("1_fquq6")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_vyyuy")
