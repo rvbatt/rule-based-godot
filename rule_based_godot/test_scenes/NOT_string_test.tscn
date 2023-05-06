@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://prs0yjjg84d0"]
+
+[ext_resource type="Script" path="res://test_scenes/string_test.gd" id="1_yp5ql"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_dtxy5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="4_1cmp6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_aoii5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_0fc6m"]
+
+[sub_resource type="Resource" id="Resource_rant8"]
+script = ExtResource("4_aoii5")
+test_node_path = NodePath("../LineEdit")
+test_string_property = &"text"
+string_value = ""
+
+[sub_resource type="Resource" id="Resource_4uo2h"]
+script = ExtResource("4_1cmp6")
+negated_condition = SubResource("Resource_rant8")
+
+[sub_resource type="Resource" id="Resource_ukoww"]
+script = ExtResource("5_0fc6m")
+condition = SubResource("Resource_4uo2h")
+agent_path = NodePath("../ColorRect")
+action_or_property = &"color"
+arguments = [Color(0, 0, 0, 1)]
+
+[node name="NOTStringTest" type="Node2D"]
+script = ExtResource("1_yp5ql")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_dtxy5")
+rules = Array[ExtResource("5_0fc6m")]([SubResource("Resource_ukoww")])
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 57.0
+offset_top = 410.0
+offset_right = 1078.0
+offset_bottom = 466.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 381.0
+offset_top = 93.0
+offset_right = 772.0
+offset_bottom = 344.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
