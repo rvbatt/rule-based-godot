@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cwu547oxqe6os"]
 
-[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_muyg0"]
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_0lqpr"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0337j"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_surw2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_cdyhw"]
@@ -45,7 +45,7 @@ property_or_method = &"color"
 arguments = [Color(1, 0.443137, 0.129412, 1)]
 
 [node name="DeMorganStringTest" type="Node2D"]
-script = ExtResource("1_muyg0")
+script = ExtResource("1_0lqpr")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_0337j")
@@ -71,5 +71,5 @@ offset_bottom = 327.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
-[connection signal="text_submitted" from="LineEdit2" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEdit" to="." method="run_tests"]
+[connection signal="text_submitted" from="LineEdit2" to="." method="run_tests"]

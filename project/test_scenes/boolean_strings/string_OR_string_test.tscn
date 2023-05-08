@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dji1jrq23o6mf"]
 
-[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_yja2s"]
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_4wwje"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_x4ufi"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/OR_match.gd" id="3_3d4f7"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="4_vemx7"]
@@ -32,7 +32,7 @@ property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="StringORStringTest" type="Node2D"]
-script = ExtResource("1_yja2s")
+script = ExtResource("1_4wwje")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_x4ufi")
@@ -58,5 +58,5 @@ offset_bottom = 344.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
-[connection signal="text_submitted" from="LineEdit2" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEdit" to="." method="run_tests"]
+[connection signal="text_submitted" from="LineEdit2" to="." method="run_tests"]

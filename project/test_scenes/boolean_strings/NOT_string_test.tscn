@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://prs0yjjg84d0"]
 
-[ext_resource type="Script" path="res://test_scenes/boolean_strings/string_test.gd" id="1_1obqm"]
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_smurj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_stkeu"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="3_77o1w"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="4_yl5pb"]
@@ -25,7 +25,7 @@ property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="NOTStringTest" type="Node2D"]
-script = ExtResource("1_1obqm")
+script = ExtResource("1_smurj")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_stkeu")
@@ -45,4 +45,4 @@ offset_bottom = 344.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="LineEdit" to="." method="run_tests"]

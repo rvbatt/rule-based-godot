@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk2osru8ec132"]
 
-[ext_resource type="Script" path="res://test_scenes/numeric/numberic_test.gd" id="1_qwgnh"]
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_y121x"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_8847e"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/numeric_match.gd" id="3_pu3ms"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_xiuvb"]
@@ -21,7 +21,7 @@ property_or_method = &"color"
 arguments = [Color(0, 0, 0, 1)]
 
 [node name="NumbericTest" type="Node2D"]
-script = ExtResource("1_qwgnh")
+script = ExtResource("1_y121x")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_8847e")
@@ -39,4 +39,4 @@ offset_top = 115.0
 offset_right = 754.0
 offset_bottom = 344.0
 
-[connection signal="value_changed" from="SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="SpinBox" to="." method="run_tests"]
