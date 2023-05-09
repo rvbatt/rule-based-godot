@@ -11,5 +11,5 @@ func _ready():
 func test_rules():
 	for rule in rules:
 		if rule.condition.is_satisfied():
-			rule.trigger()
+			rule.trigger_actions()
 			break

@@ -6,6 +6,4 @@
 resource_local_to_scene = true
 resource_name = "Rule"
 script = ExtResource("1_jgdnh")
-agent_path = NodePath("")
-action_or_property = &""
-arguments = []
+actions = Array[Resource("res://addons/rule_based_godot/actions/action.gd")]([])

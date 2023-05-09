@@ -1,11 +1,18 @@
-[gd_scene load_steps=25 format=3 uid="uid://ba4u7geubvjir"]
+[gd_scene load_steps=31 format=3 uid="uid://ba4u7geubvjir"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_40woy"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_5gv8n"]
 [ext_resource type="PackedScene" uid="uid://dx8y4uipbysls" path="res://test_scenes/area_detection/components/movable_area3D.tscn" id="2_g842x"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/actions/action.gd" id="3_27vta"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/area_detection_match.gd" id="3_mvuvm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_hlekg"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection/components/mesh_library.tres" id="6_tr66d"]
+
+[sub_resource type="Resource" id="Resource_c6wo4"]
+script = ExtResource("3_27vta")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0, 0, 1)]
 
 [sub_resource type="Resource" id="Resource_j8cix"]
 script = ExtResource("3_mvuvm")
@@ -16,9 +23,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/Area3D")])
 resource_name = "Area"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_j8cix")
+actions = Array[ExtResource("3_27vta")]([SubResource("Resource_c6wo4")])
+
+[sub_resource type="Resource" id="Resource_5djci"]
+script = ExtResource("3_27vta")
 agent_path = NodePath("../ColorRect")
 property_or_method = &"color"
-arguments = [Color(0, 0, 0, 1)]
+arguments = [Color(0.964706, 0.129412, 0.133333, 1)]
 
 [sub_resource type="Resource" id="Resource_yvp1b"]
 script = ExtResource("3_mvuvm")
@@ -29,9 +40,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/StaticBody3D")])
 resource_name = "Static"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_yvp1b")
+actions = Array[ExtResource("3_27vta")]([SubResource("Resource_5djci")])
+
+[sub_resource type="Resource" id="Resource_16arh"]
+script = ExtResource("3_27vta")
 agent_path = NodePath("../ColorRect")
 property_or_method = &"color"
-arguments = [Color(0.4, 0, 0, 1)]
+arguments = [Color(0.121569, 0.968627, 0.12549, 1)]
 
 [sub_resource type="Resource" id="Resource_pblil"]
 script = ExtResource("3_mvuvm")
@@ -42,9 +57,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/RigidBody3D")])
 resource_name = "Rigid"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_pblil")
+actions = Array[ExtResource("3_27vta")]([SubResource("Resource_16arh")])
+
+[sub_resource type="Resource" id="Resource_3ke05"]
+script = ExtResource("3_27vta")
 agent_path = NodePath("../ColorRect")
 property_or_method = &"color"
-arguments = [Color(0.329412, 0.580392, 0.0705882, 1)]
+arguments = [Color(0.121569, 0.968627, 0.976471, 1)]
 
 [sub_resource type="Resource" id="Resource_iy1h6"]
 script = ExtResource("3_mvuvm")
@@ -55,9 +74,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/CharacterBody3D")])
 resource_name = "Character"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_iy1h6")
+actions = Array[ExtResource("3_27vta")]([SubResource("Resource_3ke05")])
+
+[sub_resource type="Resource" id="Resource_2lwpe"]
+script = ExtResource("3_27vta")
 agent_path = NodePath("../ColorRect")
 property_or_method = &"color"
-arguments = [Color(0, 0.705882, 0.835294, 1)]
+arguments = [Color(0.117647, 0.117647, 0.976471, 1)]
 
 [sub_resource type="Resource" id="Resource_67fx7"]
 script = ExtResource("3_mvuvm")
@@ -68,9 +91,7 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/GridMap")])
 resource_name = "GridMap"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_67fx7")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0.278431, 0, 0.74902, 1)]
+actions = Array[ExtResource("3_27vta")]([SubResource("Resource_2lwpe")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
 size = Vector2(20, 20)

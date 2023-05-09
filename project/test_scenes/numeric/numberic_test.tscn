@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk2osru8ec132"]
+[gd_scene load_steps=9 format=3 uid="uid://dk2osru8ec132"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_y121x"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_8847e"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/matches/numeric_match.gd" id="3_pu3ms"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/actions/action.gd" id="3_wj7bf"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_xiuvb"]
+
+[sub_resource type="Resource" id="Resource_c3wqn"]
+script = ExtResource("3_wj7bf")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0, 0, 1)]
 
 [sub_resource type="Resource" id="Resource_n3fhw"]
 script = ExtResource("3_pu3ms")
@@ -16,9 +23,7 @@ max_value = 10.0
 [sub_resource type="Resource" id="Resource_eo24t"]
 script = ExtResource("4_xiuvb")
 condition = SubResource("Resource_n3fhw")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0, 0, 0, 1)]
+actions = Array[ExtResource("3_wj7bf")]([SubResource("Resource_c3wqn")])
 
 [node name="NumbericTest" type="Node2D"]
 script = ExtResource("1_y121x")
