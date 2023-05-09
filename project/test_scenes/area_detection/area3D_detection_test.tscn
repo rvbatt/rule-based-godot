@@ -7,13 +7,6 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_hlekg"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection/components/mesh_library.tres" id="6_tr66d"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
-size = Vector2(20, 20)
-center_offset = Vector3(0, -0.5, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8t3t"]
-albedo_color = Color(0.486275, 0.486275, 0.486275, 1)
-
 [sub_resource type="Resource" id="Resource_j8cix"]
 script = ExtResource("3_mvuvm")
 area_path = NodePath("../MovableArea3D")
@@ -79,6 +72,13 @@ agent_path = NodePath("../ColorRect")
 property_or_method = &"color"
 arguments = [Color(0.278431, 0, 0.74902, 1)]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
+size = Vector2(20, 20)
+center_offset = Vector3(0, -0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8t3t"]
+albedo_color = Color(0.486275, 0.486275, 0.486275, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jrcvy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3msf8"]
@@ -97,8 +97,12 @@ albedo_color = Color(0, 1, 0, 1)
 resource_local_to_scene = true
 albedo_color = Color(0, 1, 1, 1)
 
-[node name="Area2DDetectionTest" type="Node3D"]
+[node name="Area3DDetectionTest" type="Node3D"]
 script = ExtResource("1_40woy")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_5gv8n")
+rules = Array[ExtResource("4_hlekg")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
 
 [node name="MovableArea3D" parent="." instance=ExtResource("2_g842x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91942)
@@ -114,10 +118,6 @@ grow_horizontal = 0
 [node name="Floor" type="CSGMesh3D" parent="."]
 mesh = SubResource("PlaneMesh_f2x8s")
 material = SubResource("StandardMaterial3D_e8t3t")
-
-[node name="RuleBasedSystem" type="Node" parent="."]
-script = ExtResource("2_5gv8n")
-rules = Array[ExtResource("4_hlekg")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
 
 [node name="Colliders" type="Node3D" parent="."]
 
