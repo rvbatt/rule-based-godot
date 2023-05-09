@@ -1,0 +1,194 @@
+[gd_scene load_steps=25 format=3 uid="uid://ba4u7geubvjir"]
+
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_40woy"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_5gv8n"]
+[ext_resource type="PackedScene" uid="uid://dx8y4uipbysls" path="res://test_scenes/area_detection/components/movable_area3D.tscn" id="2_g842x"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/area_detection_match.gd" id="3_mvuvm"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_hlekg"]
+[ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection/components/mesh_library.tres" id="6_tr66d"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
+size = Vector2(20, 20)
+center_offset = Vector3(0, -0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8t3t"]
+albedo_color = Color(0.486275, 0.486275, 0.486275, 1)
+
+[sub_resource type="Resource" id="Resource_j8cix"]
+script = ExtResource("3_mvuvm")
+area_path = NodePath("../MovableArea3D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/Area3D")])
+
+[sub_resource type="Resource" id="Resource_ou7yc"]
+resource_name = "Area"
+script = ExtResource("4_hlekg")
+condition = SubResource("Resource_j8cix")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_yvp1b"]
+script = ExtResource("3_mvuvm")
+area_path = NodePath("../MovableArea3D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/StaticBody3D")])
+
+[sub_resource type="Resource" id="Resource_0q8gb"]
+resource_name = "Static"
+script = ExtResource("4_hlekg")
+condition = SubResource("Resource_yvp1b")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.4, 0, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_pblil"]
+script = ExtResource("3_mvuvm")
+area_path = NodePath("../MovableArea3D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/RigidBody3D")])
+
+[sub_resource type="Resource" id="Resource_t0c05"]
+resource_name = "Rigid"
+script = ExtResource("4_hlekg")
+condition = SubResource("Resource_pblil")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.329412, 0.580392, 0.0705882, 1)]
+
+[sub_resource type="Resource" id="Resource_iy1h6"]
+script = ExtResource("3_mvuvm")
+area_path = NodePath("../MovableArea3D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/CharacterBody3D")])
+
+[sub_resource type="Resource" id="Resource_j8hdg"]
+resource_name = "Character"
+script = ExtResource("4_hlekg")
+condition = SubResource("Resource_iy1h6")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0.705882, 0.835294, 1)]
+
+[sub_resource type="Resource" id="Resource_67fx7"]
+script = ExtResource("3_mvuvm")
+area_path = NodePath("../MovableArea3D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/GridMap")])
+
+[sub_resource type="Resource" id="Resource_knd2b"]
+resource_name = "GridMap"
+script = ExtResource("4_hlekg")
+condition = SubResource("Resource_67fx7")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.278431, 0, 0.74902, 1)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jrcvy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3msf8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tfav"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0ii2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lgfw"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qqyh"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="Area2DDetectionTest" type="Node3D"]
+script = ExtResource("1_40woy")
+
+[node name="MovableArea3D" parent="." instance=ExtResource("2_g842x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91942)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 176.0
+grow_horizontal = 0
+
+[node name="Floor" type="CSGMesh3D" parent="."]
+mesh = SubResource("PlaneMesh_f2x8s")
+material = SubResource("StandardMaterial3D_e8t3t")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_5gv8n")
+rules = Array[ExtResource("4_hlekg")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
+
+[node name="Colliders" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.40263, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Area3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/Area3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8tfav")
+
+[node name="Label3D" type="Label3D" parent="Colliders/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889387, 0)
+text = "Area3D"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/StaticBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/StaticBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_d0ii2")
+
+[node name="Label3D" type="Label3D" parent="Colliders/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+text = "Static"
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.38627, 0, -4.7343)
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/RigidBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/RigidBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8lgfw")
+
+[node name="Label3D" type="Label3D" parent="Colliders/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.864454, 0)
+text = "Rigid"
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/CharacterBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/CharacterBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8qqyh")
+
+[node name="Label3D" type="Label3D" parent="Colliders/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.864454, 0)
+text = "Character"
+
+[node name="GridMap" type="GridMap" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("6_tr66d")
+data = {
+"cells": PackedInt32Array(65535, 65535, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="Colliders/GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03996, 1.8295, -0.958556)
+text = "GridMap"
+
+[connection signal="area_entered" from="MovableArea3D" to="." method="run_tests"]
+[connection signal="body_entered" from="MovableArea3D" to="." method="run_tests"]
