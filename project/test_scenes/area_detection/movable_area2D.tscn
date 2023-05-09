@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dghvjomrmwl22"]
+
+[ext_resource type="Script" path="res://test_scenes/area_detection/movable_area2D.gd" id="1_40vuw"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="2_ugymm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q72k7"]
+size = Vector2(127, 127)
+
+[node name="MovableArea2D" type="Area2D"]
+position = Vector2(100, 100)
+script = ExtResource("1_40vuw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_q72k7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ugymm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

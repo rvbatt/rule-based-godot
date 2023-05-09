@@ -1,0 +1,198 @@
+[gd_scene load_steps=20 format=3 uid="uid://dq7ixxlvwk18d"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_1jkhq"]
+[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_qjt3s"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="2_liwcl"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/matches/area_detection_match.gd" id="2_ovxvt"]
+[ext_resource type="PackedScene" uid="uid://dghvjomrmwl22" path="res://test_scenes/area_detection/movable_area2D.tscn" id="2_wg77p"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="3_l4b5v"]
+
+[sub_resource type="Resource" id="Resource_j8cix"]
+script = ExtResource("2_ovxvt")
+area_path = NodePath("../MovableArea2D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/Area2D")])
+
+[sub_resource type="Resource" id="Resource_ou7yc"]
+resource_name = "Area"
+script = ExtResource("3_l4b5v")
+condition = SubResource("Resource_j8cix")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_yvp1b"]
+script = ExtResource("2_ovxvt")
+area_path = NodePath("../MovableArea2D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/StaticBody2D")])
+
+[sub_resource type="Resource" id="Resource_0q8gb"]
+resource_name = "Static"
+script = ExtResource("3_l4b5v")
+condition = SubResource("Resource_yvp1b")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.4, 0, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_pblil"]
+script = ExtResource("2_ovxvt")
+area_path = NodePath("../MovableArea2D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/RigidBody2D")])
+
+[sub_resource type="Resource" id="Resource_t0c05"]
+resource_name = "Rigid"
+script = ExtResource("3_l4b5v")
+condition = SubResource("Resource_pblil")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.329412, 0.580392, 0.0705882, 1)]
+
+[sub_resource type="Resource" id="Resource_iy1h6"]
+script = ExtResource("2_ovxvt")
+area_path = NodePath("../MovableArea2D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/CharacterBody2D")])
+
+[sub_resource type="Resource" id="Resource_j8hdg"]
+resource_name = "Character"
+script = ExtResource("3_l4b5v")
+condition = SubResource("Resource_iy1h6")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0, 0.705882, 0.835294, 1)]
+
+[sub_resource type="Resource" id="Resource_67fx7"]
+script = ExtResource("2_ovxvt")
+area_path = NodePath("../MovableArea2D")
+specific_colliders = Array[NodePath]([NodePath("../Colliders/TileMap")])
+
+[sub_resource type="Resource" id="Resource_knd2b"]
+resource_name = "TileMap"
+script = ExtResource("3_l4b5v")
+condition = SubResource("Resource_67fx7")
+agent_path = NodePath("../ColorRect")
+property_or_method = &"color"
+arguments = [Color(0.278431, 0, 0.74902, 1)]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
+size = Vector2(63, 63)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5usdp"]
+texture = ExtResource("2_liwcl")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/modulate = Color(1, 0, 1, 1)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_udfra"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/4 = SubResource("TileSetAtlasSource_5usdp")
+
+[node name="Area2DDetectionTest" type="Node2D"]
+script = ExtResource("1_qjt3s")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("1_1jkhq")
+rules = Array[ExtResource("3_l4b5v")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
+
+[node name="MovableArea2D" parent="." instance=ExtResource("2_wg77p")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 874.0
+offset_top = 65.0
+offset_right = 1014.0
+offset_bottom = 160.0
+
+[node name="Colliders" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Colliders"]
+position = Vector2(992, 352)
+
+[node name="Label" type="Label" parent="Colliders/Area2D"]
+offset_left = -24.0
+offset_top = -56.0
+offset_right = 33.0
+offset_bottom = -30.0
+text = "Area2D"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/Area2D"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/Area2D"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwcl")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Colliders"]
+position = Vector2(864, 352)
+
+[node name="Label" type="Label" parent="Colliders/StaticBody2D"]
+offset_left = -40.0
+offset_top = -56.0
+offset_right = 42.0
+offset_bottom = -30.0
+text = "StaticBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/StaticBody2D"]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwcl")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Colliders"]
+position = Vector2(736, 352)
+gravity_scale = 0.0
+
+[node name="Label" type="Label" parent="Colliders/RigidBody2D"]
+offset_left = -40.0
+offset_top = -56.0
+offset_right = 37.0
+offset_bottom = -30.0
+text = "RigidBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/RigidBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/RigidBody2D"]
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwcl")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Colliders"]
+position = Vector2(608, 352)
+
+[node name="Label" type="Label" parent="Colliders/CharacterBody2D"]
+offset_left = -48.0
+offset_top = -56.0
+offset_right = 67.0
+offset_bottom = -30.0
+text = "CharacterBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/CharacterBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/CharacterBody2D"]
+modulate = Color(0, 1, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwcl")
+
+[node name="TileMap" type="TileMap" parent="Colliders"]
+position = Vector2(480, 352)
+tile_set = SubResource("TileSet_udfra")
+cell_quadrant_size = 1
+format = 2
+layer_0/tile_data = PackedInt32Array(-1, 4, 0)
+
+[node name="Label" type="Label" parent="Colliders/TileMap"]
+offset_left = -88.0
+offset_top = -152.0
+offset_right = -48.0
+offset_bottom = -129.0
+text = "TileMap"
+
+[connection signal="area_entered" from="MovableArea2D" to="." method="run_tests"]
+[connection signal="body_entered" from="MovableArea2D" to="." method="run_tests"]
