@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://prs0yjjg84d0"]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_smurj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_stkeu"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/string_match.gd" id="3_77o1w"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/actions/action.gd" id="3_tbyom"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/boolean/NOT_match.gd" id="4_yl5pb"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="5_p2st8"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="3_77o1w"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/action.gd" id="3_tbyom"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="4_yl5pb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_p2st8"]
 
 [sub_resource type="Resource" id="Resource_ixqus"]
 script = ExtResource("3_tbyom")

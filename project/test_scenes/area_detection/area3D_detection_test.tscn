@@ -1,11 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://ba4u7geubvjir"]
+[gd_scene load_steps=31 format=3 uid="uid://wpi62y3bpusp"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_40woy"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_5gv8n"]
 [ext_resource type="PackedScene" uid="uid://dx8y4uipbysls" path="res://test_scenes/area_detection/components/movable_area3D.tscn" id="2_g842x"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/actions/action.gd" id="3_27vta"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/matches/area_detection_match.gd" id="3_mvuvm"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/rules/rule.gd" id="4_hlekg"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/action.gd" id="3_27vta"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="3_mvuvm"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_hlekg"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection/components/mesh_library.tres" id="6_tr66d"]
 
 [sub_resource type="Resource" id="Resource_c6wo4"]
