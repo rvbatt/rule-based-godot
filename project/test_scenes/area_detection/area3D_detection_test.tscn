@@ -1,18 +1,18 @@
-[gd_scene load_steps=31 format=3 uid="uid://wpi62y3bpusp"]
+[gd_scene load_steps=31 format=3 uid="uid://26cteahr7vdg"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_40woy"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_5gv8n"]
 [ext_resource type="PackedScene" uid="uid://dx8y4uipbysls" path="res://test_scenes/area_detection/components/movable_area3D.tscn" id="2_g842x"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/action.gd" id="3_27vta"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="3_mvuvm"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_sohtv"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_hlekg"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection/components/mesh_library.tres" id="6_tr66d"]
 
-[sub_resource type="Resource" id="Resource_c6wo4"]
-script = ExtResource("3_27vta")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0, 0, 0, 1)]
+[sub_resource type="Resource" id="Resource_yu6q5"]
+script = ExtResource("3_sohtv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0.0235294, 0.027451, 0.0352941, 1)]
 
 [sub_resource type="Resource" id="Resource_j8cix"]
 script = ExtResource("3_mvuvm")
@@ -23,13 +23,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/Area3D")])
 resource_name = "Area"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_j8cix")
-actions = Array[ExtResource("3_27vta")]([SubResource("Resource_c6wo4")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_yu6q5")])
 
-[sub_resource type="Resource" id="Resource_5djci"]
-script = ExtResource("3_27vta")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0.964706, 0.129412, 0.133333, 1)]
+[sub_resource type="Resource" id="Resource_kxqwj"]
+script = ExtResource("3_sohtv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0.964706, 0.12549, 0.129412, 1)]
 
 [sub_resource type="Resource" id="Resource_yvp1b"]
 script = ExtResource("3_mvuvm")
@@ -40,13 +40,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/StaticBody3D")])
 resource_name = "Static"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_yvp1b")
-actions = Array[ExtResource("3_27vta")]([SubResource("Resource_5djci")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_kxqwj")])
 
-[sub_resource type="Resource" id="Resource_16arh"]
-script = ExtResource("3_27vta")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0.121569, 0.968627, 0.12549, 1)]
+[sub_resource type="Resource" id="Resource_y5t7y"]
+script = ExtResource("3_sohtv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0.121569, 0.968627, 0.12549, 1)]
 
 [sub_resource type="Resource" id="Resource_pblil"]
 script = ExtResource("3_mvuvm")
@@ -57,13 +57,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/RigidBody3D")])
 resource_name = "Rigid"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_pblil")
-actions = Array[ExtResource("3_27vta")]([SubResource("Resource_16arh")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_y5t7y")])
 
-[sub_resource type="Resource" id="Resource_3ke05"]
-script = ExtResource("3_27vta")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0.121569, 0.968627, 0.976471, 1)]
+[sub_resource type="Resource" id="Resource_lqagx"]
+script = ExtResource("3_sohtv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0.121569, 0.968627, 0.976471, 1)]
 
 [sub_resource type="Resource" id="Resource_iy1h6"]
 script = ExtResource("3_mvuvm")
@@ -74,13 +74,13 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/CharacterBody3D")])
 resource_name = "Character"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_iy1h6")
-actions = Array[ExtResource("3_27vta")]([SubResource("Resource_3ke05")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_lqagx")])
 
-[sub_resource type="Resource" id="Resource_2lwpe"]
-script = ExtResource("3_27vta")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0.117647, 0.117647, 0.976471, 1)]
+[sub_resource type="Resource" id="Resource_0ref0"]
+script = ExtResource("3_sohtv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0.117647, 0.117647, 0.976471, 1)]
 
 [sub_resource type="Resource" id="Resource_67fx7"]
 script = ExtResource("3_mvuvm")
@@ -91,7 +91,7 @@ specific_colliders = Array[NodePath]([NodePath("../Colliders/GridMap")])
 resource_name = "GridMap"
 script = ExtResource("4_hlekg")
 condition = SubResource("Resource_67fx7")
-actions = Array[ExtResource("3_27vta")]([SubResource("Resource_2lwpe")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_0ref0")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
 size = Vector2(20, 20)

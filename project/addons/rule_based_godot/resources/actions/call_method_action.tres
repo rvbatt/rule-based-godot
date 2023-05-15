@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CallMethodAction" load_steps=2 format=3 uid="uid://cfulwi1o4hrun"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="1_fveag"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "CallMethodAction"
+script = ExtResource("1_fveag")
+agent_path = NodePath("")
+method = &""
+arguments = []

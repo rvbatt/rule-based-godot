@@ -1,17 +1,17 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://o6ohceo513c0"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_smurj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_stkeu"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_7u7dr"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="3_77o1w"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/action.gd" id="3_tbyom"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="4_yl5pb"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_p2st8"]
 
-[sub_resource type="Resource" id="Resource_ixqus"]
-script = ExtResource("3_tbyom")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(0, 0, 0, 1)]
+[sub_resource type="Resource" id="Resource_mq1nu"]
+script = ExtResource("3_7u7dr")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(0, 0, 0, 1)]
 
 [sub_resource type="Resource" id="Resource_rant8"]
 script = ExtResource("3_77o1w")
@@ -27,7 +27,7 @@ negated_condition = SubResource("Resource_rant8")
 [sub_resource type="Resource" id="Resource_ukoww"]
 script = ExtResource("5_p2st8")
 condition = SubResource("Resource_4uo2h")
-actions = Array[ExtResource("3_tbyom")]([SubResource("Resource_ixqus")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_mq1nu")])
 
 [node name="NOTStringTest" type="Node2D"]
 script = ExtResource("1_smurj")

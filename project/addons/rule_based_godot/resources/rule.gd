@@ -2,7 +2,7 @@ class_name Rule
 extends Resource
 
 @export var condition: AbstractMatch
-@export var actions: Array[Action]
+@export var actions: Array[AbstractAction]
 
 func set_system_node(system_node: Node) -> void:
 	condition.set_system_node(system_node)

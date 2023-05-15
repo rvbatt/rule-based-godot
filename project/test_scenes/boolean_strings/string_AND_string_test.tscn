@@ -1,17 +1,17 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=12 format=3 uid="uid://bj3636v5id7ki"]
 
 [ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_eqi5y"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_ft21d"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="3_4iqvf"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/action.gd" id="3_r1wx1"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_8ejhi"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="4_lufgx"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_12xfb"]
 
-[sub_resource type="Resource" id="Resource_ffc2p"]
-script = ExtResource("3_r1wx1")
-agent_path = NodePath("../ColorRect")
-property_or_method = &"color"
-arguments = [Color(1, 0.266667, 0, 1)]
+[sub_resource type="Resource" id="Resource_sxmfu"]
+script = ExtResource("3_8ejhi")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+value = [Color(1, 0.509804, 0, 1)]
 
 [sub_resource type="Resource" id="Resource_ykt17"]
 script = ExtResource("4_lufgx")
@@ -29,12 +29,12 @@ string_value = "yellow"
 
 [sub_resource type="Resource" id="Resource_2n1cu"]
 script = ExtResource("3_4iqvf")
-subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
 
 [sub_resource type="Resource" id="Resource_oktlq"]
 script = ExtResource("5_12xfb")
 condition = SubResource("Resource_2n1cu")
-actions = Array[ExtResource("3_r1wx1")]([SubResource("Resource_ffc2p")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_sxmfu")])
 
 [node name="StringANDStringTest" type="Node2D"]
 script = ExtResource("1_eqi5y")

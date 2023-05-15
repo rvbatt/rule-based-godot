@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SetPropertyAction" load_steps=2 format=3 uid="uid://csrxt8u2eqkq7"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_wqcbr"]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "SetPropertyAction"
+script = ExtResource("1_wqcbr")
+setter_path = NodePath("")
+property = &""
+value = []
