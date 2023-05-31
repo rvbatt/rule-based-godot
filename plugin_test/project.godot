@@ -27,7 +27,7 @@ editor/last/resources=[]
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/my_custom_dock/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/my_custom_node/plugin.cfg")
+enabled=PackedStringArray("res://addons/my_custom_dock/plugin.cfg", "res://addons/my_custom_node/plugin.cfg", "res://addons/random_ints/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [input]
 
