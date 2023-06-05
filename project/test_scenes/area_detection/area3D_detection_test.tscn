@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://26cteahr7vdg"]
 
-[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_40woy"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_jdemg"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_5gv8n"]
 [ext_resource type="PackedScene" uid="uid://dx8y4uipbysls" path="res://test_scenes/area_detection/components/movable_area3D.tscn" id="2_g842x"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="3_mvuvm"]
@@ -119,7 +119,7 @@ resource_local_to_scene = true
 albedo_color = Color(0, 1, 1, 1)
 
 [node name="Area3DDetectionTest" type="Node3D"]
-script = ExtResource("1_40woy")
+script = ExtResource("1_jdemg")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_5gv8n")

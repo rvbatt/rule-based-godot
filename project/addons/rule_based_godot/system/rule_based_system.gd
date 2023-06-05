@@ -6,7 +6,7 @@ extends Node
 
 func _ready():
 	for rule in rules:
-		rule.set_system_node(self)
+		rule.setup(self)
 
 func test_rules():
 	for rule in rules:

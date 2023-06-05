@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://b333vbatjtn5o"]
+[gd_scene load_steps=12 format=3]
 
-[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_4wwje"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_4wwje"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_x4ufi"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="3_3d4f7"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_7k0sp"]

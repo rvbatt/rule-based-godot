@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://f62owa8obccu"]
+[gd_scene load_steps=18 format=3 uid="uid://f62owa8obccu"]
 
-[ext_resource type="Script" path="res://test_scenes/run_rule_based_system.gd" id="1_0lqpr"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_u2xm0"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0337j"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_iff7f"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="4_pl3am"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="4_xng3g"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="5_4o65b"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="6_awe7n"]
@@ -13,6 +14,10 @@ script = ExtResource("3_iff7f")
 setter_path = NodePath("../ColorRect")
 property = &"color"
 value = [Color(1, 0.47451, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_8vrti"]
+script = ExtResource("4_pl3am")
+signal_name = &"test_signal"
 
 [sub_resource type="Resource" id="Resource_b2rrd"]
 script = ExtResource("5_4o65b")
@@ -47,10 +52,10 @@ negated_condition = SubResource("Resource_lliql")
 [sub_resource type="Resource" id="Resource_tmlmr"]
 script = ExtResource("7_7s3g6")
 condition = SubResource("Resource_b37ny")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_vj08i")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_vj08i"), SubResource("Resource_8vrti")])
 
 [node name="DeMorganStringTest" type="Node2D"]
-script = ExtResource("1_0lqpr")
+script = ExtResource("1_u2xm0")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_0337j")

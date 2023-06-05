@@ -4,7 +4,7 @@ extends Resource
 
 var _system_node: Node
 
-func set_system_node(system_node: Node) -> void:
+func setup(system_node: Node) -> void:
 	_system_node = system_node
 
 func is_satisfied() -> bool:
