@@ -9,3 +9,7 @@ func run_tests(_argument):
 
 func test_signal():
 	print("Signal received")
+
+func _unhandled_input(event):
+	if event.is_action_pressed("test_rule_based_system"):
+		run_tests(0)
