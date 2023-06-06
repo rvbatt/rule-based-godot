@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=12 format=3 uid="uid://drcjdpshf2gbw"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_4wwje"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_x4ufi"]
