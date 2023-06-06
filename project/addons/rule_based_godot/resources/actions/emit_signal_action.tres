@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EmitSignalAction" load_steps=2 format=3 uid="uid://dyykx6yds7nyb"]
-
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="1_6tol3"]
-
-[resource]
-resource_local_to_scene = true
-resource_name = "EmitSignalAction"
-script = ExtResource("1_6tol3")
-signal_name = &""

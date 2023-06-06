@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ANDMatch" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="1_0jaev"]
-
-[resource]
-resource_local_to_scene = true
-resource_name = "ANDMatch"
-script = ExtResource("1_0jaev")
-subconditions = Array[Resource("res://addons/rule_based_godot/matches/abstract_match.gd")]([])
