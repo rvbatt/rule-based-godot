@@ -1,17 +1,20 @@
-@tool
 @icon("../ruler_icon.png")
 extends Node
 
-@export_enum("First Applicable") var rule_arbitration: String = "First Applicable"
+@export_enum("First Applicable", "Least Recently Used")
+var rule_arbitration: String = "First Applicable":
+	set(arbitration):
+		_set_arbiter(arbitration)
+		rule_arbitration = arbitration
+	get:
+		return rule_arbitration
+
 @export var rules: Array[Rule]
 
 var _arbiter: AbstractArbiter
 
 func _ready():
-	match rule_arbitration:
-		"First Applicable":
-			_arbiter = FirstApplicableArbiter.new()
-
+	_set_arbiter(rule_arbitration)
 	for rule in rules:
 		rule.setup(self)
 
@@ -24,12 +27,9 @@ func test_rules():
 	if not satified_rules.is_empty():
 		_arbiter.select_rule_to_trigger(satified_rules).trigger_actions()
 
-func _set(property, value):
-	if property == "rule_arbitration":
-		match value:
-			"First Applicable":
-				_arbiter = FirstApplicableArbiter.new()
-		rule_arbitration = value
-		return true
-
-	return false
+func _set_arbiter(arbitration: StringName):
+	match arbitration:
+		"First Applicable":
+			_arbiter = FirstApplicableArbiter.new()
+		"Least Recently Used":
+			_arbiter = LeastRecentlyUsedArbiter.new()
