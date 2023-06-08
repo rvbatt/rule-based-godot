@@ -39,6 +39,11 @@ func build_from_repr(representation: String) -> void:
 
 	actions = []
 	for action_string in actions_string.split(";", false):
-		var action = AbstractAction.new()
-		action.build_from_repr(action_string)
-		actions.append(action)
+		var new_action = AbstractAction.new()
+
+		if action_string.match("Set *.* = *:*"):
+			# Set setter.property = type:value
+			new_action = SetPropertyAction.new()
+
+		new_action.build_from_repr(action_string)
+		actions.append(new_action)
