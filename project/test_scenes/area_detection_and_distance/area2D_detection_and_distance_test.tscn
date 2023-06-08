@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://j2nmi7dkugko"]
+[gd_scene load_steps=30 format=3 uid="uid://j2nmi7dkugko"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_erwra"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_4ujxe"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_v43oa"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="4_jhumk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_kii8g"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/distance_match.gd" id="6_sqsih"]
 [ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="7_hc01y"]
 [ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="8_ar5bj"]
 
@@ -98,6 +99,26 @@ script = ExtResource("5_kii8g")
 condition = SubResource("Resource_67fx7")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_5vxrn")])
 
+[sub_resource type="Resource" id="Resource_avqth"]
+script = ExtResource("3_v43oa")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+type = &"Color"
+value = [Color(0.509804, 0.509804, 0.509804, 1)]
+
+[sub_resource type="Resource" id="Resource_s7oy2"]
+script = ExtResource("6_sqsih")
+first_node_path = NodePath("../MovableArea2D")
+second_node_path = NodePath("../Colliders/TileMap")
+min_distance = 500.0
+max_distance = inf
+
+[sub_resource type="Resource" id="Resource_rx8ca"]
+resource_name = "Distance"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_s7oy2")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_avqth")])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
 size = Vector2(63, 63)
 
@@ -120,7 +141,7 @@ script = ExtResource("1_erwra")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_4ujxe")
-rules = Array[ExtResource("5_kii8g")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
+rules = Array[ExtResource("5_kii8g")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b"), SubResource("Resource_rx8ca")])
 
 [node name="MovableArea2D" parent="." instance=ExtResource("7_hc01y")]
 position = Vector2(80, 80)

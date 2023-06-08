@@ -39,7 +39,11 @@ func build_from_repr(representation: String) -> void:
 	var new_condition = AbstractMatch.new()
 
 	if condition_string.match("Area:* detects [*]"):
+		# Area:path detects [collider,...,collider]
 		new_condition = AreaDetectionMatch.new()
+	elif condition_string.match("* <= |* - *| <= *"):
+		# min <= |first - second| <= max
+		new_condition = DistanceMatch.new()
 
 	new_condition.build_from_repr(condition_string)
 	condition = new_condition
