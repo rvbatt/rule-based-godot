@@ -19,6 +19,8 @@ func trigger_actions() -> Array:
 	return results
 
 func representation() -> String:
+	#IF condition
+	#THEN action;...;action;
 	var string = "IF " + condition.representation() + "\nTHEN "
 	if not actions.is_empty():
 		string += actions[0].representation()
@@ -34,8 +36,13 @@ func build_from_repr(representation: String) -> void:
 	var condition_string = condition_actions[0]
 	var actions_string = condition_actions[1]
 
-	condition = AbstractMatch.new()
-	condition.build_from_repr(condition_string)
+	var new_condition = AbstractMatch.new()
+
+	if condition_string.match("Area:* detects [*]"):
+		new_condition = AreaDetectionMatch.new()
+
+	new_condition.build_from_repr(condition_string)
+	condition = new_condition
 
 	actions = []
 	for action_string in actions_string.split(";", false):

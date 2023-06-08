@@ -27,3 +27,22 @@ func is_satisfied() -> bool:
 				return true
 
 	return false
+
+func representation() -> String:
+	# Area:path detects [collider,...,collider]
+	var string = "Area:" + str(area_path) + " detects ["
+	if not specific_colliders.is_empty():
+		string += str(specific_colliders[0])
+		for i in range(1, specific_colliders.size()):
+			string += "," + str(specific_colliders[i])
+	string += "]"
+
+	return string
+
+func build_from_repr(representation: String) -> void:
+	var area_colliders = representation.trim_prefix("Area:").split(" detects ")
+	area_path = NodePath(area_colliders[0])
+	specific_colliders = []
+	var colliders = area_colliders[1].substr(1, area_colliders[1].length() - 2)
+	for collider in colliders.split(",", false):
+		specific_colliders.append(NodePath(collider))

@@ -33,6 +33,7 @@ func test_rules() -> Array:
 		var index = rules.find(selected_rule)
 		var loaded_rule: Rule = ResourceLoader.load("res://test_scenes/" + str(index) + ".txt")
 		print("RULE\n" + loaded_rule.representation())
+		loaded_rule.setup(self)
 		rules.append(loaded_rule)
 		return selected_rule.trigger_actions()
 
