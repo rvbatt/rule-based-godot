@@ -9,3 +9,13 @@ func setup(system_node: Node) -> void:
 func trigger():
 	# Abstract method
 	printerr("ABSTRACT METHOD CALL AT " + str(self))
+
+func representation() -> String:
+	# Abstract method
+	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	return "AbstractAction"
+
+func build_from_repr(representation: String) -> void:
+	# Abstract method
+	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	pass

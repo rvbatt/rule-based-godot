@@ -11,3 +11,12 @@ func is_satisfied() -> bool:
 	# Abstract method
 	printerr("ABSTRACT METHOD CALL AT " + str(self))
 	return false
+
+func representation() -> String:
+	# Abstract method
+	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	return "AbstractMatch"
+
+func build_from_repr(representation: String) -> void:
+	# Abstract method
+	printerr("ABSTRACT METHOD CALL AT " + str(self))
