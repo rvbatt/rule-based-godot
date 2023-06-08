@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://sh6ks3164p75"]
 
-[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_y121x"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_8847e"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="3_pu3ms"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_rchf8"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_xiuvb"]
-[ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_36ev6"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_twixk"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="4_m3qab"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_v3cy1"]
+[ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
 
 [sub_resource type="Resource" id="Resource_3uv6i"]
-script = ExtResource("3_rchf8")
+script = ExtResource("3_twixk")
 agent_path = NodePath("../ColorRect")
 method = &"change_color"
 arguments = {
@@ -16,7 +16,7 @@ arguments = {
 }
 
 [sub_resource type="Resource" id="Resource_n3fhw"]
-script = ExtResource("3_pu3ms")
+script = ExtResource("4_m3qab")
 test_node_path = NodePath("../SpinBox")
 property_or_method = &"value"
 method_arguments = []
@@ -24,16 +24,16 @@ min_value = 5.0
 max_value = 10.0
 
 [sub_resource type="Resource" id="Resource_eo24t"]
-script = ExtResource("4_xiuvb")
+script = ExtResource("5_v3cy1")
 condition = SubResource("Resource_n3fhw")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_3uv6i")])
 
 [node name="NumbericTest" type="Node2D"]
-script = ExtResource("1_y121x")
+script = ExtResource("1_p08fm")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
-script = ExtResource("2_8847e")
-rules = Array[ExtResource("4_xiuvb")]([SubResource("Resource_eo24t")])
+script = ExtResource("2_0x4s6")
+rules = Array[ExtResource("5_v3cy1")]([SubResource("Resource_eo24t")])
 
 [node name="SpinBox" type="SpinBox" parent="."]
 offset_left = 530.0
@@ -46,6 +46,6 @@ offset_left = 393.0
 offset_top = 115.0
 offset_right = 754.0
 offset_bottom = 344.0
-script = ExtResource("6_36ev6")
+script = ExtResource("6_6xy53")
 
 [connection signal="value_changed" from="SpinBox" to="." method="run_tests"]
