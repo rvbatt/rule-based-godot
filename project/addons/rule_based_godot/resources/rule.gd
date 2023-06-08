@@ -54,6 +54,9 @@ func build_from_repr(representation: String) -> void:
 		elif action_string.match("Call *.*(*)"):
 			# Call agent.method(type:value,...,type:value)
 			new_action = CallMethodAction.new()
+		elif action_string.match("Emit *"):
+			# Emit signl
+			new_action = EmitSignalAction.new()
 
 		new_action.build_from_repr(action_string)
 		actions.append(new_action)
