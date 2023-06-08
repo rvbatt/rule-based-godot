@@ -46,11 +46,14 @@ func build_from_repr(representation: String) -> void:
 
 	actions = []
 	for action_string in actions_string.split(";", false):
-		var new_action = AbstractAction.new()
+		var new_action: AbstractAction = AbstractAction.new()
 
 		if action_string.match("Set *.* = *:*"):
 			# Set setter.property = type:value
 			new_action = SetPropertyAction.new()
+		elif action_string.match("Call *.*(*)"):
+			# Call agent.method(type:value,...,type:value)
+			new_action = CallMethodAction.new()
 
 		new_action.build_from_repr(action_string)
 		actions.append(new_action)
