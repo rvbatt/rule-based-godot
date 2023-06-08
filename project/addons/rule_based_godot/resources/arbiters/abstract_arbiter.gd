@@ -3,5 +3,5 @@ extends Resource
 
 func select_rule_to_trigger(satisfied_rules: Array[Rule]) -> Rule:
 	# Abstract method
-	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	push_error("AbstractArbiter.select_rule_to_trigger(satisfied_rules)")
 	return Rule.new()

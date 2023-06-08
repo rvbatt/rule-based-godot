@@ -12,9 +12,11 @@ func setup(system_node: Node) -> void:
 	for action in actions:
 		action.setup(system_node)
 
-func trigger_actions():
+func trigger_actions() -> Array:
+	var results = []
 	for action in actions:
-		action.trigger()
+		results.append(action.trigger())
+	return results
 
 func representation() -> String:
 	var string = "IF " + condition.representation() + "\nTHEN "

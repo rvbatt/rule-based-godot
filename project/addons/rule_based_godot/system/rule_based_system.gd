@@ -22,7 +22,7 @@ func _ready():
 		print(error_string(ResourceSaver.save(rule, "res://test_scenes/" + str(i) + ".txt")))
 		i += 1
 
-func test_rules():
+func test_rules() -> Array:
 	var satified_rules: Array[Rule] = []
 	for rule in rules:
 		if rule.condition.is_satisfied():
@@ -34,9 +34,12 @@ func test_rules():
 		var loaded_rule: Rule = ResourceLoader.load("res://test_scenes/" + str(index) + ".txt")
 		print("RULE\n" + loaded_rule.representation())
 		rules.append(loaded_rule)
-		selected_rule.trigger_actions()
+		return selected_rule.trigger_actions()
 
-func _set_arbiter(arbitration: StringName):
+	return []
+
+
+func _set_arbiter(arbitration: StringName) -> void:
 	match arbitration:
 		"First Applicable":
 			_arbiter = FirstApplicableArbiter.new()

@@ -9,14 +9,14 @@ func setup(system_node: Node) -> void:
 
 func is_satisfied() -> bool:
 	# Abstract method
-	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	push_error("AbstractMatch.is_satisfied()")
 	return false
 
 func representation() -> String:
 	# Abstract method
-	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	push_error("AbstractMatch.representation()")
 	return "AbstractMatch"
 
 func build_from_repr(representation: String) -> void:
 	# Abstract method
-	printerr("ABSTRACT METHOD CALL AT " + str(self))
+	push_error("AbstractMatch.build_from_repr(representation)")
