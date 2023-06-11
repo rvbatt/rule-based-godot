@@ -17,6 +17,6 @@ func representation() -> String:
 	push_error("AbstractMatch.representation()")
 	return "AbstractMatch"
 
-func build_from_repr(representation: String) -> void:
+func build_from_repr(representation: Array) -> void:
 	# Abstract method
 	push_error("AbstractMatch.build_from_repr(representation)")

@@ -18,23 +18,32 @@ func is_satisfied() -> bool:
 	return (min_distance <= distance) and (distance <= max_distance)
 
 func representation() -> String:
-	# min <= |first - second| <= max
-	return str(min_distance) + " <= " + \
-			"|" + str(first_node_path) + " - " + str(second_node_path) + "|" \
-			+ " <= " + str(max_distance)
+	# ["Distance", min, max, first, second]
+	var string = '["Distance", '
+	if  min_distance == -INF:
+		string += '"-inf", '
+	else:
+		string += str(min_distance) + ', '
+	if max_distance == INF:
+		string += '"inf", '
+	else:
+		string += str(max_distance) + ', '
+	return string + '"' + str(first_node_path) + '", "' + str(second_node_path) \
+			+ '"]'
 
-func build_from_repr(representation: String) -> void:
-	var min_nodes_max = representation.split(" <= ")
-	if min_nodes_max[0] == "-inf":
+func build_from_repr(representation: Array) -> void:
+	# ["Distance", min, max, first, second]
+	var min = representation[1]
+	if min is String and min == "-inf":
 		min_distance = -INF
 	else:
-		min_distance = float(min_nodes_max[0])
-	if min_nodes_max[2] == "inf":
+		min_distance = min
+
+	var max = representation[2]
+	if max is String and max == "inf":
 		max_distance = INF
 	else:
-		max_distance = float(min_nodes_max[2])
-	
-	var first_second = \
-			min_nodes_max[1].substr(1, min_nodes_max[1].length() - 2).split(" - ")
-	first_node_path = NodePath(first_second[0])
-	second_node_path = NodePath(first_second[1])
+		max_distance = max
+
+	first_node_path = NodePath(representation[3])
+	second_node_path = NodePath(representation[4])

@@ -19,7 +19,7 @@ func _ready():
 	var i = 0
 	for rule in rules:
 		rule.setup(self)
-		print(error_string(ResourceSaver.save(rule, "res://test_scenes/" + str(i) + ".txt")))
+		print(error_string(ResourceSaver.save(rule, "res://test_scenes/" + str(i) + ".json")))
 		i += 1
 
 func test_rules() -> Array:
@@ -31,7 +31,7 @@ func test_rules() -> Array:
 	if not satified_rules.is_empty():
 		var selected_rule = _arbiter.select_rule_to_trigger(satified_rules)
 		var index = rules.find(selected_rule)
-		var loaded_rule: Rule = ResourceLoader.load("res://test_scenes/" + str(index) + ".txt")
+		var loaded_rule: Rule = ResourceLoader.load("res://test_scenes/" + str(index) + ".json", "Rule")
 		print("RULE\n" + loaded_rule.representation())
 		loaded_rule.setup(self)
 		rules.append(loaded_rule)

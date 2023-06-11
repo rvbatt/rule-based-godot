@@ -20,18 +20,13 @@ func trigger() -> Variant:
 		return null
 
 func representation() -> String:
-	# Set setter.property = type:value
-	return "Set " + str(setter_path) + "." + property + \
-			" = " + type + ":" + str(value[0])
+	# ['Set', setter, property, type, value]
+	return '["Set", "' + str(setter_path) + '", "' + property + \
+			'", "' + type + '", "' + str(value[0]) + '"]'
 
-func build_from_repr(representation: String) -> void:
-	var setterproperty_typevalue = representation.trim_prefix("Set ").split(" = ")
-	var setterproperty = setterproperty_typevalue[0]
-
-	var sep = setterproperty.rfind(".")
-	setter_path = NodePath(setterproperty.substr(0, sep))
-	property = setterproperty.substr(sep + 1)
-
-	var type_value = eval_type_and_value(setterproperty_typevalue[1])
-	type = type_value[0]
-	value = [type_value[1]]
+func build_from_repr(representation: Array) -> void:
+	# ['Set', setter, property, type, value]
+	setter_path = NodePath(representation[1])
+	property = representation[2]
+	type = representation[3]
+	value = [eval_value(type, representation[4])]

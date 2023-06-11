@@ -19,48 +19,30 @@ func trigger_actions() -> Array:
 	return results
 
 func representation() -> String:
-	#IF condition
-	#THEN action;...;action;
-	var string = "IF " + condition.representation() + "\nTHEN "
+	# {'if': condition, 'then': [actions]}
+	var string = '{"if": ' + condition.representation() + ', "then": ['
 	if not actions.is_empty():
 		string += actions[0].representation()
 		for i in range(1, actions.size()):
-			string += ";" + actions[i].representation()
-	string += ";"
+			string += ', ' + actions[i].representation()
+	string += ']}'
 	return string
 
-func build_from_repr(representation: String) -> void:
-	# Expects format as defined in representation()
-	var condition_actions = representation.strip_escapes().\
-			trim_prefix("IF ").split("THEN ")
-	var condition_string = condition_actions[0]
-	var actions_string = condition_actions[1]
-
-	var new_condition = AbstractMatch.new()
-
-	if condition_string.match("Area:* detects [*]"):
-		# Area:path detects [collider,...,collider]
-		new_condition = AreaDetectionMatch.new()
-	elif condition_string.match("* <= |* - *| <= *"):
-		# min <= |first - second| <= max
-		new_condition = DistanceMatch.new()
-
-	new_condition.build_from_repr(condition_string)
-	condition = new_condition
+func build_from_repr(representation: Dictionary) -> void:
+	# {'if': condition, 'then': [actions]}
+	var condition_string = representation["if"]
+	match condition_string[0]:
+		"Area":
+			condition = AreaDetectionMatch.new()
+		"Distance":
+			condition = DistanceMatch.new()
+	condition.build_from_repr(condition_string)
 
 	actions = []
-	for action_string in actions_string.split(";", false):
-		var new_action: AbstractAction = AbstractAction.new()
-
-		if action_string.match("Set *.* = *:*"):
-			# Set setter.property = type:value
-			new_action = SetPropertyAction.new()
-		elif action_string.match("Call *.*(*)"):
-			# Call agent.method(type:value,...,type:value)
-			new_action = CallMethodAction.new()
-		elif action_string.match("Emit *"):
-			# Emit signl
-			new_action = EmitSignalAction.new()
-
+	for action_string in representation["then"]:
+		var new_action: AbstractAction
+		match action_string[0]:
+			"Set":
+				new_action = SetPropertyAction.new()
 		new_action.build_from_repr(action_string)
 		actions.append(new_action)

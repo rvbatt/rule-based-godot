@@ -11,8 +11,9 @@ func trigger() -> Variant:
 	return _system_node.emit_signal(signal_name)
 
 func representation() -> String:
-	# Emit signal
-	return "Emit " + signal_name
+	# ["Emit", signal]
+	return '["Emit", "' + signal_name + '"]'
 
-func build_from_repr(representation: String) -> void:
-	signal_name = representation.trim_prefix("Emit ")
+func build_from_repr(representation: Array) -> void:
+	# ["Emit", signal]
+	signal_name = representation[1]

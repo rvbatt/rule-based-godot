@@ -6,26 +6,24 @@ var _system_node: Node
 func setup(system_node: Node) -> void:
 	_system_node = system_node
 
-func eval_type_and_value(typevalue: String) -> Array:
-	# type_value is a String of form type:value
-	var sep = typevalue.rfind(":")
-	var type = typevalue.substr(0, sep)
+func eval_arguments(type_to_value: Dictionary) -> Dictionary:
+	var arguments = type_to_value.duplicate()
+	for type in arguments.keys():
+		arguments[type] = eval_value(type, arguments[type])
+	return arguments
 
+func eval_value(type: StringName, value: String) -> Variant:
 	var expression = Expression.new()
-	if expression.parse(typevalue.substr(sep + 1)) != OK:
-		typevalue[sep] = "("
-		typevalue += ")"
-		if expression.parse(typevalue) != OK:
-			typevalue[sep] = ""
-			typevalue[typevalue.length()-1] = ""
-			if expression.parse(typevalue) != OK:
+	if expression.parse(type + "(" + value + ")") != OK:
+		if expression.parse(type + value) != OK:
+			if expression.parse(value) != OK:
 				push_error("Parse Error: value in Action")
 
-	var value = expression.execute()
+	var result = expression.execute()
 	if expression.has_execute_failed():
 		push_error("Execution Error: value in Action")
 
-	return [type, value]
+	return result
 
 func trigger() -> Variant:
 	# Abstract method
@@ -37,6 +35,6 @@ func representation() -> String:
 	push_error("AbstractAction.representation()")
 	return "AbstractAction"
 
-func build_from_repr(representation: String) -> void:
+func build_from_repr(representation: Array) -> void:
 	# Abstract method
 	push_error("AbstractAction.build_from_repr(representation)")

@@ -5,10 +5,10 @@ func _recognize(resource):
 	return resource.has_meta("RuleBasedGodot")
 
 func _get_recognized_extensions(resource):
-	var extensions: PackedStringArray = ["tres", "rules", "txt"]
+	var extensions: PackedStringArray = ["json"]
 	return extensions
 
-func _save(resource, path, flags):
+func _save(resource, path, flags) -> Error:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
 		return FileAccess.get_open_error()
