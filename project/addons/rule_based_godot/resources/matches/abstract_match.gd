@@ -4,6 +4,25 @@ extends Resource
 
 var _system_node: Node
 
+static func specialize(class_string: String) -> AbstractMatch:
+	match class_string:
+		"Area":
+			return AreaDetectionMatch.new()
+		"Distance":
+			return DistanceMatch.new()
+		"Numeric":
+			return NumericMatch.new()
+		"String":
+			return StringMatch.new()
+		"NOT":
+			return NOTMatch.new()
+		"AND":
+			return ANDMatch.new()
+		"OR":
+			return ORMatch.new()
+		_:
+			return AbstractMatch.new()
+
 func setup(system_node: Node) -> void:
 	_system_node = system_node
 

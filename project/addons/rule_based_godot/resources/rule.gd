@@ -31,26 +31,11 @@ func representation() -> String:
 func build_from_repr(representation: Dictionary) -> void:
 	# {'if': condition, 'then': [actions]}
 	var condition_string = representation["if"]
-	match condition_string[0]:
-		"Area":
-			condition = AreaDetectionMatch.new()
-		"Distance":
-			condition = DistanceMatch.new()
-		"Numeric":
-			condition = NumericMatch.new()
-		"String":
-			condition = StringMatch.new()
+	condition = AbstractMatch.specialize(condition_string[0])
 	condition.build_from_repr(condition_string)
 
 	actions = []
 	for action_string in representation["then"]:
-		var new_action: AbstractAction
-		match action_string[0]:
-			"Set":
-				new_action = SetPropertyAction.new()
-			"Call":
-				new_action = CallMethodAction.new()
-			"Emit":
-				new_action = EmitSignalAction.new()
+		var new_action = AbstractAction.specialize(action_string[0])
 		new_action.build_from_repr(action_string)
 		actions.append(new_action)

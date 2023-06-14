@@ -3,6 +3,17 @@ extends Resource
 
 var _system_node: Node
 
+static func specialize(class_string: String) -> AbstractAction:
+	match class_string:
+		"Set":
+			return SetPropertyAction.new()
+		"Call":
+			return CallMethodAction.new()
+		"Emit":
+			return EmitSignalAction.new()
+		_:
+			return AbstractAction.new()
+
 func setup(system_node: Node) -> void:
 	_system_node = system_node
 
