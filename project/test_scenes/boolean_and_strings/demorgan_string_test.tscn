@@ -24,7 +24,7 @@ signal_name = &"test_signal"
 script = ExtResource("6_ha2k4")
 test_node_path = NodePath("../LineEdit")
 property_or_method = &"text"
-method_arguments = []
+method_arguments = {}
 string_value = "red"
 
 [sub_resource type="Resource" id="Resource_pb5t1"]
@@ -35,7 +35,7 @@ negated_condition = SubResource("Resource_b2rrd")
 script = ExtResource("6_ha2k4")
 test_node_path = NodePath("../LineEdit2")
 property_or_method = &"text"
-method_arguments = []
+method_arguments = {}
 string_value = "yellow"
 
 [sub_resource type="Resource" id="Resource_chtr6"]

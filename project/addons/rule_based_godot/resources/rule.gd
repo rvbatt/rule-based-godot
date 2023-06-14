@@ -36,6 +36,10 @@ func build_from_repr(representation: Dictionary) -> void:
 			condition = AreaDetectionMatch.new()
 		"Distance":
 			condition = DistanceMatch.new()
+		"Numeric":
+			condition = NumericMatch.new()
+		"String":
+			condition = StringMatch.new()
 	condition.build_from_repr(condition_string)
 
 	actions = []
@@ -44,5 +48,9 @@ func build_from_repr(representation: Dictionary) -> void:
 		match action_string[0]:
 			"Set":
 				new_action = SetPropertyAction.new()
+			"Call":
+				new_action = CallMethodAction.new()
+			"Emit":
+				new_action = EmitSignalAction.new()
 		new_action.build_from_repr(action_string)
 		actions.append(new_action)

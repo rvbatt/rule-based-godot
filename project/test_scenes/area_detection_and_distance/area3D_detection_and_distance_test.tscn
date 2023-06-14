@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://i5168sp0akob"]
+[gd_scene load_steps=35 format=3 uid="uid://i5168sp0akob"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_oplh7"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_do1h6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_3iist"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="4_42jq5"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_et72x"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/distance_match.gd" id="6_h8s5a"]
 [ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection_and_distance/components/mesh_library.tres" id="8_y82o8"]
 
@@ -98,6 +99,25 @@ script = ExtResource("5_et72x")
 condition = SubResource("Resource_67fx7")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_0ref0")])
 
+[sub_resource type="Resource" id="Resource_3ten3"]
+script = ExtResource("3_3iist")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+type = &"Color"
+value = [Color(0.509804, 0.509804, 0.509804, 1)]
+
+[sub_resource type="Resource" id="Resource_5064d"]
+script = ExtResource("6_h8s5a")
+first_node_path = NodePath("../MovableArea3D")
+second_node_path = NodePath("../Colliders/GridMap")
+min_distance = 20.0
+max_distance = inf
+
+[sub_resource type="Resource" id="Resource_hl2ee"]
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_5064d")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_3ten3")])
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
 size = Vector2(20, 20)
 center_offset = Vector3(0, -0.5, 0)
@@ -128,7 +148,7 @@ script = ExtResource("1_oplh7")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_do1h6")
-rules = Array[ExtResource("5_et72x")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b")])
+rules = Array[ExtResource("5_et72x")]([SubResource("Resource_ou7yc"), SubResource("Resource_0q8gb"), SubResource("Resource_t0c05"), SubResource("Resource_j8hdg"), SubResource("Resource_knd2b"), SubResource("Resource_hl2ee")])
 
 [node name="MovableArea3D" parent="." instance=ExtResource("7_2f534")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91942)

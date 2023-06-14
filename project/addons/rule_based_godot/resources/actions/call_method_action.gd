@@ -19,7 +19,7 @@ func trigger() -> Variant:
 
 func representation() -> String:
 	# ["Call", agent, method, {type: value}]
-	var string = '["Call", "' + str(agent_path) + '", ' + method + "', {"
+	var string = '["Call", "' + str(agent_path) + '", "' + method + '", {'
 	var types = arguments.keys()
 	if not types.is_empty():
 		string += '"' + types[0] + '": "' + str(arguments[types[0]]) + '"'
@@ -33,4 +33,4 @@ func build_from_repr(representation: Array) -> void:
 	# ["Call", agent, method, {type: value}]
 	agent_path = representation[1]
 	method = representation[2]
-	arguments = eval_arguments(representation[3]
+	arguments = eval_arguments(representation[3])

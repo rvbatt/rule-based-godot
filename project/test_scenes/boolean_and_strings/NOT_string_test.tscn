@@ -23,7 +23,7 @@ signal_name = &"test_signal"
 script = ExtResource("5_1o3y5")
 test_node_path = NodePath("../LineEdit")
 property_or_method = &"text"
-method_arguments = []
+method_arguments = {}
 string_value = ""
 
 [sub_resource type="Resource" id="Resource_4uo2h"]

@@ -18,14 +18,14 @@ value = [Color(1, 0.509804, 0, 1)]
 script = ExtResource("5_hbdvs")
 test_node_path = NodePath("../LineEdit")
 property_or_method = &"text"
-method_arguments = []
+method_arguments = {}
 string_value = "red"
 
 [sub_resource type="Resource" id="Resource_ltuxf"]
 script = ExtResource("5_hbdvs")
 test_node_path = NodePath("../LineEdit2")
 property_or_method = &"text"
-method_arguments = []
+method_arguments = {}
 string_value = "yellow"
 
 [sub_resource type="Resource" id="Resource_2n1cu"]
