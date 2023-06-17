@@ -3,64 +3,70 @@
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_5qdb1"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_gfkh2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_om3es"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="4_1ss2r"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="5_o63fc"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="6_ha2k4"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="7_7r6r6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="7_xxitk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="8_eeqa2"]
 
-[sub_resource type="Resource" id="Resource_vj08i"]
+[sub_resource type="Resource" id="Resource_8xp5r"]
 script = ExtResource("3_om3es")
 setter_path = NodePath("../ColorRect")
 property = &"color"
 type = &"Color"
-value = [Color(1, 0.47451, 0, 1)]
+value = [Color(1, 0.498039, 0, 1)]
 
-[sub_resource type="Resource" id="Resource_8vrti"]
-script = ExtResource("4_1ss2r")
-signal_name = &"test_signal"
-
-[sub_resource type="Resource" id="Resource_b2rrd"]
+[sub_resource type="Resource" id="Resource_vg4tm"]
+resource_name = "red"
 script = ExtResource("6_ha2k4")
 test_node_path = NodePath("../LineEdit")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "red"
 
-[sub_resource type="Resource" id="Resource_pb5t1"]
+[sub_resource type="Resource" id="Resource_uqy74"]
+resource_name = "not red"
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_b2rrd")
+negated_condition = SubResource("Resource_vg4tm")
 
-[sub_resource type="Resource" id="Resource_glk3c"]
+[sub_resource type="Resource" id="Resource_jedvr"]
+resource_name = "yellow"
 script = ExtResource("6_ha2k4")
 test_node_path = NodePath("../LineEdit2")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "yellow"
 
-[sub_resource type="Resource" id="Resource_chtr6"]
+[sub_resource type="Resource" id="Resource_57bij"]
+resource_name = "not yellow"
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_glk3c")
+negated_condition = SubResource("Resource_jedvr")
 
-[sub_resource type="Resource" id="Resource_lliql"]
+[sub_resource type="Resource" id="Resource_5pes1"]
+resource_name = "not red or not yellow"
 script = ExtResource("5_o63fc")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_pb5t1"), SubResource("Resource_chtr6")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_uqy74"), SubResource("Resource_57bij")])
 
-[sub_resource type="Resource" id="Resource_b37ny"]
+[sub_resource type="Resource" id="Resource_wsov8"]
+resource_name = "not (not red or not yellow)"
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_lliql")
+negated_condition = SubResource("Resource_5pes1")
 
-[sub_resource type="Resource" id="Resource_tmlmr"]
+[sub_resource type="Resource" id="Resource_88ps3"]
 script = ExtResource("8_eeqa2")
-condition = SubResource("Resource_b37ny")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_vj08i"), SubResource("Resource_8vrti")])
+condition = SubResource("Resource_wsov8")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8xp5r")])
+
+[sub_resource type="Resource" id="Resource_v38go"]
+script = ExtResource("7_7r6r6")
+rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_88ps3")])
 
 [node name="DeMorganStringTest" type="Node2D"]
 script = ExtResource("1_5qdb1")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_gfkh2")
-rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_tmlmr")])
+rule_set = SubResource("Resource_v38go")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0

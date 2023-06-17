@@ -1,48 +1,53 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1kanksyu6icj"]
+[gd_scene load_steps=14 format=3 uid="uid://b1kanksyu6icj"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_kjhnj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_xk6ot"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_14fq2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="4_2t7gl"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="5_hbdvs"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="6_68v7w"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_ts36d"]
 
-[sub_resource type="Resource" id="Resource_sxmfu"]
+[sub_resource type="Resource" id="Resource_ltj8d"]
 script = ExtResource("3_14fq2")
 setter_path = NodePath("../ColorRect")
 property = &"color"
 type = &"Color"
-value = [Color(1, 0.509804, 0, 1)]
+value = [Color(1, 0.498039, 0, 1)]
 
-[sub_resource type="Resource" id="Resource_ykt17"]
+[sub_resource type="Resource" id="Resource_ce40p"]
 script = ExtResource("5_hbdvs")
 test_node_path = NodePath("../LineEdit")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "red"
 
-[sub_resource type="Resource" id="Resource_ltuxf"]
+[sub_resource type="Resource" id="Resource_orwa8"]
 script = ExtResource("5_hbdvs")
 test_node_path = NodePath("../LineEdit2")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "yellow"
 
-[sub_resource type="Resource" id="Resource_2n1cu"]
+[sub_resource type="Resource" id="Resource_ptho0"]
 script = ExtResource("4_2t7gl")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_ykt17"), SubResource("Resource_ltuxf")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_ce40p"), SubResource("Resource_orwa8")])
 
-[sub_resource type="Resource" id="Resource_oktlq"]
+[sub_resource type="Resource" id="Resource_nfyby"]
 script = ExtResource("6_ts36d")
-condition = SubResource("Resource_2n1cu")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_sxmfu")])
+condition = SubResource("Resource_ptho0")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_ltj8d")])
+
+[sub_resource type="Resource" id="Resource_5p3u2"]
+script = ExtResource("6_68v7w")
+rules = Array[ExtResource("6_ts36d")]([SubResource("Resource_nfyby")])
 
 [node name="StringANDStringTest" type="Node2D"]
 script = ExtResource("1_kjhnj")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_xk6ot")
-rules = Array[ExtResource("6_ts36d")]([SubResource("Resource_oktlq")])
+rule_set = SubResource("Resource_5p3u2")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0

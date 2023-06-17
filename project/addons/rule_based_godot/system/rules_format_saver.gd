@@ -2,6 +2,7 @@ class_name RulesFormatSaver
 extends ResourceFormatSaver
 
 func _recognize(resource):
+	# Recognizes RuleSet
 	return resource.has_meta("RuleBasedGodot")
 
 func _get_recognized_extensions(resource):
@@ -13,10 +14,10 @@ func _save(resource, path, flags) -> Error:
 	if file == null:
 		return FileAccess.get_open_error()
 
-	if not resource.has_method("representation"):
+	if not resource.has_method("to_json_string"):
 		return ERR_INVALID_PARAMETER
 
-	file.store_string(resource.representation())
+	file.store_string(resource.to_json_string())
 	file.close()
 
 	return OK

@@ -1,41 +1,35 @@
 class_name Rule
-extends Resource
+extends RuleBasedResource
 
 @export var condition: AbstractMatch
 @export var actions: Array[AbstractAction]
-
-func _init():
-	set_meta("RuleBasedGodot", true)
 
 func setup(system_node: Node) -> void:
 	condition.setup(system_node)
 	for action in actions:
 		action.setup(system_node)
 
+func to_json_string() -> String:
+	# {"if": condition, "then": [actions]}
+	var actions_string: String
+	for action in actions:
+		actions_string += action.to_json_string() + ", "
+	return '{"if": ' + condition.to_json_string() + \
+			', "then": [' + actions_string + ']}'
+
+func build_from_repr(json_repr) -> void:
+	# {"if": condition, "then": [actions]}
+	if not json_repr.has("if") or not json_repr.has("then"):
+		push_error(error_string(ERR_INVALID_PARAMETER))
+		return
+
+	condition = RuleFactory.create_match(json_repr["if"])
+	actions = []
+	for action_repr in json_repr["then"]:
+		actions.append(RuleFactory.create_action(action_repr))
+
 func trigger_actions() -> Array:
 	var results = []
 	for action in actions:
 		results.append(action.trigger())
 	return results
-
-func representation() -> String:
-	# {'if': condition, 'then': [actions]}
-	var string = '{"if": ' + condition.representation() + ', "then": ['
-	if not actions.is_empty():
-		string += actions[0].representation()
-		for i in range(1, actions.size()):
-			string += ', ' + actions[i].representation()
-	string += ']}'
-	return string
-
-func build_from_repr(representation: Dictionary) -> void:
-	# {'if': condition, 'then': [actions]}
-	var condition_string = representation["if"]
-	condition = AbstractMatch.specialize(condition_string[0])
-	condition.build_from_repr(condition_string)
-
-	actions = []
-	for action_string in representation["then"]:
-		var new_action = AbstractAction.specialize(action_string[0])
-		new_action.build_from_repr(action_string)
-		actions.append(new_action)

@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://sh6ks3164p75"]
+[gd_scene load_steps=12 format=3 uid="uid://sh6ks3164p75"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_twixk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="4_m3qab"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="5_tgn5o"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_v3cy1"]
 [ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
 
-[sub_resource type="Resource" id="Resource_myjjd"]
+[sub_resource type="Resource" id="Resource_co4xl"]
 script = ExtResource("3_twixk")
 agent_path = NodePath("../ColorRect")
 method = &"change_color"
@@ -15,7 +16,7 @@ arguments = {
 "Color": Color(0, 0, 0, 1)
 }
 
-[sub_resource type="Resource" id="Resource_n3fhw"]
+[sub_resource type="Resource" id="Resource_3uawi"]
 script = ExtResource("4_m3qab")
 test_node_path = NodePath("../SpinBox")
 property_or_method = &"value"
@@ -23,17 +24,21 @@ method_arguments = {}
 min_value = 5.0
 max_value = 10.0
 
-[sub_resource type="Resource" id="Resource_eo24t"]
+[sub_resource type="Resource" id="Resource_ece8a"]
 script = ExtResource("5_v3cy1")
-condition = SubResource("Resource_n3fhw")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_myjjd")])
+condition = SubResource("Resource_3uawi")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_co4xl")])
+
+[sub_resource type="Resource" id="Resource_7cige"]
+script = ExtResource("5_tgn5o")
+rules = Array[ExtResource("5_v3cy1")]([SubResource("Resource_ece8a")])
 
 [node name="NumbericTest" type="Node2D"]
 script = ExtResource("1_p08fm")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_0x4s6")
-rules = Array[ExtResource("5_v3cy1")]([SubResource("Resource_eo24t")])
+rule_set = SubResource("Resource_7cige")
 
 [node name="SpinBox" type="SpinBox" parent="."]
 offset_left = 530.0

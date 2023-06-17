@@ -7,13 +7,13 @@ func setup(system_node: Node) -> void:
 	_system_node = system_node
 	_system_node.add_user_signal(signal_name)
 
-func trigger() -> Variant:
-	return _system_node.emit_signal(signal_name)
-
-func representation() -> String:
-	# ["Emit", signal]
+func to_json_string() -> String:
+	# ["Emit", signal_name]
 	return '["Emit", "' + signal_name + '"]'
 
-func build_from_repr(representation: Array) -> void:
-	# ["Emit", signal]
-	signal_name = representation[1]
+func build_from_repr(json_repr) -> void:
+	# ["Emit", signal_name]
+	signal_name = json_repr[1]
+
+func trigger() -> Variant:
+	return _system_node.emit_signal(signal_name)

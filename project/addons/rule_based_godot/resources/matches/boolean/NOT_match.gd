@@ -14,12 +14,11 @@ func is_satisfied() -> bool:
 	else:
 		return not (negated_condition.is_satisfied())
 
-func representation() -> String:
-	# ["NOT", negated_condition]
-	return '["NOT", ' + negated_condition.representation() + ']'
+func to_json_string() -> String:
+	# ["NOT", condition]
+	return '["NOT", ' + negated_condition.to_json_string() + ']'
 
-func build_from_repr(representation: Array) -> void:
-	# ["NOT", negated_condition]
-	var condition_repr: Array = representation[1]
-	negated_condition = AbstractMatch.specialize(condition_repr[0])
-	negated_condition.build_from_repr(condition_repr)
+func build_from_repr(json_repr) -> void:
+	# ["NOT", condition]
+	var condition = RuleFactory.create_match(json_repr[1])
+	condition.setup(_system_node)

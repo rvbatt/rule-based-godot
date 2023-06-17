@@ -7,6 +7,32 @@ extends AbstractMatch
 @export var min_value: float
 @export var max_value: float
 
+func to_json_string() -> String:
+	# ["Numeric", min, max, test_node, property_or_method, {types: arguments}]
+	var min = "-inf" if min_value == -INF else min_value
+	var max = "inf" if max_value == INF else max_value
+	return JSON.stringify(
+		["Numeric", min, max, test_node_path, property_or_method, method_arguments]
+	)
+
+func build_from_repr(json_repr) -> void:
+	# ["Numeric", min, max, test_node, property_or_method, {types: arguments}]
+	var min = json_repr[1]
+	if min is String and min == "-inf":
+		min_value = -INF
+	else:
+		min_value = min
+
+	var max = json_repr[2]
+	if max is String and max == "inf":
+		max_value = INF
+	else:
+		max_value = max
+
+	test_node_path = NodePath(json_repr[3])
+	property_or_method = json_repr[4]
+	method_arguments = eval_arguments(json_repr[5])
+
 func is_satisfied() -> bool:
 	var test_node = _system_node.get_node(test_node_path)
 	if test_node == null:
@@ -24,44 +50,3 @@ func is_satisfied() -> bool:
 		return false
 
 	return (min_value <= test_number) and (test_number <= max_value)
-
-func representation() -> String:
-	# ["Numeric", min, max, node, property_method, arguments]
-	var string = '["Numeric", '
-	if min_value == -INF:
-		string += '"inf", '
-	else:
-		string += str(min_value) + ', '
-	if max_value == INF:
-		string += '"inf", '
-	else:
-		string += str(max_value) + ', '
-
-	string +=  '"' + str(test_node_path) + '", "' + property_or_method + '", {'
-	var types = method_arguments.keys()
-	if not types.is_empty():
-		string += '"' + types[0] + '": "' + str(method_arguments[types[0]]) + '"'
-		for i in range(1, types.size()):
-			string += ', "' + types[i] + '": "' + \
-					str(method_arguments[types[i]]) + '"'
-
-	string += "}]"
-	return string
-
-func build_from_repr(representation: Array) -> void:
-	# ["Numeric", min, max, node, property_method, arguments]
-	var min = representation[1]
-	if min is String and min == "-inf":
-		min_value = -INF
-	else:
-		min_value = min
-
-	var max = representation[2]
-	if max is String and max == "inf":
-		max_value = INF
-	else:
-		max_value = max
-
-	test_node_path = NodePath(representation[3])
-	property_or_method = representation[4]
-	method_arguments = eval_arguments(representation[5])

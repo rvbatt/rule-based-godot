@@ -1,0 +1,64 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqls08x35ys85"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_n3v78"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0cx0y"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_wfgfv"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="4_xbv34"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="5_pjwec"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="6_hhsl8"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_80ndp"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="8_gnquj"]
+
+[sub_resource type="Resource" id="Resource_8as4o"]
+script = ExtResource("3_wfgfv")
+setter_path = NodePath("../ColorRect")
+property = &"color"
+type = &"Color"
+value = [Color(0, 0, 0, 1)]
+
+[sub_resource type="Resource" id="Resource_3x6d1"]
+script = ExtResource("4_xbv34")
+signal_name = &"test_signal"
+
+[sub_resource type="Resource" id="Resource_4rmvq"]
+script = ExtResource("5_pjwec")
+test_node_path = NodePath("../LineEdit")
+property_or_method = &"text"
+method_arguments = {}
+string_value = ""
+
+[sub_resource type="Resource" id="Resource_kpvsi"]
+script = ExtResource("6_hhsl8")
+negated_condition = SubResource("Resource_4rmvq")
+
+[sub_resource type="Resource" id="Resource_rvjjx"]
+script = ExtResource("7_80ndp")
+condition = SubResource("Resource_kpvsi")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8as4o"), SubResource("Resource_3x6d1")])
+
+[sub_resource type="Resource" id="Resource_jate6"]
+script = ExtResource("8_gnquj")
+rules = Array[ExtResource("7_80ndp")]([SubResource("Resource_rvjjx")])
+
+[node name="NOTStringTest" type="Node2D"]
+script = ExtResource("1_n3v78")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_0cx0y")
+rule_set = SubResource("Resource_jate6")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 57.0
+offset_top = 410.0
+offset_right = 1078.0
+offset_bottom = 466.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 381.0
+offset_top = 93.0
+offset_right = 772.0
+offset_bottom = 344.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[connection signal="text_submitted" from="LineEdit" to="." method="run_tests"]

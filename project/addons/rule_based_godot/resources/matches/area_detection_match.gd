@@ -4,6 +4,17 @@ extends AbstractMatch
 @export_node_path("Area2D", "Area3D") var area_path
 @export var specific_colliders: Array[NodePath]
 
+func to_json_string() -> String:
+	# ["Area", area_node, [colliders]]
+	return JSON.stringify(["Area", area_path, specific_colliders])
+
+func build_from_repr(json_repr) -> void:
+	# ["Area", area_node, [colliders]]
+	area_path = json_repr[1]
+	specific_colliders = []
+	for collider in json_repr[2]:
+		specific_colliders.append(NodePath(collider))
+
 func is_satisfied() -> bool:
 	var area = _system_node.get_node(area_path)
 	if area == null:
@@ -27,21 +38,3 @@ func is_satisfied() -> bool:
 				return true
 
 	return false
-
-func representation() -> String:
-	# ["Area", area, [colliders]]
-	var string = '["Area", "' + str(area_path) + '", ['
-	if not specific_colliders.is_empty():
-		string += '"' + str(specific_colliders[0]) + '"'
-		for i in range(1, specific_colliders.size()):
-			string += ', "' + str(specific_colliders[i]) + '"'
-	string += ']]'
-
-	return string
-
-func build_from_repr(representation: Array) -> void:
-	# ["Area", area, [colliders]]
-	area_path = representation[1]
-	specific_colliders = []
-	for collider in representation[2]:
-		specific_colliders.append(NodePath(collider))

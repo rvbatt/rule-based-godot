@@ -5,6 +5,16 @@ extends AbstractAction
 @export var method: StringName
 @export var arguments: Dictionary
 
+func to_json_string() -> String:
+	# ["Call", agent_node, method, {types: arguments}]
+	return JSON.stringify(["Call", agent_path, method, arguments])
+
+func build_from_repr(json_repr) -> void:
+	# ["Call", agent_node, method, {types: arguments}]
+	agent_path = NodePath(json_repr[1])
+	method = json_repr[2]
+	arguments = eval_arguments(json_repr[3])
+
 func trigger() -> Variant:
 	var agent: Node = _system_node.get_node(agent_path)
 	if agent == null:
@@ -16,21 +26,3 @@ func trigger() -> Variant:
 	else:
 		print_debug("Invalid CallMethodAction method")
 		return null
-
-func representation() -> String:
-	# ["Call", agent, method, {type: value}]
-	var string = '["Call", "' + str(agent_path) + '", "' + method + '", {'
-	var types = arguments.keys()
-	if not types.is_empty():
-		string += '"' + types[0] + '": "' + str(arguments[types[0]]) + '"'
-		for i in range(1, types.size()):
-			string += ', "' + types[i] + '": "' + str(arguments[types[i]]) + '"'
-
-	string += "}]"
-	return string
-
-func build_from_repr(representation: Array) -> void:
-	# ["Call", agent, method, {type: value}]
-	agent_path = representation[1]
-	method = representation[2]
-	arguments = eval_arguments(representation[3])
