@@ -13,7 +13,7 @@ A plugin for Godot game engine that  implements a generic Rule-Based System. Thi
 Actions and Matches are arrays with the first element being a string that identifies the resource.
 - Actions
    - SetProperty: `["Set", setter, property, type, value]`
-   - CallMethod: `["Call", agent, method, {type: argument}]`
+   - CallMethod: `["Call", agent, method, {types: arguments}]`
    - EmitSignal: `["Emit", signal]`
 - Matches
    - AreaDetection: `["Area", area, [colliders]]`
