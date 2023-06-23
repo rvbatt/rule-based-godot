@@ -38,6 +38,7 @@ actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstra
 
 [sub_resource type="Resource" id="Resource_jate6"]
 script = ExtResource("8_gnquj")
+_rule_based_godot = &"RuleSet"
 rules = Array[ExtResource("7_80ndp")]([SubResource("Resource_rvjjx")])
 
 [node name="NOTStringTest" type="Node2D"]

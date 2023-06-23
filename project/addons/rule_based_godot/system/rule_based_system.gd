@@ -10,26 +10,6 @@ var rule_arbitration: String = "First Applicable":
 		_set_arbiter(arbitration)
 		rule_arbitration = arbitration
 
-#@export var override_rule_set: bool = false
-#
-#@export_multiline var rules_json: String = \
-#'{"Rules": [
-#	{"if":
-#		["Condition", config],
-#	"then": [
-#		["Action", config],
-#	]},
-#]}':
-#	set(rules_string):
-#		var rules_dict = JSON.parse_string(rules_string)
-#		if rules_dict != null and override_rule_set:
-#			rule_set = RuleSet.new()
-#			rule_set.build_from_repr(rules_dict)
-#			rule_set.setup(self)
-#
-#		print("Set")
-#		rules_json = rules_string
-
 @export var rule_set: RuleSet:
 	set(rules):
 		rules.setup(self)

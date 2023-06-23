@@ -1,14 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://sh6ks3164p75"]
+[gd_scene load_steps=12 format=3 uid="uid://sh6ks3164p75"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_vs7su"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="4_5g133"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_ap00m"]
 [ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="6_tiowu"]
+
+[sub_resource type="Resource" id="Resource_alc84"]
+script = ExtResource("3_vs7su")
+agent_path = NodePath("../ColorRect")
+method = &"change_color"
+arguments = {
+"Color": Color(0, 0, 0, 1)
+}
+
+[sub_resource type="Resource" id="Resource_8uiad"]
+script = ExtResource("4_5g133")
+test_node_path = NodePath("../SpinBox")
+property_or_method = &"value"
+method_arguments = {}
+min_value = 5.0
+max_value = 10.0
+
+[sub_resource type="Resource" id="Resource_qovfc"]
+script = ExtResource("5_ap00m")
+condition = SubResource("Resource_8uiad")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_alc84")])
+
+[sub_resource type="Resource" id="Resource_7xlo7"]
+script = ExtResource("6_tiowu")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("5_ap00m")]([SubResource("Resource_qovfc")])
 
 [node name="NumbericTest" type="Node2D"]
 script = ExtResource("1_p08fm")
 
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_0x4s6")
+rule_set = SubResource("Resource_7xlo7")
 
 [node name="SpinBox" type="SpinBox" parent="."]
 offset_left = 530.0

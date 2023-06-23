@@ -122,6 +122,7 @@ actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstra
 
 [sub_resource type="Resource" id="Resource_83uek"]
 script = ExtResource("7_de4d7")
+_rule_based_godot = &"RuleSet"
 rules = Array[ExtResource("5_et72x")]([SubResource("Resource_asxml"), SubResource("Resource_b8wvp"), SubResource("Resource_pttn5"), SubResource("Resource_n6847"), SubResource("Resource_20lt4"), SubResource("Resource_v4opu")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
