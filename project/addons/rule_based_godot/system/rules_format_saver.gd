@@ -3,7 +3,9 @@ extends ResourceFormatSaver
 
 func _recognize(resource):
 	# Recognizes RuleSet
-	return resource.has_meta("RuleBasedGodot")
+	if "_rule_based_godot" in resource:
+		return resource.get("_rule_based_godot") == "RuleSet"
+	return false
 
 func _get_recognized_extensions(resource):
 	var extensions: PackedStringArray = ["json"]

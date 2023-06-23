@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://7pockqeqe7mo"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/interface/rules_edit_panel.gd" id="1_46k7w"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
+number_color = Color(0, 0.615686, 0, 1)
+symbol_color = Color(0.713726, 0.713726, 0.713726, 1)
+keyword_colors = {
+"Rules": Color(1, 1, 0.639216, 1),
+"if": Color(0.552941, 0.694118, 1, 1),
+"then": Color(0.552941, 0.694118, 1, 1)
+}
+
+[node name="Rules Editor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_46k7w")
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "{\"Rules\": [
+	{\"if\":
+		condition,
+	\"then\": [
+		actions
+	]}
+]}"
+wrap_mode = 1
+highlight_all_occurrences = true
+syntax_highlighter = SubResource("CodeHighlighter_qf84p")
+caret_blink = true
+symbol_lookup_on_click = true
+line_folding = true
+line_length_guidelines = Array[int]([80])
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_zero_pad_line_numbers = true
+gutters_draw_fold_gutter = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="ClearButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Clear all"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ApplyButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Apply"
+
+[connection signal="pressed" from="HBoxContainer/ClearButton" to="." method="_clear_edit"]
+[connection signal="pressed" from="HBoxContainer/ApplyButton" to="." method="_apply_rules_string"]

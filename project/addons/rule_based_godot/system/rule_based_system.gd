@@ -2,13 +2,33 @@
 extends Node
 class_name RuleBasedSystem
 
+@export var _rule_based_godot: StringName = "System"
+
 @export_enum("First Applicable", "Least Recently Used")
 var rule_arbitration: String = "First Applicable":
 	set(arbitration):
 		_set_arbiter(arbitration)
 		rule_arbitration = arbitration
-	get:
-		return rule_arbitration
+
+#@export var override_rule_set: bool = false
+#
+#@export_multiline var rules_json: String = \
+#'{"Rules": [
+#	{"if":
+#		["Condition", config],
+#	"then": [
+#		["Action", config],
+#	]},
+#]}':
+#	set(rules_string):
+#		var rules_dict = JSON.parse_string(rules_string)
+#		if rules_dict != null and override_rule_set:
+#			rule_set = RuleSet.new()
+#			rule_set.build_from_repr(rules_dict)
+#			rule_set.setup(self)
+#
+#		print("Set")
+#		rules_json = rules_string
 
 @export var rule_set: RuleSet:
 	set(rules):
@@ -19,8 +39,9 @@ var _arbiter: AbstractArbiter
 
 func _ready():
 	_set_arbiter(rule_arbitration)
-	rule_set.setup(self)
-	ResourceSaver.save(rule_set, "res://test_scenes/rule_set.json")
+	if rule_set != null:
+		rule_set.setup(self)
+		ResourceSaver.save(rule_set, "res://test_scenes/rule_set.json")
 
 func test_rules() -> Array:
 	var satified_rules = rule_set.satisfied_rules()

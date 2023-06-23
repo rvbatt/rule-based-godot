@@ -1,10 +1,8 @@
 class_name RuleSet
 extends RuleBasedResource
 
+@export var _rule_based_godot: StringName = "RuleSet"
 @export var rules: Array[Rule]
-
-func _init():
-	set_meta("RuleBasedGodot", true)
 
 func setup(system_node: Node) -> void:
 	for rule in rules:
