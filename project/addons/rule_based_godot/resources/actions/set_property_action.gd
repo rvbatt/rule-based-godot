@@ -6,12 +6,15 @@ extends AbstractAction
 @export var type: StringName
 @export var value: Array
 
+static func json_format() -> String:
+	return '["Set Property", "setter_node", "property", "type", "value"]'
+
 func to_json_string() -> String:
-	# ["Set", setter_node, property, type, value]
+	# Follows json_format
 	return JSON.stringify(["Set", setter_path, property, type, value[0]])
 
 func build_from_repr(json_repr) -> void:
-	# ["Set", setter_node, property, type, value]
+	# Follows json_format
 	setter_path = NodePath(json_repr[1])
 	property = json_repr[2]
 	type = json_repr[3]

@@ -4,6 +4,14 @@ extends RuleBasedResource
 @export var condition: AbstractMatch
 @export var actions: Array[AbstractAction]
 
+static func json_format() -> String:
+	return '\
+{"if":
+		condition,
+	"then": [
+		actions
+	]}'
+
 func setup(system_node: Node) -> void:
 	condition.setup(system_node)
 	for action in actions:

@@ -6,14 +6,17 @@ extends AbstractMatch
 @export var min_distance: float
 @export var max_distance: float
 
+static func json_format() -> String:
+	return '["Distance", min, max, "first_node", "second_node"]'
+
 func to_json_string() -> String:
-	# ["Distance", min, max, first_node, second_node]
+	# Follows json_format
 	var min = "-inf" if min_distance == -INF else min_distance
 	var max = "inf" if max_distance == INF else max_distance
 	return JSON.stringify(["Distance", min, max, first_node_path, second_node_path])
 
 func build_from_repr(json_repr) -> void:
-	# ["Distance", min, max, first_node, second_node]
+	# Follows json_format
 	var min = json_repr[1]
 	if min is String and min == "-inf":
 		min_distance = -INF

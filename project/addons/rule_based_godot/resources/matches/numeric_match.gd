@@ -7,6 +7,9 @@ extends AbstractMatch
 @export var min_value: float
 @export var max_value: float
 
+static func json_format() -> String:
+	return '["Numeric", min, max, "test_node", "property_or_method", {"types": "arguments"}]'
+
 func to_json_string() -> String:
 	# ["Numeric", min, max, test_node, property_or_method, {types: arguments}]
 	var min = "-inf" if min_value == -INF else min_value

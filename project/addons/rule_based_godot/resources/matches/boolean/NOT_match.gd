@@ -3,13 +3,19 @@ extends AbstractMatch
 
 @export var negated_condition: AbstractMatch
 
+static func json_format() -> String:
+	return '["NOT", condition]'
+
 func setup(system_node: Node) -> void:
 	if negated_condition != null:
 		negated_condition.setup(system_node)
 
 func to_json_string() -> String:
 	# ["NOT", condition]
-	return '["NOT", ' + negated_condition.to_json_string() + ']'
+	var string = '["NOT", '
+	if negated_condition != null:
+			string += negated_condition.to_json_string()
+	return string + ']'
 
 func build_from_repr(json_repr) -> void:
 	# ["NOT", condition]

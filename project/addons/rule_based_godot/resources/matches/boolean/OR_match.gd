@@ -3,6 +3,12 @@ extends AbstractMatch
 
 @export var subconditions: Array[AbstractMatch]
 
+static func json_format() -> String:
+	return '\
+["OR", [
+	conditions
+]]'
+
 func setup(system_node: Node) -> void:
 	for condition in subconditions:
 		if condition == null: continue

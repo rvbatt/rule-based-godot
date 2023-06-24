@@ -5,12 +5,15 @@ extends AbstractAction
 @export var method: StringName
 @export var arguments: Dictionary
 
+static func json_format() -> String:
+	return '["Call Method", "agent_node", "method", {"types": "arguments"}]'
+
 func to_json_string() -> String:
-	# ["Call", agent_node, method, {types: arguments}]
+	# Follows json_format
 	return JSON.stringify(["Call", agent_path, method, arguments])
 
 func build_from_repr(json_repr) -> void:
-	# ["Call", agent_node, method, {types: arguments}]
+	# Follows json_format
 	agent_path = NodePath(json_repr[1])
 	method = json_repr[2]
 	arguments = eval_arguments(json_repr[3])

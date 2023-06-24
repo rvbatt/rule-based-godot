@@ -4,12 +4,15 @@ extends AbstractMatch
 @export_node_path("Area2D", "Area3D") var area_path
 @export var specific_colliders: Array[NodePath]
 
+static func json_format() -> String:
+	return '["Area Detection", "area_node", ["colliders"]]'
+
 func to_json_string() -> String:
-	# ["Area", area_node, [colliders]]
-	return JSON.stringify(["Area", area_path, specific_colliders])
+	# Follows json_format
+	return JSON.stringify(["Area Detection", area_path, specific_colliders])
 
 func build_from_repr(json_repr) -> void:
-	# ["Area", area_node, [colliders]]
+	# Follows json_format
 	area_path = json_repr[1]
 	specific_colliders = []
 	for collider in json_repr[2]:

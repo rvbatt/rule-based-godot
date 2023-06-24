@@ -7,6 +7,9 @@ extends AbstractMatch
 @export var method_arguments: Dictionary #Type -> value
 @export var string_value: String
 
+static func json_format() -> String:
+	return '["String", "value", "test_node", "property_or_method", {"types": "arguments"}]'
+
 func to_json_string() -> String:
 	# ["String", value, test_node, property_or_method, {types: arguments}]
 	return JSON.stringify(
