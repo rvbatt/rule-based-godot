@@ -23,6 +23,7 @@ func _parse_begin(object):
 		_rules_edit_button.emit_signal("toggled", true)
 
 func _apply_current_rules(rules_string: String):
+	
 	var rule_set = RuleSet.new()
 	rule_set.build_from_repr(JSON.parse_string(rules_string))
 	_current_system_node.set("rule_set", rule_set)

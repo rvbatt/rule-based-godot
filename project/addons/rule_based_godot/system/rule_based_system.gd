@@ -2,6 +2,7 @@
 extends Node
 class_name RuleBasedSystem
 
+# Identifier for the RulesInspectorPlugin
 @export var _rule_based_godot: StringName = "System"
 
 @export_enum("First Applicable", "Least Recently Used")

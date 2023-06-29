@@ -1,5 +1,23 @@
-extends Object
+extends Node
 class_name RuleFactory
+
+static func MATCHES() -> Dictionary:
+	return {
+	"String": StringMatch,
+	"Numeric": NumericMatch,
+	"Distance": DistanceMatch,
+	"Area Detection": AreaDetectionMatch,
+	"AND": ANDMatch,
+	"OR": ORMatch,
+	"NOT": NOTMatch
+	}
+
+static func ACTIONS() -> Dictionary:
+	return {
+	"Set Property": SetPropertyAction,
+	"Call Method": CallMethodAction,
+	"Emit Signal": EmitSignalAction
+	}
 
 static func create_rule(json_repr: Dictionary) -> Rule:
 	# Representation: {"if": condition, "then": [actions]}

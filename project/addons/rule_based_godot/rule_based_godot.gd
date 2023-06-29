@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const RULES_PANEL_PATH: String = "res://addons/rule_based_godot/interface/rules_edit_panel.tscn"
+const BOTTOM_PANEL_PATH: String = "res://addons/rule_based_godot/interface/rules_edit_panel.tscn"
 const INSPECTOR_PATH: String = "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
 
 var rules_edit_panel: Control
@@ -13,7 +13,7 @@ func _enter_tree():
 		preload("system/rule_based_system.gd"),
 		preload("ruler_icon.png"))
 
-	rules_edit_panel = preload(RULES_PANEL_PATH).instantiate()
+	rules_edit_panel = preload(BOTTOM_PANEL_PATH).instantiate()
 	var button = add_control_to_bottom_panel(rules_edit_panel, "Rules Editor")
 
 	inspector_plugin = preload(INSPECTOR_PATH).new()
