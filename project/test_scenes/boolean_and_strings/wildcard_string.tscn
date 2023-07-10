@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://du57vd2obwegb"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_b52t5"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_sf1ag"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="2_rdvcc"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="3_eae3o"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_l5tek"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="5_qphwp"]
+
+[sub_resource type="Resource" id="Resource_lhbic"]
+script = ExtResource("2_rdvcc")
+uni_is_wildcard = true
+uni_identifier = &"line"
+uni_setter_path = NodePath("")
+property = &"text"
+type = &"String"
+value = ["Wildcard"]
+
+[sub_resource type="Resource" id="Resource_5joqr"]
+script = ExtResource("3_eae3o")
+uni_is_wildcard = true
+uni_identifier = &"line"
+uni_test_node_path = null
+string_value = "replace"
+property_or_method = &"text"
+method_arguments = null
+
+[sub_resource type="Resource" id="Resource_pskda"]
+script = ExtResource("4_l5tek")
+condition = SubResource("Resource_5joqr")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_lhbic")])
+_bindings = {}
+
+[sub_resource type="Resource" id="Resource_sgsaw"]
+script = ExtResource("5_qphwp")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("4_l5tek")]([SubResource("Resource_pskda")])
+
+[node name="WildcardString" type="Node2D"]
+script = ExtResource("1_sf1ag")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("1_b52t5")
+rule_set = SubResource("Resource_sgsaw")
+
+[node name="LineEdit" type="LineEdit" parent="RuleBasedSystem"]
+offset_left = 250.0
+offset_top = 56.0
+offset_right = 859.0
+offset_bottom = 193.0
+
+[node name="LineEdit2" type="LineEdit" parent="RuleBasedSystem"]
+offset_left = 247.0
+offset_top = 235.0
+offset_right = 856.0
+offset_bottom = 372.0
+
+[node name="LineEdit3" type="LineEdit" parent="RuleBasedSystem"]
+offset_left = 241.0
+offset_top = 422.0
+offset_right = 850.0
+offset_bottom = 559.0
+
+[connection signal="text_submitted" from="RuleBasedSystem/LineEdit" to="." method="run_tests"]
+[connection signal="text_submitted" from="RuleBasedSystem/LineEdit2" to="." method="run_tests"]
+[connection signal="text_submitted" from="RuleBasedSystem/LineEdit3" to="." method="run_tests"]
