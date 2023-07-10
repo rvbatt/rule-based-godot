@@ -11,10 +11,12 @@
 
 [sub_resource type="Resource" id="Resource_8as4o"]
 script = ExtResource("3_wfgfv")
-setter_path = NodePath("../ColorRect")
-property = &"color"
-type = &"Color"
-value = [Color(0, 0, 0, 1)]
+uni_is_wildcard = true
+uni_identifier = &"line"
+uni_setter_path = NodePath("")
+property = &"text"
+type = &"String"
+value = ["Wildcard"]
 
 [sub_resource type="Resource" id="Resource_3x6d1"]
 script = ExtResource("4_xbv34")
@@ -22,10 +24,12 @@ signal_name = &"test_signal"
 
 [sub_resource type="Resource" id="Resource_oihd7"]
 script = ExtResource("5_pjwec")
-test_node_path = NodePath("../LineEdit")
+uni_is_wildcard = true
+uni_identifier = &"line"
+uni_test_node_path = NodePath("")
+string_value = ""
 property_or_method = &"text"
 method_arguments = {}
-string_value = ""
 
 [sub_resource type="Resource" id="Resource_473xl"]
 script = ExtResource("6_hhsl8")
@@ -35,6 +39,7 @@ negated_condition = SubResource("Resource_oihd7")
 script = ExtResource("7_80ndp")
 condition = SubResource("Resource_473xl")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8as4o"), SubResource("Resource_3x6d1")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_jate6"]
 script = ExtResource("8_gnquj")
@@ -48,13 +53,13 @@ script = ExtResource("1_n3v78")
 script = ExtResource("2_0cx0y")
 rule_set = SubResource("Resource_jate6")
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="LineEdit" type="LineEdit" parent="RuleBasedSystem"]
 offset_left = 57.0
 offset_top = 410.0
 offset_right = 1078.0
 offset_bottom = 466.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="RuleBasedSystem"]
 offset_left = 381.0
 offset_top = 93.0
 offset_right = 772.0
@@ -62,4 +67,4 @@ offset_bottom = 344.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[connection signal="text_submitted" from="LineEdit" to="." method="run_tests"]
+[connection signal="text_submitted" from="RuleBasedSystem/LineEdit" to="." method="run_tests"]

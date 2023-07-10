@@ -19,7 +19,8 @@ value = [Color(1, 0.498039, 0, 1)]
 [sub_resource type="Resource" id="Resource_vg4tm"]
 resource_name = "red"
 script = ExtResource("6_ha2k4")
-test_node_path = NodePath("../LineEdit")
+is_wildcard = false
+variable_or_node = NodePath("../LineEdit")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "red"
@@ -32,7 +33,8 @@ negated_condition = SubResource("Resource_vg4tm")
 [sub_resource type="Resource" id="Resource_jedvr"]
 resource_name = "yellow"
 script = ExtResource("6_ha2k4")
-test_node_path = NodePath("../LineEdit2")
+is_wildcard = false
+variable_or_node = NodePath("../LineEdit2")
 property_or_method = &"text"
 method_arguments = {}
 string_value = "yellow"

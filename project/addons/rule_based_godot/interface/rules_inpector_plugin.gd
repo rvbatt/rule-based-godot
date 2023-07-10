@@ -15,6 +15,9 @@ func set_rules_edit(panel: RulesEditPanel, button: Button):
 func _can_handle(object):
 	return "_rule_based_godot" in object
 
+func _parse_group(object, group):
+	pass
+
 func _parse_begin(object):
 	if object.get("_rule_based_godot") == "System":
 		_current_system_node = object as RuleBasedSystem
