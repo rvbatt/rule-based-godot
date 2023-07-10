@@ -11,7 +11,6 @@ static func json_format() -> String:
 
 func setup(system_node: Node) -> void:
 	_system_node = system_node
-
 func to_json_string() -> String:
 	# Abstract method
 	push_error("Abstract method call")
@@ -28,10 +27,12 @@ func eval_arguments(type_to_value: Dictionary) -> Dictionary:
 	return type_to_value
 
 func eval_value(type: StringName, value: String) -> Variant:
+	if type == "String": return value
+
 	var expression = Expression.new()
-	if expression.parse(type + "(" + value + ")") != OK:
-		if expression.parse(type + value) != OK:
-			if expression.parse(value) != OK:
+	if expression.parse(value) != OK:
+		if expression.parse(type + "(" + value + ")") != OK:
+			if expression.parse(type + value) != OK:
 				push_error(expression.get_error_text())
 				return null
 

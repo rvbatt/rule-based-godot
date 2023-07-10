@@ -36,7 +36,7 @@ func build_from_repr(json_repr) -> void:
 	property_or_method = json_repr[4]
 	method_arguments = eval_arguments(json_repr[5])
 
-func is_satisfied() -> bool:
+func is_satisfied(bindings: Dictionary) -> bool:
 	var test_node = _system_node.get_node(test_node_path)
 	if test_node == null:
 		print_debug("Invalid NumericMatch node")

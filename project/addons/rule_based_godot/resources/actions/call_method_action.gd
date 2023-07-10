@@ -18,7 +18,7 @@ func build_from_repr(json_repr) -> void:
 	method = json_repr[2]
 	arguments = eval_arguments(json_repr[3])
 
-func trigger() -> Variant:
+func trigger(bindings: Dictionary) -> Variant:
 	var agent: Node = _system_node.get_node(agent_path)
 	if agent == null:
 		print_debug("Invalid CallMethodAction agent")

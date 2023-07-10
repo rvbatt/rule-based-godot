@@ -4,6 +4,8 @@ extends RuleBasedResource
 @export var condition: AbstractMatch
 @export var actions: Array[AbstractAction]
 
+@export var _bindings: Dictionary # variable -> value
+
 static func json_format() -> String:
 	return '\
 {"if":
@@ -36,8 +38,13 @@ func build_from_repr(json_repr) -> void:
 	for action_repr in json_repr["then"]:
 		actions.append(RuleFactory.create_action(action_repr))
 
+func condition_satisfied() -> bool:
+	_bindings.clear()
+	return condition.is_satisfied(_bindings)
+
 func trigger_actions() -> Array:
 	var results = []
 	for action in actions:
-		results.append(action.trigger())
+		results.append(action.trigger(_bindings))
+
 	return results

@@ -18,7 +18,7 @@ func build_from_repr(json_repr) -> void:
 	for collider in json_repr[2]:
 		specific_colliders.append(NodePath(collider))
 
-func is_satisfied() -> bool:
+func is_satisfied(bindings: Dictionary) -> bool:
 	var area = _system_node.get_node(area_path)
 	if area == null:
 		print_debug("Invalid CollisionCheckMatch area")

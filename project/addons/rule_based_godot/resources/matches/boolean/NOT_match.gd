@@ -22,9 +22,9 @@ func build_from_repr(json_repr) -> void:
 	negated_condition = RuleFactory.create_match(json_repr[1])
 	negated_condition.setup(_system_node)
 
-func is_satisfied() -> bool:
+func is_satisfied(bindings: Dictionary) -> bool:
 	if negated_condition == null:
 		print_debug("Empty NOTMatch")
 		return false
 	else:
-		return not (negated_condition.is_satisfied())
+		return not (negated_condition.is_satisfied(bindings))

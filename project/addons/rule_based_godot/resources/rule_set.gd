@@ -36,7 +36,7 @@ func build_from_repr(json_repr) -> void:
 func satisfied_rules() -> Array[Rule]:
 	var satisfied: Array[Rule] = []
 	for rule in rules:
-		if rule.condition.is_satisfied():
+		if rule.condition_satisfied():
 			satisfied.append(rule)
 	return satisfied
 

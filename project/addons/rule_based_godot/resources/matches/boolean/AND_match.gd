@@ -30,14 +30,14 @@ func build_from_repr(json_repr) -> void:
 		new_condition.setup(_system_node)
 		subconditions.append(new_condition)
 
-func is_satisfied() -> bool:
+func is_satisfied(bindings: Dictionary) -> bool:
 	if subconditions.is_empty():
 		print_debug("Empty ANDMatch")
 		return false
 
 	for condition in subconditions:
 		if condition == null: continue
-		if not condition.is_satisfied():
+		if not condition.is_satisfied(bindings):
 			return false
 
 	return true

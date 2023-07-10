@@ -32,7 +32,7 @@ func build_from_repr(json_repr) -> void:
 	first_node_path = NodePath(json_repr[3])
 	second_node_path = NodePath(json_repr[4])
 
-func is_satisfied() -> bool:
+func is_satisfied(bindings: Dictionary) -> bool:
 	var first_node = _system_node.get_node(first_node_path)
 	var second_node = _system_node.get_node(second_node_path)
 	

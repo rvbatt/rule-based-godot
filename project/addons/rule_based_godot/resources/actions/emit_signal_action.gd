@@ -18,5 +18,5 @@ func build_from_repr(json_repr) -> void:
 	# Follows json_format
 	signal_name = json_repr[1]
 
-func trigger() -> Variant:
+func trigger(bindings: Dictionary) -> Variant:
 	return _system_node.emit_signal(signal_name)
