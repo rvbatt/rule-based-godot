@@ -43,10 +43,3 @@ func _eval_value(type: StringName, value: String) -> Variant:
 		return null
 
 	return result
-
-func _get_node(node_path: Variant) -> Node:
-	print(node_path)
-	return _system_node.get_node(node_path)
-
-func _path_to(node: Variant) -> NodePath:
-	return _system_node.get_path_to(node)

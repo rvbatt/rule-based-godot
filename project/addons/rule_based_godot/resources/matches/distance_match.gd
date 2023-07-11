@@ -11,24 +11,15 @@ static func json_format() -> String:
 
 func to_json_string() -> String:
 	# Follows json_format
-	var min = "-inf" if min_distance == -INF else min_distance
-	var max = "inf" if max_distance == INF else max_distance
-	return JSON.stringify(["Distance", min, max, first_node_path, second_node_path])
+	return JSON.stringify(
+		["Distance", _write_number(min_distance), _write_number(max_distance),first_node_path
+		, second_node_path]
+	)
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format
-	var min = json_repr[1]
-	if min is String and min == "-inf":
-		min_distance = -INF
-	else:
-		min_distance = min
-
-	var max = json_repr[2]
-	if max is String and max == "inf":
-		max_distance = INF
-	else:
-		max_distance = max
-
+	min_distance = _read_number(json_repr[1])
+	max_distance = _read_number(json_repr[2])
 	first_node_path = NodePath(json_repr[3])
 	second_node_path = NodePath(json_repr[4])
 
