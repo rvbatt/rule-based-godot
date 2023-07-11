@@ -37,6 +37,7 @@ func satisfied_rules() -> Array[Rule]:
 	var satisfied: Array[Rule] = []
 	for rule in rules:
 		if rule.condition_satisfied():
+			print(rule)
 			satisfied.append(rule)
 	return satisfied
 

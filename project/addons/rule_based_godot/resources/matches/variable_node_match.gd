@@ -1,16 +1,16 @@
 extends AbstractMatch
 class_name VariableNodeMatch
 
+@export_group("Test Node", "TN")
+@export var TN_is_wildcard: bool = false
+@export var TN_identifier: StringName
+@export var TN_path: NodePath
+
 @export_group("Data extraction", "DE")
 @export_enum("Property", "Method") var DE_extraction_type: int = 0
 @export var DE_property: StringName
 @export var DE_method: StringName
 @export var DE_arguments: Dictionary # type -> value
-
-@export_group("Test Node", "TN")
-@export var TN_is_wildcard: bool = false
-@export var TN_identifier: StringName
-@export var TN_path: NodePath
 
 func is_satisfied(bindings: Dictionary) -> bool:
 	# Overrides abstract method, applies Template Method
