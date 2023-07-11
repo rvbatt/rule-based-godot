@@ -11,7 +11,7 @@ func _read_number(number: Variant) -> float:
 	if number is String:
 		if number == "inf": return INF
 		elif number == "-inf": return -INF
-	return number
+	return float(number)
 
 func _write_number(number: float) -> String:
 	if number == INF: return "inf"
