@@ -32,28 +32,31 @@ func build_from_repr(json_repr) -> void:
 		uni_identifier = ""
 		uni_test_node_path = NodePath(json_repr[2])
 	property_or_method = json_repr[3]
-	method_arguments = eval_arguments(json_repr[4])
+	method_arguments = _eval_arguments(json_repr[4])
 
 func is_satisfied(bindings: Dictionary) -> bool:
 	if uni_is_wildcard:
-		for child in _system_node.get_children(true):
-			print(child.name)
-			if _get_string_value(child) == string_value:
-				print("Try to add binding")
+		var valid_candidates := []
+		var candidates: Array
+		if bindings.has(uni_identifier):
+			candidates = bindings.get(uni_identifier)
+		else:
+			candidates = _system_node.get_children(true)
 
-				bindings[uni_identifier] = _system_node.get_path_to(child)
-				return true
-		return false
+		for candidate in candidates:
+			if _matches_string_value(candidate):
+				valid_candidates.append(candidate)
+		bindings[uni_identifier] = valid_candidates
+		return not valid_candidates.is_empty()
 
-	var test_node = _system_node.get_node(uni_test_node_path)
+	return _matches_string_value(_system_node.get_node(uni_test_node_path))
+
+func _matches_string_value(test_node: Node) -> bool:
 	if test_node == null:
 		print_debug("Invalid StringMatch node")
 		return false
-	return _get_string_value(test_node) == string_value
 
-func _get_string_value(test_node: Node) -> Variant:
 	var test_string = null
-
 	if property_or_method in test_node:
 		test_string = test_node.get(property_or_method)
 	elif test_node.has_method(property_or_method):
@@ -61,4 +64,5 @@ func _get_string_value(test_node: Node) -> Variant:
 
 	if test_string == null:
 		print_debug("Invalid StringMatch property or method")
-	return test_string
+	print(test_string + " == " + string_value)
+	return test_string == string_value

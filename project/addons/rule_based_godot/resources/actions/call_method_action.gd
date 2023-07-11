@@ -16,7 +16,7 @@ func build_from_repr(json_repr) -> void:
 	# Follows json_format
 	agent_path = NodePath(json_repr[1])
 	method = json_repr[2]
-	arguments = eval_arguments(json_repr[3])
+	arguments = _eval_arguments(json_repr[3])
 
 func trigger(bindings: Dictionary) -> Variant:
 	var agent: Node = _system_node.get_node(agent_path)

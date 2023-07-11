@@ -30,13 +30,15 @@ func build_from_repr(json_repr) -> void:
 		uni_setter_path = NodePath(json_repr[1])
 	property = json_repr[2]
 	type = json_repr[3]
-	value = [self.eval_value(type, json_repr[4])]
+	value = [_eval_value(type, json_repr[4])]
 
 func trigger(bindings: Dictionary) -> Variant:
-	print("Trigger set")
 	var setter: Node
 	if uni_is_wildcard:
-		setter = _system_node.get_node(bindings.get(uni_identifier, ^"."))
+		var bound_nodepaths = bindings.get(uni_identifier, [])
+		if bound_nodepaths.is_empty():
+			return null
+		setter = bound_nodepaths[0]
 	else:
 		setter = _system_node.get_node(uni_setter_path)
 	if setter == null:
