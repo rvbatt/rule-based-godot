@@ -12,30 +12,38 @@
 
 [sub_resource type="Resource" id="Resource_g7mac"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(0.498039, 0.498039, 0.498039, 1)]
+type_and_value = {
+"Color": Color(0.498039, 0.498039, 0.498039, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_kccpo"]
 script = ExtResource("6_sqsih")
-first_node_path = NodePath("../MovableArea2D")
-second_node_path = NodePath("../Colliders/TileMap")
+source_node_path = NodePath("../MovableArea2D")
 min_distance = inf_neg
 max_distance = 500.0
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/TileMap")
 
 [sub_resource type="Resource" id="Resource_42fed"]
 resource_name = "Distance"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_kccpo")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_g7mac")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_x28rg"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(0, 0, 0, 1)]
+type_and_value = {
+"Color": Color(0, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_k22c3"]
 script = ExtResource("4_jhumk")
@@ -47,13 +55,17 @@ resource_name = "Area"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_k22c3")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_x28rg")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_plol7"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(1, 0, 0, 1)]
+type_and_value = {
+"Color": Color(1, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_i8hag"]
 script = ExtResource("4_jhumk")
@@ -65,13 +77,17 @@ resource_name = "Static"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_i8hag")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_plol7")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_lrlag"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(0, 1, 0, 1)]
+type_and_value = {
+"Color": Color(0, 1, 0, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_mjglb"]
 script = ExtResource("4_jhumk")
@@ -83,13 +99,17 @@ resource_name = "Rigid"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_mjglb")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_lrlag")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_r00l5"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(0, 0, 1, 1)]
+type_and_value = {
+"Color": Color(0, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_bjmyp"]
 script = ExtResource("4_jhumk")
@@ -101,13 +121,17 @@ resource_name = "Character"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_bjmyp")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_r00l5")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_hoekv"]
 script = ExtResource("3_v43oa")
-setter_path = NodePath("../ColorRect")
 property = &"color"
-type = &"Color"
-value = [Color(1, 0, 1, 1)]
+type_and_value = {
+"Color": Color(1, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_hpd7b"]
 script = ExtResource("4_jhumk")
@@ -119,6 +143,7 @@ resource_name = "Tile"
 script = ExtResource("5_kii8g")
 condition = SubResource("Resource_hpd7b")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_hoekv")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_61vfx"]
 script = ExtResource("4_ow8o7")

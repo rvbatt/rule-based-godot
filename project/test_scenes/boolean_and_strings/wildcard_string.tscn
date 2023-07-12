@@ -23,24 +23,24 @@ AN_path = NodePath("")
 [sub_resource type="Resource" id="Resource_sebfd"]
 script = ExtResource("3_eae3o")
 string_value = "yes"
-TN_is_wildcard = true
-TN_identifier = &"multiple"
+OI_access_type = 0
+OI_property = &""
+OI_method = &""
+OI_arguments = {}
+TN_is_wildcard = false
+TN_identifier = &""
 TN_path = NodePath("")
-DE_extraction_type = 0
-DE_property = &"string"
-DE_method = &""
-DE_arguments = {}
 
 [sub_resource type="Resource" id="Resource_yw4ml"]
 script = ExtResource("6_a4udo")
 min_value = 5.0
 max_value = 10.0
-DE_extraction_type = 0
-DE_property = &"number"
-DE_method = &""
-DE_arguments = {}
-TN_is_wildcard = true
-TN_identifier = &"multiple"
+OI_access_type = 0
+OI_property = &""
+OI_method = &""
+OI_arguments = {}
+TN_is_wildcard = false
+TN_identifier = &""
 TN_path = NodePath("")
 
 [sub_resource type="Resource" id="Resource_s6seh"]

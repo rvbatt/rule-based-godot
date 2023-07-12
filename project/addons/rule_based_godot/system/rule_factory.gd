@@ -39,7 +39,7 @@ static func create_match(json_repr: Array) -> AbstractMatch:
 
 	var new_match: AbstractMatch
 	match json_repr[0]:
-		"Area":
+		"Area Detection":
 			new_match = AreaDetectionMatch.new()
 		"Distance":
 			new_match = DistanceMatch.new()
