@@ -4,7 +4,7 @@ class_name VariableNodeAction
 @export_group("Action Node", "AN")
 @export var AN_is_wildcard: bool = false
 @export var AN_identifier: StringName
-@export var AN_path: NodePath
+@export_node_path var AN_path: NodePath
 
 func _get_action_node(bindings: Dictionary) -> Node:
 	if AN_is_wildcard:

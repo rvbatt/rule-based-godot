@@ -1,35 +1,32 @@
 class_name DistanceMatch
 extends AbstractMatch
 
-@export_node_path("Node2D", "Node3D") var first_node_path
-@export_node_path("Node2D", "Node3D") var second_node_path
+@export_node_path("Node2D", "Node3D") var source_node_path
+
 @export var min_distance: float
 @export var max_distance: float
 
 static func json_format() -> String:
-	return '["Distance", min, max, "first_node", "second_node"]'
+	return '["Distance", min, max, "source_node", "?var|node"]'
 
 func to_json_string() -> String:
 	# Follows json_format
 	return JSON.stringify(
-		["Distance", _write_number(min_distance), _write_number(max_distance),first_node_path
-		, second_node_path]
+		["Distance", _write_number(min_distance), _write_number(max_distance),
+		source_node_path, _var_or_path_string()]
 	)
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format
 	min_distance = _read_number(json_repr[1])
 	max_distance = _read_number(json_repr[2])
-	first_node_path = NodePath(json_repr[3])
-	second_node_path = NodePath(json_repr[4])
+	source_node_path = NodePath(json_repr[3])
+	_build_var_or_path(json_repr[4])
 
-func is_satisfied(bindings: Dictionary) -> bool:
-	var first_node = _system_node.get_node(first_node_path)
-	var second_node = _system_node.get_node(second_node_path)
-	
-	if first_node == null or second_node == null:
+func _node_satisfies_match(target_node: Node) -> bool:
+	var source_node = _system_node.get_node(source_node_path)
+	if source_node == null or target_node == null:
 		print_debug("Invalid node in DistanceMatch")
-		return false
 	
-	var distance: float = first_node.global_position.distance_to(second_node.global_position)
+	var distance: float = source_node.global_position.distance_to(target_node.global_position)
 	return (min_distance <= distance) and (distance <= max_distance)
