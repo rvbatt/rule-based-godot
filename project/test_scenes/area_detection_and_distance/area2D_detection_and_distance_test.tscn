@@ -48,7 +48,8 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_k22c3"]
 script = ExtResource("4_jhumk")
 area_path = NodePath("../MovableArea2D")
-specific_colliders = Array[NodePath]([NodePath("../Colliders/Area2D")])
+SC_are_wildcard = false
+SC_paths = Array[NodePath]([NodePath("../Colliders/Area2D")])
 
 [sub_resource type="Resource" id="Resource_i24bd"]
 resource_name = "Area"
@@ -70,7 +71,8 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_i8hag"]
 script = ExtResource("4_jhumk")
 area_path = NodePath("../MovableArea2D")
-specific_colliders = Array[NodePath]([NodePath("../Colliders/StaticBody2D")])
+SC_are_wildcard = false
+SC_paths = Array[NodePath]([NodePath("../Colliders/StaticBody2D")])
 
 [sub_resource type="Resource" id="Resource_f3d45"]
 resource_name = "Static"
@@ -92,7 +94,8 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_mjglb"]
 script = ExtResource("4_jhumk")
 area_path = NodePath("../MovableArea2D")
-specific_colliders = Array[NodePath]([NodePath("../Colliders/RigidBody2D")])
+SC_are_wildcard = false
+SC_paths = Array[NodePath]([NodePath("../Colliders/RigidBody2D")])
 
 [sub_resource type="Resource" id="Resource_t5163"]
 resource_name = "Rigid"
@@ -114,7 +117,8 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_bjmyp"]
 script = ExtResource("4_jhumk")
 area_path = NodePath("../MovableArea2D")
-specific_colliders = Array[NodePath]([NodePath("../Colliders/CharacterBody2D")])
+SC_are_wildcard = false
+SC_paths = Array[NodePath]([NodePath("../Colliders/CharacterBody2D")])
 
 [sub_resource type="Resource" id="Resource_jf5ir"]
 resource_name = "Character"
@@ -136,7 +140,8 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_hpd7b"]
 script = ExtResource("4_jhumk")
 area_path = NodePath("../MovableArea2D")
-specific_colliders = Array[NodePath]([NodePath("../Colliders/TileMap")])
+SC_are_wildcard = false
+SC_paths = Array[NodePath]([NodePath("../Colliders/TileMap")])
 
 [sub_resource type="Resource" id="Resource_ojrhu"]
 resource_name = "Tile"
