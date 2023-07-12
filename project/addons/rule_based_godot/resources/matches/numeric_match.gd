@@ -1,5 +1,5 @@
 class_name NumericMatch
-extends VariableNodeMatch
+extends ObtainInfoMatch
 
 @export var min_value: float
 @export var max_value: float

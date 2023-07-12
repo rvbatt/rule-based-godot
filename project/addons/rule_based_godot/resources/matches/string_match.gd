@@ -1,5 +1,5 @@
 class_name StringMatch
-extends VariableNodeMatch
+extends ObtainInfoMatch
 
 @export var string_value: String
 
