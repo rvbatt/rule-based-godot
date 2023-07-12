@@ -1,8 +1,12 @@
+@tool
 class_name AreaDetectionMatch
 extends AbstractMatch
 
 @export_node_path("Area2D", "Area3D") var area_path
 @export var specific_colliders: Array[NodePath]
+
+func _init():
+	_target_node = false
 
 static func json_format() -> String:
 	return '["Area Detection", "area_node", ["colliders"]]'
