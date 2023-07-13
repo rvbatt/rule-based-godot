@@ -6,11 +6,11 @@ extends AbstractAction
 @export var type_and_value: Dictionary
 
 static func json_format() -> String:
-	return '["Set Property", "?var|node", "property", {"type": "value"}]'
+	return '["SetProperty", "?var|node", "property", {"type": "value"}]'
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Set Property", _var_or_path_string(), property, type_and_value])
+	return JSON.stringify(["SetProperty", _var_or_path_string(), property, type_and_value])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

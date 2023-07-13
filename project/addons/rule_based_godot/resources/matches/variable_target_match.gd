@@ -75,14 +75,3 @@ func _build_var_or_path(var_or_node: String) -> void:
 func _var_or_path_string() -> String:
 	# Auxilary function
 	return '?' + TN_identifier if TN_is_wildcard else TN_path
-
-func _read_number(number: Variant) -> float:
-	if number is String:
-		if number == "inf": return INF
-		elif number == "-inf": return -INF
-	return float(number)
-
-func _write_number(number: float) -> Variant:
-	if number == INF: return "inf"
-	elif number == -INF: return "-inf"
-	else: return number

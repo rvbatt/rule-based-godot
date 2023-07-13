@@ -6,11 +6,11 @@ extends AbstractAction
 @export var arguments: Dictionary
 
 static func json_format() -> String:
-	return '["Call Method", "?var|node", "method", {"types": "arguments"}]'
+	return '["CallMethod", "?var|node", "method", {"types": "arguments"}]'
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Call Method", _var_or_path_string(), method, arguments])
+	return JSON.stringify(["CallMethod", _var_or_path_string(), method, arguments])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

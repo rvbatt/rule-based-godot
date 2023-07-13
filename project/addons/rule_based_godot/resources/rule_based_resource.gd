@@ -43,3 +43,14 @@ func _eval_value(type: StringName, value: String) -> Variant:
 		return null
 
 	return result
+
+func _read_number(number: Variant) -> float:
+	if number is String:
+		if number == "inf": return INF
+		elif number == "-inf": return -INF
+	return float(number)
+
+func _write_number(number: float) -> Variant:
+	if number == INF: return "inf"
+	elif number == -INF: return "-inf"
+	else: return number

@@ -5,11 +5,11 @@ extends AbstractAction
 @export var signal_name: StringName
 
 static func json_format() -> String:
-	return '["Emit Signal", "?var|node", signal_name"]'
+	return '["EmitSignal", "?var|node", "signal_name"]'
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Emit Signal", _var_or_path_string(), signal_name])
+	return JSON.stringify(["EmitSignal", _var_or_path_string(), signal_name])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

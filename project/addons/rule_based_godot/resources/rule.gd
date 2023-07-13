@@ -4,7 +4,7 @@ extends RuleBasedResource
 @export var condition: AbstractMatch
 @export var actions: Array[AbstractAction]
 
-@export var _bindings: Dictionary # variable -> value
+var _bindings: Dictionary # variable -> value
 
 static func json_format() -> String:
 	return '\

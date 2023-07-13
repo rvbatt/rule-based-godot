@@ -6,7 +6,7 @@ static func MATCHES() -> Dictionary:
 	"String": StringMatch,
 	"Numeric": NumericMatch,
 	"Distance": DistanceMatch,
-	"Area Detection": AreaDetectionMatch,
+	"AreaDetection": AreaDetectionMatch,
 	"AND": ANDMatch,
 	"OR": ORMatch,
 	"NOT": NOTMatch
@@ -14,9 +14,9 @@ static func MATCHES() -> Dictionary:
 
 static func ACTIONS() -> Dictionary:
 	return {
-	"Set Property": SetPropertyAction,
-	"Call Method": CallMethodAction,
-	"Emit Signal": EmitSignalAction
+	"SetProperty": SetPropertyAction,
+	"CallMethod": CallMethodAction,
+	"EmitSignal": EmitSignalAction
 	}
 
 static func create_rule(json_repr: Dictionary) -> Rule:
@@ -39,7 +39,7 @@ static func create_match(json_repr: Array) -> AbstractMatch:
 
 	var new_match: AbstractMatch
 	match json_repr[0]:
-		"Area Detection":
+		"AreaDetection":
 			new_match = AreaDetectionMatch.new()
 		"Distance":
 			new_match = DistanceMatch.new()
@@ -67,11 +67,11 @@ static func create_action(json_repr: Array) -> AbstractAction:
 
 	var new_action: AbstractAction
 	match json_repr[0]:
-		"Set Property":
+		"SetProperty":
 			new_action = SetPropertyAction.new()
-		"Call Method":
+		"CallMethod":
 			new_action = CallMethodAction.new()
-		"Emit Signal":
+		"EmitSignal":
 			new_action = EmitSignalAction.new()
 		_:
 			new_action = AbstractAction.new()

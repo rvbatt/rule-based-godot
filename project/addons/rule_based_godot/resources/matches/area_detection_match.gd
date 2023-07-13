@@ -28,11 +28,11 @@ func _setup_area() -> void:
 	_area_setup = true
 
 static func json_format() -> String:
-	return '["Area Detection", "area_node", ?var|"collider"]'
+	return '["AreaDetection", "area_node", ?var|"collider"]'
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Area Detection", area_path, _var_or_path_string()])
+	return JSON.stringify(["AreaDetection", area_path, _var_or_path_string()])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

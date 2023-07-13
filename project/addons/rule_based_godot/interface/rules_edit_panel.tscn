@@ -3,13 +3,8 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/interface/rules_edit_panel.gd" id="1_46k7w"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
-number_color = Color(0, 0.615686, 0, 1)
-symbol_color = Color(0.713726, 0.713726, 0.713726, 1)
-keyword_colors = {
-"Rules": Color(1, 1, 0.639216, 1),
-"if": Color(0.552941, 0.694118, 1, 1),
-"then": Color(0.552941, 0.694118, 1, 1)
-}
+number_color = Color(0.631373, 1, 0.878431, 1)
+symbol_color = Color(1, 0.929412, 0.631373, 1)
 
 [node name="Rules Editor" type="VBoxContainer"]
 anchors_preset = 15
@@ -72,7 +67,7 @@ layout_mode = 2
 item_count = 8
 selected = 0
 popup/item_0/text = "New Match"
-popup/item_0/id = 0
+popup/item_0/id = -1
 popup/item_0/separator = true
 popup/item_1/text = "String"
 popup/item_1/id = 1
@@ -80,7 +75,7 @@ popup/item_2/text = "Numeric"
 popup/item_2/id = 2
 popup/item_3/text = "Distance"
 popup/item_3/id = 3
-popup/item_4/text = "Area Detection"
+popup/item_4/text = "AreaDetection"
 popup/item_4/id = 4
 popup/item_5/text = "AND"
 popup/item_5/id = 5
@@ -94,13 +89,13 @@ layout_mode = 2
 item_count = 4
 selected = 0
 popup/item_0/text = "New Action"
-popup/item_0/id = 0
+popup/item_0/id = -1
 popup/item_0/separator = true
-popup/item_1/text = "Set Property"
+popup/item_1/text = "SetProperty"
 popup/item_1/id = 1
-popup/item_2/text = "Call Method"
+popup/item_2/text = "CallMethod"
 popup/item_2/id = 2
-popup/item_3/text = "Emit Signal"
+popup/item_3/text = "EmitSignal"
 popup/item_3/id = 3
 
 [node name="Options" type="VSeparator" parent="Buttons"]
