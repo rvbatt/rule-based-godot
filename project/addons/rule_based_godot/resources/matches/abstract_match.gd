@@ -2,13 +2,8 @@ class_name AbstractMatch
 extends RuleBasedResource
 # Abstract class for condition components
 
-var _target_node = true:
-	set(value):
-		_target_node = value
-		notify_property_list_changed()
-
 @export_group("Target Node", "TN")
-var TN_is_wildcard: bool = false:
+@export var TN_is_wildcard: bool = false:
 	set(value):
 		TN_is_wildcard = value
 		notify_property_list_changed()
@@ -17,15 +12,8 @@ var TN_identifier: StringName
 var TN_path: NodePath
 
 func _get_property_list():
-	if not _target_node: return []
+	var properties := []
 
-	var properties = [{
-		"name": "TN_is_wildcard",
-		"type": TYPE_BOOL,
-		"usage": PROPERTY_USAGE_DEFAULT,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": "true, false"
-	}]
 	if TN_is_wildcard:
 		properties.append(
 			{
@@ -42,7 +30,7 @@ func _get_property_list():
 			"name": "TN_path",
 			"type": TYPE_NODE_PATH,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"hint": PROPERTY_HINT_NODE_PATH_VALID_TYPES,
+			"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE,
 			"hint_string": "Node"
 			}
 		)
@@ -53,7 +41,7 @@ func is_satisfied(bindings: Dictionary) -> bool:
 	if TN_is_wildcard:
 		var candidates = bindings.get(TN_identifier) \
 			if bindings.has(TN_identifier) \
-			else _system_node.get_children(true)
+			else _get_candidates()
 
 		var valid_candidates := []
 		for candidate in candidates:
@@ -64,6 +52,9 @@ func is_satisfied(bindings: Dictionary) -> bool:
 		return not valid_candidates.is_empty()
 
 	return _node_satisfies_match(_system_node.get_node(TN_path))
+
+func _get_candidates() -> Array[Node]:
+	return _system_node.get_children(true)
 
 func _node_satisfies_match(target_node: Node) -> bool:
 	# Abstract method
