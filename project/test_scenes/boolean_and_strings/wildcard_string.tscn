@@ -25,10 +25,7 @@ script = ExtResource("3_eae3o")
 string_value = "yes"
 OI_access_type = 0
 OI_property = &""
-OI_method = &""
-OI_arguments = {}
 TN_is_wildcard = false
-TN_identifier = &""
 TN_path = NodePath("")
 
 [sub_resource type="Resource" id="Resource_yw4ml"]
@@ -37,15 +34,13 @@ min_value = 5.0
 max_value = 10.0
 OI_access_type = 0
 OI_property = &""
-OI_method = &""
-OI_arguments = {}
 TN_is_wildcard = false
-TN_identifier = &""
 TN_path = NodePath("")
 
 [sub_resource type="Resource" id="Resource_s6seh"]
 script = ExtResource("4_vjjtw")
 subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_sebfd"), SubResource("Resource_yw4ml")])
+TN_is_wildcard = false
 
 [sub_resource type="Resource" id="Resource_pskda"]
 script = ExtResource("4_l5tek")

@@ -10,24 +10,28 @@
 
 [sub_resource type="Resource" id="Resource_alc84"]
 script = ExtResource("3_vs7su")
-agent_path = NodePath("../ColorRect")
 method = &"change_color"
 arguments = {
 "Color": Color(0, 0, 0, 1)
 }
+AN_is_wildcard = false
+AN_identifier = &""
+AN_path = NodePath("")
 
 [sub_resource type="Resource" id="Resource_8uiad"]
 script = ExtResource("4_5g133")
-test_node_path = NodePath("../SpinBox")
-property_or_method = &"value"
-method_arguments = {}
 min_value = 5.0
 max_value = 10.0
+OI_access_type = 0
+OI_property = &""
+TN_is_wildcard = false
+TN_path = NodePath("")
 
 [sub_resource type="Resource" id="Resource_qovfc"]
 script = ExtResource("5_ap00m")
 condition = SubResource("Resource_8uiad")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_alc84")])
+_bindings = {}
 
 [sub_resource type="Resource" id="Resource_7xlo7"]
 script = ExtResource("6_tiowu")

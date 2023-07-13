@@ -69,59 +69,19 @@ text = "New Rule"
 
 [node name="MatchButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
-item_count = 15
+item_count = 1
 selected = 0
 popup/item_0/text = "New Match"
 popup/item_0/id = 0
 popup/item_0/separator = true
-popup/item_1/text = "String"
-popup/item_1/id = 1
-popup/item_2/text = "Numeric"
-popup/item_2/id = 2
-popup/item_3/text = "Distance"
-popup/item_3/id = 3
-popup/item_4/text = "Area Detection"
-popup/item_4/id = 4
-popup/item_5/text = "AND"
-popup/item_5/id = 5
-popup/item_6/text = "OR"
-popup/item_6/id = 6
-popup/item_7/text = "NOT"
-popup/item_7/id = 7
-popup/item_8/text = "String"
-popup/item_8/id = 8
-popup/item_9/text = "Numeric"
-popup/item_9/id = 9
-popup/item_10/text = "Distance"
-popup/item_10/id = 10
-popup/item_11/text = "Area Detection"
-popup/item_11/id = 11
-popup/item_12/text = "AND"
-popup/item_12/id = 12
-popup/item_13/text = "OR"
-popup/item_13/id = 13
-popup/item_14/text = "NOT"
-popup/item_14/id = 14
 
 [node name="ActionButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
-item_count = 7
+item_count = 1
 selected = 0
 popup/item_0/text = "New Action"
 popup/item_0/id = 0
 popup/item_0/separator = true
-popup/item_1/text = "Set Property"
-popup/item_1/id = 1
-popup/item_2/text = "Call Method"
-popup/item_2/id = 2
-popup/item_3/text = "Emit Signal"
-popup/item_3/id = 3
-popup/item_4/text = "Set Property"
-popup/item_4/id = 4
-popup/item_5/text = "Call Method"
-popup/item_5/id = 5
-popup/item_6/text = "Emit Signal"
-popup/item_6/id = 6
 
 [node name="Options" type="VSeparator" parent="Buttons"]
 custom_minimum_size = Vector2(20, 0)
