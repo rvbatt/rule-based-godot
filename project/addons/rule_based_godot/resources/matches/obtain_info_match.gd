@@ -1,4 +1,4 @@
-extends AbstractMatch
+extends DatumMatch
 class_name ObtainInfoMatch
 
 # Type 0 is just property
