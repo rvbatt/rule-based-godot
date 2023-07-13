@@ -1,11 +1,47 @@
 extends AbstractMatch
 class_name ObtainInfoMatch
 
+# Type 0 is just property
 @export_group("Obtain Information", "OI")
-@export_enum("Property", "Method") var OI_access_type: int = 0
-@export var OI_property: StringName
-@export var OI_method: StringName
-@export var OI_arguments: Dictionary # type -> value
+@export_enum("Property", "Method") var OI_access_type: int = 0:
+	set(value):
+		OI_access_type = value
+		notify_property_list_changed()
+var OI_property: StringName
+var OI_method: StringName
+var OI_arguments: Dictionary # type -> value
+
+func _get_property_list():
+	var properties = []
+	if OI_access_type == 0:
+		properties.append(
+			{
+			"name": "OI_property",
+			"type": TYPE_STRING_NAME,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_LOCALIZABLE_STRING,
+			"hint_string": "%s" % TYPE_STRING_NAME
+			}
+		)
+	else:
+		properties.append_array([
+			{
+			"name": "OI_method",
+			"type": TYPE_STRING_NAME,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_LOCALIZABLE_STRING,
+			"hint_string": "%s" % TYPE_CALLABLE
+			},
+			{
+			"name": "OI_arguments",
+			"type": TYPE_DICTIONARY,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_NONE,
+			"hint_string": ""
+			},
+		])
+
+	return properties
 
 func _build_prop_or_method(json_repr: Array, start_inOIx: int) -> void:
 	# Auxilary function
