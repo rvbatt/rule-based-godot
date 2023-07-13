@@ -67,11 +67,11 @@ static func create_action(json_repr: Array) -> AbstractAction:
 
 	var new_action: AbstractAction
 	match json_repr[0]:
-		"Set":
+		"Set Property":
 			new_action = SetPropertyAction.new()
-		"Call":
+		"Call Method":
 			new_action = CallMethodAction.new()
-		"Emit":
+		"Emit Signal":
 			new_action = EmitSignalAction.new()
 		_:
 			new_action = AbstractAction.new()

@@ -1,5 +1,6 @@
+@tool
 class_name CallMethodAction
-extends VariableNodeAction
+extends AbstractAction
 
 @export var method: StringName
 @export var arguments: Dictionary
@@ -9,7 +10,7 @@ static func json_format() -> String:
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Call", _var_or_path_string(), method, arguments])
+	return JSON.stringify(["Call Method", _var_or_path_string(), method, arguments])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

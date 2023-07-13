@@ -1,5 +1,6 @@
+@tool
 class_name SetPropertyAction
-extends VariableNodeAction
+extends AbstractAction
 
 @export var property: StringName
 @export var type_and_value: Dictionary
@@ -9,7 +10,7 @@ static func json_format() -> String:
 
 func to_json_string() -> String:
 	# Follows json_format
-	return JSON.stringify(["Set", _var_or_path_string(), property, type_and_value])
+	return JSON.stringify(["Set Property", _var_or_path_string(), property, type_and_value])
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format
