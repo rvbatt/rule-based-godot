@@ -40,7 +40,6 @@ negated_condition = SubResource("Resource_oihd7")
 script = ExtResource("7_80ndp")
 condition = SubResource("Resource_473xl")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8as4o"), SubResource("Resource_3x6d1")])
-_bindings = {}
 
 [sub_resource type="Resource" id="Resource_jate6"]
 script = ExtResource("8_gnquj")

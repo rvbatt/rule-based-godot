@@ -62,10 +62,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = -115.5
-offset_top = 50.0
-offset_right = 115.5
-offset_bottom = 81.0
+offset_left = -109.0
+offset_top = 131.0
+offset_right = 122.0
+offset_bottom = 162.0
 grow_vertical = 1
 
 [node name="MultipleVariables2" parent="RuleBasedSystem" instance=ExtResource("8_lknbb")]
@@ -73,10 +73,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = -115.5
-offset_top = 150.0
-offset_right = 115.5
-offset_bottom = 181.0
+offset_left = -109.0
+offset_top = 231.0
+offset_right = 122.0
+offset_bottom = 262.0
 grow_vertical = 1
 
 [node name="MultipleVariables3" parent="RuleBasedSystem" instance=ExtResource("8_lknbb")]
@@ -84,10 +84,10 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = -115.5
-offset_top = 250.0
-offset_right = 115.5
-offset_bottom = 281.0
+offset_left = -109.0
+offset_top = 331.0
+offset_right = 122.0
+offset_bottom = 362.0
 grow_vertical = 1
 
 [connection signal="changed" from="RuleBasedSystem/MultipleVariables" to="." method="run_tests"]

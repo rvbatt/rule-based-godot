@@ -1,49 +1,40 @@
-[gd_scene load_steps=16 format=3 uid="uid://sh6ks3164p75"]
+[gd_scene load_steps=14 format=3 uid="uid://sh6ks3164p75"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_bu7yf"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_2s0eg"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="4_5g133"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="4_du174"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="5_5jscq"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_ap00m"]
 [ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="6_tiowu"]
 
-[sub_resource type="Resource" id="Resource_3e2pr"]
-script = ExtResource("3_bu7yf")
-property = &"string"
-type_and_value = {
-"String": "Wildcard"
+[sub_resource type="Resource" id="Resource_a2lp0"]
+script = ExtResource("3_2s0eg")
+method = &"change_color"
+arguments = {
+"Color": Color(0, 0, 0, 1)
 }
-AN_is_wildcard = true
-AN_identifier = &"multiple"
-
-[sub_resource type="Resource" id="Resource_2xvot"]
-script = ExtResource("5_5jscq")
-string_value = "yes"
-OI_access_type = 0
-OI_property = &"string"
-TN_is_wildcard = true
-TN_identifier = &"multiple"
+AN_is_wildcard = false
+AN_path = NodePath("ColorRect")
 
 [sub_resource type="Resource" id="Resource_aluim"]
 script = ExtResource("4_5g133")
 min_value = 5.0
 max_value = 10.0
 OI_access_type = 0
-OI_property = &"number"
-TN_is_wildcard = true
-TN_identifier = &"multiple"
+OI_property = &"value"
+TN_is_wildcard = false
+TN_path = NodePath("SpinBox")
 
 [sub_resource type="Resource" id="Resource_v6ue4"]
 script = ExtResource("4_du174")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_2xvot"), SubResource("Resource_aluim")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_aluim")])
 
 [sub_resource type="Resource" id="Resource_6hsy3"]
 script = ExtResource("5_ap00m")
 condition = SubResource("Resource_v6ue4")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_3e2pr")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_a2lp0")])
 
 [sub_resource type="Resource" id="Resource_wbthc"]
 script = ExtResource("6_tiowu")

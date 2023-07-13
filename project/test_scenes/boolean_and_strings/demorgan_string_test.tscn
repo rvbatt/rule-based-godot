@@ -60,10 +60,10 @@ negated_condition = SubResource("Resource_5pes1")
 script = ExtResource("8_eeqa2")
 condition = SubResource("Resource_wsov8")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8xp5r")])
-_bindings = {}
 
 [sub_resource type="Resource" id="Resource_v38go"]
 script = ExtResource("7_7r6r6")
+_rule_based_godot = &"RuleSet"
 rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_88ps3")])
 
 [node name="DeMorganStringTest" type="Node2D"]

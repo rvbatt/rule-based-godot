@@ -5,6 +5,21 @@
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
 number_color = Color(0.631373, 1, 0.878431, 1)
 symbol_color = Color(1, 0.929412, 0.631373, 1)
+keyword_colors = {
+"AND": Color(1, 0.439216, 0.521569, 1),
+"AreaDetection": Color(1, 0.439216, 0.521569, 1),
+"CallMethod": Color(1, 0.54902, 0.8, 1),
+"Distance": Color(1, 0.439216, 0.521569, 1),
+"EmitSignal": Color(1, 0.54902, 0.8, 1),
+"NOT": Color(1, 0.439216, 0.521569, 1),
+"Numeric": Color(1, 0.439216, 0.521569, 1),
+"OR": Color(1, 0.439216, 0.521569, 1),
+"Rules": Color(1, 0.698039, 0.45098, 1),
+"SetProperty": Color(1, 0.54902, 0.8, 1),
+"String": Color(1, 0.439216, 0.521569, 1),
+"if": Color(0.4, 0.898039, 1, 1),
+"then": Color(0.4, 0.898039, 1, 1)
+}
 
 [node name="Rules Editor" type="VBoxContainer"]
 anchors_preset = 15
