@@ -1,6 +1,6 @@
 @tool
 class_name DistanceMatch
-extends DatumMatch
+extends VariableTargetMatch
 
 @export_node_path("Node2D", "Node3D") var source_node_path
 

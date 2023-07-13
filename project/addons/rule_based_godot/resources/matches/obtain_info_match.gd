@@ -1,5 +1,5 @@
-extends DatumMatch
 class_name ObtainInfoMatch
+extends VariableTargetMatch
 
 # Type 0 is just property
 @export_group("Obtain Information", "OI")

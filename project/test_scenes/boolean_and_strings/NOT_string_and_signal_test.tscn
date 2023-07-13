@@ -35,7 +35,6 @@ TN_path = NodePath("LineEdit")
 [sub_resource type="Resource" id="Resource_473xl"]
 script = ExtResource("6_hhsl8")
 negated_condition = SubResource("Resource_oihd7")
-TN_is_wildcard = false
 
 [sub_resource type="Resource" id="Resource_rvjjx"]
 script = ExtResource("7_80ndp")

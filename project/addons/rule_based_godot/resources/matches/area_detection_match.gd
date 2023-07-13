@@ -1,6 +1,6 @@
 @tool
 class_name AreaDetectionMatch
-extends DatumMatch
+extends VariableTargetMatch
 
 @export_node_path("Area2D", "Area3D") var area_path
 var _area # Area2D or Area3D

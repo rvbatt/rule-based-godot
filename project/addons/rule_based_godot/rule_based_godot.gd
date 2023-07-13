@@ -17,7 +17,7 @@ func _enter_tree():
 	var button = add_control_to_bottom_panel(rules_edit_panel, "Rules Editor")
 
 	inspector_plugin = preload(INSPECTOR_PATH).new()
-	inspector_plugin.set_rules_edit(rules_edit_panel, button)
+	inspector_plugin.set_rules_editor(rules_edit_panel, button)
 	add_inspector_plugin(inspector_plugin)
 
 func _exit_tree():
