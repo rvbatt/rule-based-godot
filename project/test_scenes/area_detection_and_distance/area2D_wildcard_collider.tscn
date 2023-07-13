@@ -1,0 +1,73 @@
+[gd_scene load_steps=14 format=3 uid="uid://cxfyra0kwmufu"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_jc3k1"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_3rdym"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_syu6m"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_8w6cf"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="6_lk3go"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="7_edydx"]
+[ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="8_toob5"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="9_r4eaq"]
+
+[sub_resource type="Resource" id="Resource_veuje"]
+script = ExtResource("3_syu6m")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 0, 0, 1)
+}
+AN_is_wildcard = true
+AN_identifier = &"touch"
+AN_path = NodePath("")
+
+[sub_resource type="Resource" id="Resource_thqpc"]
+script = ExtResource("6_lk3go")
+area_path = NodePath("../Area2D")
+SC_are_wildcard = true
+SC_identifier = &"touch"
+
+[sub_resource type="Resource" id="Resource_nso68"]
+script = ExtResource("5_8w6cf")
+condition = SubResource("Resource_thqpc")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_veuje")])
+_bindings = {}
+
+[sub_resource type="Resource" id="Resource_61vfx"]
+script = ExtResource("7_edydx")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("5_8w6cf")]([SubResource("Resource_nso68")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
+size = Vector2(63, 63)
+
+[node name="Area2DDetectionTest" type="Node2D"]
+script = ExtResource("1_jc3k1")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_3rdym")
+rule_arbitration = "Least Recently Used"
+rule_set = SubResource("Resource_61vfx")
+
+[node name="MovableArea2D" parent="." instance=ExtResource("8_toob5")]
+position = Vector2(80, 80)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(992, 352)
+
+[node name="Label" type="Label" parent="Area2D"]
+offset_left = -24.0
+offset_top = -56.0
+offset_right = 33.0
+offset_bottom = -30.0
+text = "Area2D"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_r4eaq")
+
+[connection signal="area_entered" from="MovableArea2D" to="." method="run_tests"]
+[connection signal="body_entered" from="MovableArea2D" to="." method="run_tests"]

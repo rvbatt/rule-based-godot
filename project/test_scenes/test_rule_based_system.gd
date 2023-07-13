@@ -13,3 +13,6 @@ func test_signal():
 func _unhandled_input(event):
 	if event.is_action_pressed("test_rule_based_system"):
 		run_tests(0)
+
+func _on_area_2d_area_entered(area):
+	print("Entrou")
