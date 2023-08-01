@@ -10,10 +10,10 @@ class_name AbstractAction
 var AN_identifier: StringName
 var AN_path: NodePath = ^"."
 
-func trigger(bindings: Dictionary) -> Variant:
+func trigger(bindings: Dictionary) -> Array[Variant]:
 	# Abstract method
 	push_error("Abstract Method Call")
-	return null
+	return []
 
 func _get_property_list():
 	var properties := []
@@ -40,15 +40,14 @@ func _get_property_list():
 		)
 	return properties
 
-func _get_action_node(bindings: Dictionary) -> Node:
+func _get_action_nodes(bindings: Dictionary) -> Array:
 	if AN_is_wildcard:
-		var bound_nodepaths = bindings.get(AN_identifier, [])
+		var bound_nodepaths: Array = bindings.get(AN_identifier, [])
 		if bound_nodepaths.is_empty():
 			print_debug("No nodes to perform action")
-			return null
-		return bound_nodepaths[0]
+		return bound_nodepaths
 	else:
-		return _system_node.get_node(AN_path)
+		return [_system_node.get_node(AN_path)]
 
 func _var_or_path_string() -> String:
 	# Auxilary function

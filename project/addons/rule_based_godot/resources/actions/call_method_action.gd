@@ -18,14 +18,11 @@ func build_from_repr(json_repr) -> void:
 	method = json_repr[2]
 	arguments = _eval_arguments(json_repr[3])
 
-func trigger(bindings: Dictionary) -> Variant:
-	var agent = _get_action_node(bindings)
-	if agent == null:
-		print_debug("Invalid CallMethodAction agent")
-		return null
-
-	if agent.has_method(method):
-		return agent.callv(method, arguments.values())
-	else:
-		print_debug("Invalid CallMethodAction method")
-		return null
+func trigger(bindings: Dictionary) -> Array[Variant]:
+	var results: Array[Variant] = []
+	for agent in _get_action_nodes(bindings):
+		if agent.has_method(method):
+			results.append(agent.callv(method, arguments.values()))
+		else:
+			print_debug("Invalid CallMethodAction method")
+	return results

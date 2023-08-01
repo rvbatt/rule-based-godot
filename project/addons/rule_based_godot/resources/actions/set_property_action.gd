@@ -3,7 +3,7 @@ class_name SetPropertyAction
 extends AbstractAction
 
 @export var property: StringName
-@export var type_and_value: Dictionary
+@export var type_and_value: Dictionary # Singleton {type: value}
 
 static func json_format() -> String:
 	return '["SetProperty", "?var|node", "property", {"type": "value"}]'
@@ -18,16 +18,13 @@ func build_from_repr(json_repr) -> void:
 	property = json_repr[2]
 	type_and_value = _eval_arguments(json_repr[3])
 
-func trigger(bindings: Dictionary) -> Variant:
-	var setter = _get_action_node(bindings)
-	if setter == null:
-		print_debug("Invalid SetPropertyAction setter")
-		return null
-
-	if property in setter:
-		var value = type_and_value.values()[0]
-		setter.set(property, value)
-		return value
-	else:
-		print_debug("Invalid SetPropertyAction property")
-		return null
+func trigger(bindings: Dictionary) -> Array[Variant]:
+	var results: Array[Variant] = []
+	for setter in _get_action_nodes(bindings):
+		if property in setter:
+			var value = type_and_value.values()[0] # Singleton
+			setter.set(property, value)
+			results.append(value)
+		else:
+			print_debug("Invalid SetPropertyAction property")
+	return results

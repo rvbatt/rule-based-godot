@@ -16,8 +16,10 @@ func build_from_repr(json_repr) -> void:
 	_build_var_or_path(json_repr[1])
 	signal_name = json_repr[2]
 
-func trigger(bindings: Dictionary) -> Variant:
-	var action_node = _get_action_node(bindings)
-	if not action_node.has_user_signal(signal_name):
-		action_node.add_user_signal(signal_name)
-	return _system_node.emit_signal(signal_name)
+func trigger(bindings: Dictionary) -> Array[Variant]:
+	var results: Array[Variant] = []
+	for emiter in _get_action_nodes(bindings):
+		if not emiter.has_user_signal(signal_name):
+			emiter.add_user_signal(signal_name)
+		results.append(emiter.emit_signal(signal_name))
+	return results
