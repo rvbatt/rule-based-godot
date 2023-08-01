@@ -1,0 +1,97 @@
+[gd_scene load_steps=16 format=3 uid="uid://du57vd2obwegb"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_l4jm5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_l2boe"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_jauo2"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="4_j38vk"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="5_pbkkk"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/numeric_match.gd" id="6_pkwha"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_5a35l"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="8_ov2x6"]
+[ext_resource type="PackedScene" uid="uid://c4b8d7i8ncdjq" path="res://test_scenes/hierarchy_and_wildcard/components/multiple_variables.tscn" id="9_63r5g"]
+
+[sub_resource type="Resource" id="Resource_xg7ci"]
+script = ExtResource("3_jauo2")
+property = &"string"
+type_and_value = {
+"String": "deu certo"
+}
+AN_is_wildcard = true
+AN_identifier = &"var"
+
+[sub_resource type="Resource" id="Resource_2kirm"]
+script = ExtResource("5_pbkkk")
+string_value = "yes"
+OI_access_type = 0
+OI_property = &"string"
+TN_is_wildcard = true
+TN_search_groups = PackedStringArray("multiple")
+TN_identifier = &"var"
+
+[sub_resource type="Resource" id="Resource_ukh1f"]
+script = ExtResource("6_pkwha")
+min_value = 5.0
+max_value = 10.0
+OI_access_type = 0
+OI_property = &"number"
+TN_is_wildcard = true
+TN_search_groups = PackedStringArray("multiple")
+TN_identifier = &"var"
+
+[sub_resource type="Resource" id="Resource_glefw"]
+script = ExtResource("4_j38vk")
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_2kirm"), SubResource("Resource_ukh1f")])
+
+[sub_resource type="Resource" id="Resource_cl0mm"]
+script = ExtResource("7_5a35l")
+condition = SubResource("Resource_glefw")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_xg7ci")])
+
+[sub_resource type="Resource" id="Resource_li5ar"]
+script = ExtResource("8_ov2x6")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("7_5a35l")]([SubResource("Resource_cl0mm")])
+
+[node name="WildcardString" type="Node2D"]
+script = ExtResource("1_l4jm5")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_l2boe")
+rule_set = SubResource("Resource_li5ar")
+
+[node name="MultipleVariables" parent="RuleBasedSystem" groups=["multiple"] instance=ExtResource("9_63r5g")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -109.0
+offset_top = 131.0
+offset_right = 122.0
+offset_bottom = 162.0
+grow_vertical = 1
+
+[node name="MultipleVariables2" parent="RuleBasedSystem" groups=["multiple"] instance=ExtResource("9_63r5g")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -109.0
+offset_top = 231.0
+offset_right = 122.0
+offset_bottom = 262.0
+grow_vertical = 1
+
+[node name="MultipleVariables3" parent="RuleBasedSystem" groups=["multiple"] instance=ExtResource("9_63r5g")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -109.0
+offset_top = 331.0
+offset_right = 122.0
+offset_bottom = 362.0
+grow_vertical = 1
+
+[connection signal="changed" from="RuleBasedSystem/MultipleVariables" to="." method="run_tests"]
+[connection signal="changed" from="RuleBasedSystem/MultipleVariables2" to="." method="run_tests"]
+[connection signal="changed" from="RuleBasedSystem/MultipleVariables3" to="." method="run_tests"]

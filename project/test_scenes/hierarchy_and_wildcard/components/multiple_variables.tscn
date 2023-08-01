@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c4b8d7i8ncdjq"]
 
-[ext_resource type="Script" path="res://test_scenes/multiple_variables.gd" id="1_b4ml4"]
+[ext_resource type="Script" path="res://test_scenes/hierarchy_and_wildcard/components/multiple_variables.gd" id="1_b4ml4"]
 
 [node name="MultipleVariables" type="HBoxContainer"]
 anchors_preset = 15

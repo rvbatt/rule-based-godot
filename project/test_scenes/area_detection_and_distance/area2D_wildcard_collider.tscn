@@ -22,6 +22,7 @@ AN_identifier = &"area"
 script = ExtResource("6_lk3go")
 area_path = NodePath("Area2D")
 TN_is_wildcard = true
+TN_search_groups = PackedStringArray()
 TN_identifier = &"area"
 
 [sub_resource type="Resource" id="Resource_nso68"]
