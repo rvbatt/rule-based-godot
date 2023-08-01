@@ -4,6 +4,8 @@ extends VariableTargetMatch
 
 @export_node_path("Area2D", "Area3D") var area_path
 var _area # Area2D or Area3D
+# Keep list of areas and bodies overllaping, because the get_overllaping_*
+# methods are not updated immediately after objects have moved
 var _overlapping := []
 var _area_setup: bool = false
 
@@ -44,20 +46,8 @@ func is_satisfied(bindings: Dictionary) -> bool:
 	return super.is_satisfied(bindings)
 
 func _node_satisfies_match(target_node: Node) -> bool:
-	if target_node == null:
-		print_debug("Invalid Area Detection node")
-		return false
-
-	if (target_node is Area2D or target_node is Area3D) and \
-		_area.overlaps_area(target_node):
-		return true
-
-	if (target_node is PhysicsBody2D or target_node is PhysicsBody3D or
-		target_node is TileMap or target_node is GridMap) \
-		and _area.overlaps_body(target_node):
-			return true
-
-	return false
+	# All the work is done selecting the candidates
+	return true
 
 func _get_candidates() -> Array:
-	return _overlapping
+	return _overlapping.filter(_is_in_search_groups)
