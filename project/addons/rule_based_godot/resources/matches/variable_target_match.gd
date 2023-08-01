@@ -8,6 +8,7 @@ extends AbstractMatch
 		TN_is_wildcard = value
 		notify_property_list_changed()
 
+var TN_search_groups: PackedStringArray
 var TN_identifier: StringName
 var TN_path: NodePath
 
@@ -15,7 +16,14 @@ func _get_property_list():
 	var properties := []
 
 	if TN_is_wildcard:
-		properties.append(
+		properties.append_array([
+			{
+			"name": "TN_search_groups",
+			"type": TYPE_PACKED_STRING_ARRAY,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_LOCALIZABLE_STRING,
+			"hint_string": "Groups"
+			},
 			{
 			"name": "TN_identifier",
 			"type": TYPE_STRING_NAME,
@@ -23,7 +31,7 @@ func _get_property_list():
 			"hint": PROPERTY_HINT_TYPE_STRING,
 			"hint_string": "ID"
 			}
-		)
+		])
 	else:
 		properties.append(
 			{
@@ -53,8 +61,24 @@ func is_satisfied(bindings: Dictionary) -> bool:
 
 	return _node_satisfies_match(_system_node.get_node(TN_path))
 
+func _is_in_search_groups(node: Node) -> bool:
+	if TN_search_groups.is_empty(): return true
+
+	for group in TN_search_groups:
+		if node.is_in_group(group): return true
+
+	return false
+
 func _get_candidates() -> Array[Node]:
-	return _system_node.get_children(true)
+	# If no group is provided, default to descendants of system node
+	if TN_search_groups.is_empty():
+		return _system_node.get_children(true)
+
+	var scene = _system_node.get_tree()
+	var candidates: Array[Node] = []
+	for group in TN_search_groups:
+		candidates.append_array(scene.get_nodes_in_group(group))
+	return candidates
 
 func _node_satisfies_match(target_node: Node) -> bool:
 	# Abstract method
