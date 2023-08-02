@@ -12,6 +12,13 @@ var TN_search_groups: PackedStringArray
 var TN_identifier: StringName
 var TN_path: NodePath
 
+var _target_node: Node
+
+func setup(system_node: Node) -> void:
+	_system_node = system_node
+	if not TN_is_wildcard:
+		_target_node = system_node.get_node(TN_path)
+
 func _get_property_list():
 	var properties := []
 
@@ -59,7 +66,7 @@ func is_satisfied(bindings: Dictionary) -> bool:
 		bindings[TN_identifier] = valid_candidates
 		return not valid_candidates.is_empty()
 
-	return _node_satisfies_match(_system_node.get_node(TN_path))
+	return _node_satisfies_match(_target_node)
 
 func _is_in_search_groups(node: Node) -> bool:
 	if TN_search_groups.is_empty(): return true

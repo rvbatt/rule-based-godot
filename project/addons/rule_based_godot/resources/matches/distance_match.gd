@@ -2,10 +2,14 @@
 class_name DistanceMatch
 extends VariableTargetMatch
 
-@export_node_path("Node2D", "Node3D") var source_node_path
-
+@export_node_path var source_node_path
+var _source_node: Node
 @export var min_distance: float
 @export var max_distance: float
+
+func setup(system_node: Node) -> void:
+	super.setup(system_node)
+	_source_node = system_node.get_node(source_node_path)
 
 static func json_format() -> String:
 	return '["Distance", min, max, "source_node", "?var|node"]'
@@ -25,9 +29,8 @@ func build_from_repr(json_repr) -> void:
 	_build_var_or_path(json_repr[4])
 
 func _node_satisfies_match(target_node: Node) -> bool:
-	var source_node = _system_node.get_node(source_node_path)
-	if source_node == null or target_node == null:
+	if _source_node == null or target_node == null:
 		print_debug("Invalid node in DistanceMatch")
 	
-	var distance: float = source_node.global_position.distance_to(target_node.global_position)
+	var distance: float = _source_node.global_position.distance_to(target_node.global_position)
 	return (min_distance <= distance) and (distance <= max_distance)

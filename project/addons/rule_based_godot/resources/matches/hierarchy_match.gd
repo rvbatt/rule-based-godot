@@ -2,8 +2,13 @@
 class_name HierarchyMatch
 extends VariableTargetMatch
 
-@export_node_path("Node2D", "Node3D") var source_node_path
+@export_node_path var source_node_path
+var _source_node: Node
 @export_enum("Parent of", "Sibling of", "Child of") var relation: String = "Parent of"
+
+func setup(system_node: Node) -> void:
+	super.setup(system_node)
+	_source_node = system_node.get_node(source_node_path)
 
 static func json_format() -> String:
 	return '["Hierarchy", "source_node", "(Parent|Sibling|Child) of", "?var|node"]'
@@ -35,11 +40,11 @@ func _get_candidates() -> Array[Node]:
 	return candidates.filter(_is_in_search_groups)
 
 func _node_satisfies_match(target_node: Node) -> bool:
-	var source_node = _system_node.get_node(source_node_path)
-	if source_node == null or target_node == null:
+	if _source_node == null or target_node == null:
 		print_debug("Invalid node in HierarchyMatch")
+		return false
 
-	var relative_path = source_node.get_path_to(target_node).get_concatenated_names()
+	var relative_path = _source_node.get_path_to(target_node).get_concatenated_names()
 	match relation:
 		"Parent of":
 			return relative_path == target_node.name

@@ -10,6 +10,13 @@ class_name AbstractAction
 var AN_identifier: StringName
 var AN_path: NodePath = ^"."
 
+var _action_node: Node
+
+func setup(system_node: Node) -> void:
+	_system_node = system_node
+	if not AN_is_wildcard:
+		_action_node = system_node.get_node(AN_path)
+
 func trigger(bindings: Dictionary) -> Array[Variant]:
 	# Abstract method
 	push_error("Abstract Method Call")
@@ -47,7 +54,7 @@ func _get_action_nodes(bindings: Dictionary) -> Array:
 			print_debug("No nodes to perform action")
 		return bound_nodepaths
 	else:
-		return [_system_node.get_node(AN_path)]
+		return [_action_node]
 
 func _var_or_path_string() -> String:
 	# Auxilary function
