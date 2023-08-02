@@ -6,15 +6,8 @@ class_name RuleBasedSystem
 @export var _rule_based_godot: StringName = "System"
 
 @export_enum("First Applicable", "Least Recently Used")
-var rule_arbitration: String = "First Applicable":
-	set(arbitration):
-		_set_arbiter(arbitration)
-		rule_arbitration = arbitration
-
-@export var rule_set: RuleSet:
-	set(rules):
-		rules.setup(self)
-		rule_set = rules
+var rule_arbitration: String = "First Applicable"
+@export var rule_set: RuleSet
 
 var _arbiter: AbstractArbiter
 
