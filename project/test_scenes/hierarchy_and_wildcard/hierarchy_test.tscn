@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fgvwue1pno8v"]
+[gd_scene load_steps=19 format=3 uid="uid://fgvwue1pno8v"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_4p4v4"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_ihwfs"]
@@ -6,74 +6,82 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="2_djs4n"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="3_sxtgj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="4_udnf2"]
+[ext_resource type="Script" path="res://test_scenes/hierarchy_and_wildcard/components/button_tree.gd" id="7_80qkv"]
 
-[sub_resource type="Resource" id="Resource_cte0v"]
+[sub_resource type="Resource" id="Resource_3gsva"]
 script = ExtResource("2_djs4n")
 property = &"text"
 type_and_value = {
-"String": "parent"
+"String": "true"
 }
 AN_is_wildcard = false
-AN_path = NodePath("../LineEdit")
+AN_path = NodePath("../Statements/AParentB/answer")
 
-[sub_resource type="Resource" id="Resource_4oecg"]
+[sub_resource type="Resource" id="Resource_4o0k2"]
 script = ExtResource("2_1ct2t")
-source_node_path = NodePath("../Parent")
+source_node_path = NodePath("../Root/A/AChildren")
 relation = "Parent of"
 TN_is_wildcard = false
-TN_path = NodePath("../Parent/Child1")
+TN_path = NodePath("../Root/A/AChildren/B")
 
-[sub_resource type="Resource" id="Resource_xhwpc"]
+[sub_resource type="Resource" id="Resource_0w3ud"]
+resource_name = "A parentf of B"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_4oecg")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_cte0v")])
+condition = SubResource("Resource_4o0k2")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_3gsva")])
 
-[sub_resource type="Resource" id="Resource_760bq"]
+[sub_resource type="Resource" id="Resource_x6mg4"]
 script = ExtResource("2_djs4n")
 property = &"text"
 type_and_value = {
-"String": "child"
+"String": "true"
 }
 AN_is_wildcard = false
-AN_path = NodePath("../LineEdit")
+AN_path = NodePath("../Statements/CChildA/answer")
 
-[sub_resource type="Resource" id="Resource_jw13k"]
+[sub_resource type="Resource" id="Resource_xutr6"]
 script = ExtResource("2_1ct2t")
-source_node_path = NodePath("../Parent/Child1")
+source_node_path = NodePath("../Root/A/AChildren/C")
 relation = "Child of"
 TN_is_wildcard = false
-TN_path = NodePath("../Parent")
+TN_path = NodePath("../Root/A/AChildren")
 
-[sub_resource type="Resource" id="Resource_jadoo"]
+[sub_resource type="Resource" id="Resource_yhuro"]
+resource_name = "C child of A"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_jw13k")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_760bq")])
+condition = SubResource("Resource_xutr6")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_x6mg4")])
 
-[sub_resource type="Resource" id="Resource_glhbh"]
+[sub_resource type="Resource" id="Resource_757g7"]
 script = ExtResource("2_djs4n")
 property = &"text"
 type_and_value = {
-"text": "sibling"
+"String": "true"
 }
 AN_is_wildcard = false
-AN_path = NodePath("../LineEdit")
+AN_path = NodePath("../Statements/BSibliingC/answer")
 
-[sub_resource type="Resource" id="Resource_40b1g"]
+[sub_resource type="Resource" id="Resource_qnoni"]
 script = ExtResource("2_1ct2t")
-source_node_path = NodePath("../Parent/Child1")
+source_node_path = NodePath("../Root/A/AChildren/B")
 relation = "Sibling of"
 TN_is_wildcard = false
-TN_path = NodePath("../Parent/Child2")
+TN_path = NodePath("../Root/A/AChildren/C")
 
-[sub_resource type="Resource" id="Resource_e0je4"]
+[sub_resource type="Resource" id="Resource_41vq6"]
+resource_name = "B sibling of C"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_40b1g")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_glhbh")])
+condition = SubResource("Resource_qnoni")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_757g7")])
 
 [sub_resource type="Resource" id="Resource_fev3b"]
 script = ExtResource("4_udnf2")
 _rule_based_godot = &"RuleSet"
-rules = Array[ExtResource("3_sxtgj")]([SubResource("Resource_xhwpc"), SubResource("Resource_jadoo"), SubResource("Resource_e0je4")])
+rules = Array[ExtResource("3_sxtgj")]([SubResource("Resource_0w3ud"), SubResource("Resource_yhuro"), SubResource("Resource_41vq6")])
+
+[sub_resource type="GDScript" id="GDScript_eiek8"]
+script/source = "extends Button
+"
 
 [node name="HierarchyTest" type="Node2D"]
 script = ExtResource("1_4p4v4")
@@ -83,14 +91,119 @@ script = ExtResource("1_ihwfs")
 rule_arbitration = "Least Recently Used"
 rule_set = SubResource("Resource_fev3b")
 
-[node name="Parent" type="Node2D" parent="."]
-
-[node name="Child1" type="Node2D" parent="Parent"]
-
-[node name="Child2" type="Node2D" parent="Parent"]
-
-[node name="LineEdit" type="LineEdit" parent="."]
-offset_left = 274.0
+[node name="Root" type="VBoxContainer" parent="."]
+offset_left = 273.0
 offset_top = 239.0
-offset_right = 779.0
-offset_bottom = 353.0
+offset_right = 320.0
+offset_bottom = 276.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_80qkv")
+
+[node name="A" type="Button" parent="Root"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+toggle_mode = true
+text = "A"
+script = SubResource("GDScript_eiek8")
+
+[node name="AChildren" type="VBoxContainer" parent="Root/A"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 46.0
+offset_bottom = 67.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="B" type="Button" parent="Root/A/AChildren"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+toggle_mode = true
+text = "B"
+script = SubResource("GDScript_eiek8")
+
+[node name="BChildren" type="VBoxContainer" parent="Root/A/AChildren/B"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 34.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="C" type="Button" parent="Root/A/AChildren"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+toggle_mode = true
+text = "C"
+script = SubResource("GDScript_eiek8")
+
+[node name="CChildren" type="VBoxContainer" parent="Root/A/AChildren/C"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Statements" type="VBoxContainer" parent="."]
+offset_left = 535.0
+offset_top = 261.0
+offset_right = 674.0
+offset_bottom = 347.0
+
+[node name="AParentB" type="HBoxContainer" parent="Statements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statements/AParentB"]
+layout_mode = 2
+text = "A is parent of B: "
+
+[node name="answer" type="Label" parent="Statements/AParentB"]
+layout_mode = 2
+text = "?"
+
+[node name="CChildA" type="HBoxContainer" parent="Statements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statements/CChildA"]
+layout_mode = 2
+text = "C is child of A: "
+
+[node name="answer" type="Label" parent="Statements/CChildA"]
+layout_mode = 2
+text = "?"
+
+[node name="BSibliingC" type="HBoxContainer" parent="Statements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statements/BSibliingC"]
+layout_mode = 2
+text = "B is sibling of C: "
+
+[node name="answer" type="Label" parent="Statements/BSibliingC"]
+layout_mode = 2
+text = "?"
+
+[connection signal="pressed" from="Root/A" to="Root" method="_on_a_pressed"]
+[connection signal="pressed" from="Root/A/AChildren/B" to="Root" method="_on_b_pressed"]
+[connection signal="pressed" from="Root/A/AChildren/C" to="Root" method="_on_c_pressed"]
