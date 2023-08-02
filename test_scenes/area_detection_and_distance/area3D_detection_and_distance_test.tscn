@@ -22,7 +22,6 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_8iluw"]
 script = ExtResource("4_42jq5")
 area_path = NodePath("../MovableArea3D")
-_overlapping = []
 TN_is_wildcard = false
 TN_path = NodePath("../Colliders/Area3D")
 
@@ -44,7 +43,6 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_hj4cq"]
 script = ExtResource("4_42jq5")
 area_path = NodePath("../MovableArea3D")
-_overlapping = []
 TN_is_wildcard = false
 TN_path = NodePath("../Colliders/StaticBody3D")
 
@@ -66,7 +64,6 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_s1oyl"]
 script = ExtResource("4_42jq5")
 area_path = NodePath("../MovableArea3D")
-_overlapping = []
 TN_is_wildcard = false
 TN_path = NodePath("../Colliders/RigidBody3D")
 
@@ -88,7 +85,6 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_knqq0"]
 script = ExtResource("4_42jq5")
 area_path = NodePath("../MovableArea3D")
-_overlapping = []
 TN_is_wildcard = false
 TN_path = NodePath("../Colliders/CharacterBody3D")
 
@@ -110,7 +106,6 @@ AN_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_7klar"]
 script = ExtResource("4_42jq5")
 area_path = NodePath("../MovableArea3D")
-_overlapping = []
 TN_is_wildcard = false
 TN_path = NodePath("../Colliders/GridMap")
 
