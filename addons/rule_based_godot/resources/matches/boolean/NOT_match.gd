@@ -20,7 +20,6 @@ func to_json_string() -> String:
 func build_from_repr(json_repr) -> void:
 	# ["NOT", condition]
 	negated_condition = RuleFactory.create_match(json_repr[1])
-	negated_condition.setup(_system_node)
 
 func is_satisfied(bindings: Dictionary) -> bool:
 	if negated_condition == null:

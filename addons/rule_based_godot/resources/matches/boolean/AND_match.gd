@@ -27,7 +27,6 @@ func build_from_repr(json_repr) -> void:
 	subconditions = []
 	for match_repr in json_repr[1]:
 		var new_condition = RuleFactory.create_match(match_repr)
-		new_condition.setup(_system_node)
 		subconditions.append(new_condition)
 
 func is_satisfied(bindings: Dictionary) -> bool:
