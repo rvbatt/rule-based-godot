@@ -15,6 +15,9 @@ var TN_path: NodePath
 var _target_node: Node
 
 func setup(system_node: Node) -> void:
+	if system_node == null:
+		print_debug("Setup with null system node")
+		return
 	_system_node = system_node
 	if not TN_is_wildcard:
 		_target_node = system_node.get_node(TN_path)

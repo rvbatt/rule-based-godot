@@ -21,21 +21,14 @@ func build_from_repr(json_repr) -> void:
 	# Abstract method
 	push_error("Abstract method call")
 
-func _eval_arguments(type_to_value: Dictionary) -> Dictionary:
-	# Dict of form {"types": "values"}
-	for type in type_to_value.keys():
-		type_to_value[type] = _eval_value(type, type_to_value[type])
-	return type_to_value
+func _eval_arguments(arguments: Array) -> Array:
+	return arguments.map(_eval_value)
 
-func _eval_value(type: StringName, value: String) -> Variant:
-	if type == "String": return value
-
+func _eval_value(value: Variant) -> Variant:
 	var expression = Expression.new()
 	if expression.parse(value) != OK:
-		if expression.parse(type + "(" + value + ")") != OK:
-			if expression.parse(type + value) != OK:
-				push_error(expression.get_error_text())
-				return null
+		push_error(expression.get_error_text())
+		return null
 
 	var result = expression.execute()
 	if expression.has_execute_failed():

@@ -9,7 +9,7 @@ extends VariableTargetMatch
 		notify_property_list_changed()
 var OI_property: StringName
 var OI_method: StringName
-var OI_arguments: Dictionary # type -> value
+var OI_arguments: Array
 
 func _get_property_list():
 	var properties = []
@@ -34,7 +34,7 @@ func _get_property_list():
 			},
 			{
 			"name": "OI_arguments",
-			"type": TYPE_DICTIONARY,
+			"type": TYPE_ARRAY,
 			"usage": PROPERTY_USAGE_DEFAULT,
 			"hint": PROPERTY_HINT_NONE,
 			"hint_string": ""
@@ -43,18 +43,18 @@ func _get_property_list():
 
 	return properties
 
-func _build_prop_or_method(json_repr: Array, start_inOIx: int) -> void:
+func _build_prop_or_method(json_repr: Array, start_index: int) -> void:
 	# Auxilary function
-	if json_repr.size() == start_inOIx + 1: # only property
+	if json_repr.size() == start_index + 1: # only property
 		OI_access_type = 0
-		OI_property = json_repr[start_inOIx]
+		OI_property = json_repr[start_index]
 		OI_method = ""
-		OI_arguments = {}
+		OI_arguments = []
 	else:
 		OI_access_type = 1
 		OI_property = ""
-		OI_method = json_repr[start_inOIx]
-		OI_arguments = _eval_arguments(json_repr[start_inOIx + 1])
+		OI_method = json_repr[start_index]
+		OI_arguments = _eval_arguments(json_repr[start_index + 1])
 
 func _prop_or_method_array() -> Array:
 	# Auxilary function
@@ -77,4 +77,4 @@ func _get_test_value(test_node: Node) -> Variant:
 		if not test_node.has_method(OI_method):
 			print_debug("Invalid method")
 			return null
-		return test_node.callv(OI_method, OI_arguments.values())
+		return test_node.callv(OI_method, OI_arguments)

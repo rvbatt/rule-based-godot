@@ -5,7 +5,7 @@ extends AbstractAction
 @export var signal_name: StringName
 
 static func json_format() -> String:
-	return '["EmitSignal", "?var|node", "signal_name"]'
+	return '["EmitSignal", "?var|node", "signal"]'
 
 func to_json_string() -> String:
 	# Follows json_format
