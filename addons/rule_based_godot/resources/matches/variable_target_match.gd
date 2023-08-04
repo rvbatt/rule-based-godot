@@ -2,17 +2,26 @@ class_name VariableTargetMatch
 extends AbstractMatch
 # Abstract class for condition components
 
+const NOTIFICATION_WILDCARD_TARGET := 2
+const NOTIFICATION_RETRIEVE_DATA := 3
+
 @export_group("Target Node", "TN")
 @export var TN_is_wildcard: bool = false:
 	set(value):
 		TN_is_wildcard = value
 		notify_property_list_changed()
+		if value:
+			notification(NOTIFICATION_WILDCARD_TARGET, true)
 
 var TN_search_groups: PackedStringArray
 var TN_identifier: StringName
 var TN_path: NodePath
 
 var _target_node: Node
+
+func _notification(what) -> void:
+	if what == NOTIFICATION_RETRIEVE_DATA:
+		TN_is_wildcard = false
 
 func setup(system_node: Node) -> void:
 	if system_node == null:
@@ -63,13 +72,13 @@ func is_satisfied(bindings: Dictionary) -> bool:
 
 		var valid_candidates := []
 		for candidate in candidates:
-			if _node_satisfies_match(candidate):
+			if _node_satisfies_match(candidate, bindings):
 				valid_candidates.append(candidate)
 
 		bindings[TN_identifier] = valid_candidates
 		return not valid_candidates.is_empty()
 
-	return _node_satisfies_match(_target_node)
+	return _node_satisfies_match(_target_node, bindings)
 
 func _is_in_search_groups(node: Node) -> bool:
 	if TN_search_groups.is_empty(): return true
@@ -90,7 +99,7 @@ func _get_candidates() -> Array[Node]:
 		candidates.append_array(scene.get_nodes_in_group(group))
 	return candidates
 
-func _node_satisfies_match(target_node: Node) -> bool:
+func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 	# Abstract method
 	push_error("Abstract Method Call")
 	return false

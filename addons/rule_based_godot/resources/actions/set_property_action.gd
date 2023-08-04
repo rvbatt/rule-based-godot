@@ -6,10 +6,10 @@ extends AbstractAction
 	set(prop_to_val):
 		property_and_value = prop_to_val
 		if prop_to_val.is_empty(): return
-		_property = prop_to_val.keys()[0]
+		_property = prop_to_val.keys()[0] # Singleton
 		_value = prop_to_val[_property]
-var _property: StringName
-var _value: Variant
+var _property: StringName = ""
+var _value: Variant = null
 
 static func json_format() -> String:
 	return '["SetProperty", "?var|node", {"property": "?var"|value}]'
@@ -27,9 +27,14 @@ func build_from_repr(json_repr) -> void:
 func trigger(bindings: Dictionary) -> Array[Variant]:
 	var results: Array[Variant] = []
 	for setter in _get_action_nodes(bindings):
-		if _property in setter:
-			setter.set(_property, _value)
-			results.append(_value)
-		else:
+		if not _property in setter:
 			print_debug("Invalid SetPropertyAction property")
+			continue
+
+		var value_to_set = _value
+		if _value is String and _value.begins_with('?'):
+			value_to_set = bindings.get(_value.trim_prefix('?'))
+		setter.set(_property, value_to_set)
+		results.append(value_to_set)
+
 	return results
