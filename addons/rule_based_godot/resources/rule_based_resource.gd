@@ -12,7 +12,7 @@ static func json_format() -> String:
 func setup(system_node: Node) -> void:
 	_system_node = system_node
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# Abstract method
 	push_error("Abstract method call")
 	return ""

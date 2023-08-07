@@ -19,13 +19,12 @@ func setup(system_node: Node) -> void:
 	for action in actions:
 		action.setup(system_node)
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# {"if": condition, "then": [actions]}
-	var actions_string: String
+	var actions_array := []
 	for action in actions:
-		actions_string += action.to_json_string() + ", "
-	return '{"if": ' + condition.to_json_string() + \
-			', "then": [' + actions_string + ']}'
+		actions_array.append(action.to_json_repr())
+	return {"if": condition.to_json_repr(), "then": actions_array}
 
 func build_from_repr(json_repr) -> void:
 	# {"if": condition, "then": [actions]}

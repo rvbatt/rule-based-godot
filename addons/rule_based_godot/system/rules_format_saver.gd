@@ -16,10 +16,10 @@ func _save(resource, path, flags) -> Error:
 	if file == null:
 		return FileAccess.get_open_error()
 
-	if not resource.has_method("to_json_string"):
+	if not resource.has_method("to_json_repr"):
 		return ERR_INVALID_PARAMETER
 
-	file.store_string(resource.to_json_string())
+	file.store_string(JSON.stringify(resource.to_json_repr()))
 	file.close()
 
 	return OK

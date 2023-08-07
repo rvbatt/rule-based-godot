@@ -14,13 +14,12 @@ func setup(system_node: Node) -> void:
 	for rule in rules:
 		rule.setup(system_node)
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# {"Rules": [rules]}
-	var rules_repr: String
+	var rules_array
 	for rule in rules:
-		rules_repr += rule.to_json_string() + ",\n\t"
-
-	return '{"Rules": [\n\t' + rules_repr + '\n]}'
+		rules_array.append(rule.to_json_repr())
+	return {"Rules": rules_array}
 
 func build_from_repr(json_repr) -> void:
 	# {"Rules": [rules]}
