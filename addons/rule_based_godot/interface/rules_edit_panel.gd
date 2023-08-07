@@ -10,6 +10,7 @@ func _ready():
 		"if": Color(0.40000000596046, 0.89803922176361, 1),
 		"then": Color(0.40000000596046, 0.89803922176361, 1),
 	}
+	$CodeEdit.syntax_highlighter.function_color = Color(0.38823530077934, 0.76078432798386, 0.34901961684227)
 
 	$Buttons/MatchButton.clear()
 	$Buttons/MatchButton.add_separator("New Match")

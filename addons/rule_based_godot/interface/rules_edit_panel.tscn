@@ -5,6 +5,7 @@
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
 number_color = Color(0.631373, 1, 0.878431, 1)
 symbol_color = Color(1, 0.929412, 0.631373, 1)
+function_color = Color(0.388235, 0.760784, 0.34902, 1)
 keyword_colors = {
 "AND": Color(1, 0.439216, 0.521569, 1),
 "AreaDetection": Color(1, 0.439216, 0.521569, 1),
