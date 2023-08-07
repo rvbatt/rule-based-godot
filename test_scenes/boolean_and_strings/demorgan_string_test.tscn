@@ -11,40 +11,39 @@
 
 [sub_resource type="Resource" id="Resource_8xp5r"]
 script = ExtResource("3_om3es")
-property = &"color"
-type_and_value = {
-"Color": Color(1, 0.498039, 0, 1)
+property_and_value = {
+"color": Color(1, 0.498039, 0, 1)
 }
 AN_is_wildcard = false
 AN_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_vg4tm"]
-resource_name = "red"
+[sub_resource type="Resource" id="Resource_dkbwi"]
 script = ExtResource("6_ha2k4")
 string_value = "red"
-OI_access_type = 0
-OI_property = &"text"
-TN_is_wildcard = false
-TN_path = NodePath("../LineEdit")
+target_is_wildcard = false
+target_path = NodePath("../LineEdit")
+extraction_type = 0
+extraction_property = &"text"
+retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_uqy74"]
 resource_name = "not red"
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_vg4tm")
+negated_condition = SubResource("Resource_dkbwi")
 
-[sub_resource type="Resource" id="Resource_jedvr"]
-resource_name = "yellow"
+[sub_resource type="Resource" id="Resource_upjy1"]
 script = ExtResource("6_ha2k4")
 string_value = "yellow"
-OI_access_type = 0
-OI_property = &"text"
-TN_is_wildcard = false
-TN_path = NodePath("../LineEdit2")
+target_is_wildcard = false
+target_path = NodePath("../LineEdit2")
+extraction_type = 0
+extraction_property = &"text"
+retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_57bij"]
 resource_name = "not yellow"
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_jedvr")
+negated_condition = SubResource("Resource_upjy1")
 
 [sub_resource type="Resource" id="Resource_5pes1"]
 resource_name = "not red or not yellow"
@@ -63,7 +62,6 @@ actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstra
 
 [sub_resource type="Resource" id="Resource_v38go"]
 script = ExtResource("7_7r6r6")
-_rule_based_godot = &"RuleSet"
 rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_88ps3")])
 
 [node name="DeMorganStringTest" type="Node2D"]

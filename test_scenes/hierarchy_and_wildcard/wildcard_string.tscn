@@ -12,9 +12,8 @@
 
 [sub_resource type="Resource" id="Resource_xg7ci"]
 script = ExtResource("3_jauo2")
-property = &"string"
-type_and_value = {
-"String": "deu certo"
+property_and_value = {
+"string": "Wildcard"
 }
 AN_is_wildcard = true
 AN_identifier = &"var"
