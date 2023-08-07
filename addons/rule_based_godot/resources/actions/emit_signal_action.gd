@@ -7,9 +7,9 @@ extends AbstractAction
 static func json_format() -> String:
 	return '["EmitSignal", "?var|node", "signal"]'
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# Follows json_format
-	return JSON.stringify(["EmitSignal", _var_or_path_string(), signal_name])
+	return ["EmitSignal", _var_or_path_string(), signal_name]
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

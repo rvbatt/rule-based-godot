@@ -8,10 +8,9 @@ extends AbstractAction
 static func json_format() -> String:
 	return '["CallMethod", "?var"|"node", "method", ["?vars"|arguments]]'
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# Follows json_format
-	return JSON.stringify(["CallMethod", _var_or_path_string(), method,
-			var_to_str(arguments)])
+	return ["CallMethod", _var_or_path_string(), method, var_to_str(arguments)]
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format

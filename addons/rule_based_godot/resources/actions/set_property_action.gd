@@ -14,10 +14,9 @@ var _value: Variant = null
 static func json_format() -> String:
 	return '["SetProperty", "?var|node", {"property": "?var"|value}]'
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# Follows json_format
-	return JSON.stringify(["SetProperty", _var_or_path_string(),
-			var_to_str(property_and_value)])
+	return ["SetProperty", _var_or_path_string(), var_to_str(property_and_value)]
 
 func build_from_repr(json_repr) -> void:
 	# Follows json_format
