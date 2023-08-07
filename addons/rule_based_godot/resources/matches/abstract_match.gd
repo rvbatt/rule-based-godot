@@ -138,7 +138,7 @@ func _retrieval_properties() -> Array[Dictionary]:
 		"hint_string": "retrieval"}
 	]
 	if not Data_Retrieval: return properties
-	
+
 	properties.append(
 		{"name": "retrieval_should_retrieve",
 		"type": TYPE_BOOL,

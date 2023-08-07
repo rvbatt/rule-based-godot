@@ -10,12 +10,9 @@ func setup(system_node: Node) -> void:
 	if negated_condition != null:
 		negated_condition.setup(system_node)
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# ["NOT", condition]
-	var string = '["NOT", '
-	if negated_condition != null:
-			string += negated_condition.to_json_string()
-	return string + ']'
+	return ["NOT", negated_condition.to_json_repr()]
 
 func build_from_repr(json_repr) -> void:
 	# ["NOT", condition]

@@ -14,13 +14,12 @@ func setup(system_node: Node) -> void:
 		if condition == null: continue
 		condition.setup(system_node)
 
-func to_json_string() -> String:
+func to_json_repr() -> Variant:
 	# ["OR", [conditions]]
-	var subconditions_string: String
+	var conditions_array := []
 	for condition in subconditions:
-		subconditions_string += condition.to_json_string() + ", "
-
-	return '["OR", [' + subconditions_string + ']]'
+		conditions_array.append(condition.to_json_repr())
+	return ["OR", conditions_array]
 
 func build_from_repr(json_repr) -> void:
 	# ["OR", [conditions]]
