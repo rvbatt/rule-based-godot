@@ -9,13 +9,18 @@ var Agent_Nodes: bool = true:
 		Agent_Nodes = value
 		notify_property_list_changed()
 # Group: Agent_Nodes, prefix: agent
-var agent_is_wildcard: bool = false:
+enum AgentType {PATH, GROUPS, WILDCARD}
+var agent_type: AgentType = AgentType.PATH:
 	set(value):
-		agent_is_wildcard = value
+		agent_type = value
 		notify_property_list_changed()
-var agent_identifier: StringName = ""
+
 var agent_path: NodePath = ^"."
-var _agent_node: Node
+var _agent_node: Node = null
+
+var agent_groups: PackedStringArray = []
+
+var agent_identifier: StringName = ""
 
 func _get_property_list():
 	var properties: Array[Dictionary] = [
@@ -26,24 +31,38 @@ func _get_property_list():
 	]
 	if not Agent_Nodes: return properties
 
+	var agent_types := ""
+	for type in AgentType:
+		agent_types += type.capitalize() + ","
+	agent_types = agent_types.trim_suffix(",")
 	properties.append(
-		{"name": "agent_is_wildcard",
-		"type": TYPE_BOOL,
-		"usage": PROPERTY_USAGE_DEFAULT}
+		{"name": "agent_type",
+		"type": TYPE_INT,
+		"usage": PROPERTY_USAGE_DEFAULT,
+		"hint": PROPERTY_HINT_ENUM,
+		"hint_string": agent_types}
 	)
-	if agent_is_wildcard:
-		properties.append(
+	match agent_type:
+		AgentType.PATH:
+			properties.append(
+				{"name": "agent_path",
+				"type": TYPE_NODE_PATH,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE}
+			)
+		AgentType.GROUPS:
+			properties.append(
+				{"name": "agent_groups",
+				"type": TYPE_PACKED_STRING_ARRAY,
+				"usage": PROPERTY_USAGE_DEFAULT}
+			)
+		AgentType.WILDCARD:
+			properties.append(
 			{"name": "agent_identifier",
 			"type": TYPE_STRING_NAME,
 			"usage": PROPERTY_USAGE_DEFAULT}
-		)
-	else:
-		properties.append(
-			{"name": "agent_path",
-			"type": TYPE_NODE_PATH,
-			"usage": PROPERTY_USAGE_DEFAULT,
-			"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE}
-		)
+			)
+
 	return properties
 
 var _preset_signals = {} # name_var -> param_to_type_var
@@ -60,15 +79,14 @@ func signal_param_array(param_to_type: Dictionary) -> Array[Dictionary]:
 
 func setup(system_node: Node) -> void:
 	_system_node = system_node
-	if agent_is_wildcard: return
+	if agent_type == AgentType.PATH:
+		_agent_node = system_node.get_node(agent_path)
+		for name_var in _preset_signals:
+			var signal_name = get(name_var)
+			if _agent_node.has_signal(signal_name): continue
 
-	_agent_node = system_node.get_node(agent_path)
-	for name_var in _preset_signals:
-		var signal_name = get(name_var)
-		if _agent_node.has_signal(signal_name): continue
-
-		var params = signal_param_array(get(_preset_signals[name_var]))
-		_agent_node.add_user_signal(get(name_var), params)
+			var params = signal_param_array(get(_preset_signals[name_var]))
+			_agent_node.add_user_signal(get(name_var), params)
 
 func trigger(bindings: Dictionary) -> Array:
 	# Uses Template Method
@@ -84,34 +102,50 @@ func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:
 	return null
 
 func _get_agent_nodes(bindings: Dictionary) -> Array:
-	if agent_is_wildcard:
-		var bound_nodes: Array = bindings.get(agent_identifier, [])
-		if bound_nodes.is_empty():
-			print_debug("No nodes to perform Action")
-		return bound_nodes
-	else:
-		return [_agent_node]
+	var agents := []
+	match agent_type:
+		AgentType.PATH:
+			agents.append(_agent_node)
+		AgentType.GROUPS:
+			var scene: SceneTree = _system_node.get_tree()
+			for group in agent_groups:
+				agents.append_array(scene.get_nodes_in_group(group))
+		AgentType.WILDCARD:
+			agents = bindings.get(agent_identifier, [])
+		_:
+			print_debug("Invalid agent type")
+
+	if agents.is_empty():
+		print_debug("No nodes to perform Action")
+	return agents
 
 func to_json_repr() -> Variant:
-	# ["ID", "?wild"|"agent", vars...]
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
 	var json_array = [action_id]
-	if agent_is_wildcard:
-		json_array.append(var_to_str('?' + agent_identifier))
-	else:
-		json_array.append(var_to_str(agent_path))
+	match agent_type:
+		AgentType.PATH:
+			json_array.append(var_to_str(agent_path))
+		AgentType.GROUPS:
+			json_array.append(var_to_str(agent_groups))
+		AgentType.WILDCARD:
+			json_array.append(var_to_str('?' + agent_identifier))
+
 	for variable in repr_vars:
 		json_array.append(var_to_str(get(variable)))
 	return json_array
 
 func build_from_repr(json_repr) -> void:
-	# ["ID", "?wild"|"agent", vars...]
-	var var_or_path = str_to_var(json_repr[1])
-	if var_or_path is String and var_or_path.begins_with('?'):
-		agent_is_wildcard = true
-		agent_identifier = var_or_path.trim_prefix('?')
-	elif var_or_path is NodePath:
-		agent_is_wildcard = false
-		agent_path = var_or_path
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	var first_param = str_to_var(json_repr[1])
+	if first_param is NodePath:
+		agent_type = AgentType.PATH
+		agent_path = first_param
+	elif first_param is Array:
+		agent_type = AgentType.GROUPS
+		agent_groups = first_param
+	elif first_param is String and first_param.begins_with('?'):
+		agent_type = AgentType.WILDCARD
+		agent_identifier = first_param.trim_prefix('?')
 
 	for i in range(repr_vars.size()):
 		set(repr_vars[i], str_to_var(json_repr[i+2]))
