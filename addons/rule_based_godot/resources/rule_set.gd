@@ -16,7 +16,7 @@ func setup(system_node: Node) -> void:
 
 func to_json_repr() -> Variant:
 	# {"Rules": [rules]}
-	var rules_array
+	var rules_array := []
 	for rule in rules:
 		rules_array.append(rule.to_json_repr())
 	return {"Rules": rules_array}
