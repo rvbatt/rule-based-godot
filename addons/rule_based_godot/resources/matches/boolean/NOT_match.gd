@@ -12,7 +12,7 @@ func setup(system_node: Node) -> void:
 
 func to_json_repr() -> Variant:
 	# ["NOT", condition]
-	return ["NOT", negated_condition.to_json_repr()]
+	return [&"NOT", negated_condition.to_json_repr()]
 
 func build_from_repr(json_repr) -> void:
 	# ["NOT", condition]
