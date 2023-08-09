@@ -14,26 +14,17 @@ var _value: Variant = null
 static func json_format() -> String:
 	return '["SetProperty", "?var|node", {"property": "?var"|value}]'
 
-func to_json_repr() -> Variant:
-	# Follows json_format
-	return ["SetProperty", _var_or_path_string(), var_to_str(property_and_value)]
+func _init():
+	action_id = "SetProperty"
+	repr_vars = ["property_and_value"]
 
-func build_from_repr(json_repr) -> void:
-	# Follows json_format
-	_build_var_or_path(json_repr[1])
-	property_and_value = str_to_var(json_repr[2])
+func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:
+	if not _property in agent:
+		print_debug("Invalid SetPropertyAction property")
+		return null
 
-func trigger(bindings: Dictionary) -> Array[Variant]:
-	var results: Array[Variant] = []
-	for setter in _get_action_nodes(bindings):
-		if not _property in setter:
-			print_debug("Invalid SetPropertyAction property")
-			continue
-
-		var value_to_set = _value
-		if _value is String and _value.begins_with('?'):
-			value_to_set = bindings.get(_value.trim_prefix('?'))
-		setter.set(_property, value_to_set)
-		results.append(value_to_set)
-
-	return results
+	var value_to_set = _value
+	if _value is String and _value.begins_with('?'):
+		value_to_set = bindings.get(_value.trim_prefix('?'))
+	agent.set(_property, value_to_set)
+	return value_to_set

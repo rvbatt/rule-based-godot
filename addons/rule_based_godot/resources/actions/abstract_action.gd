@@ -1,72 +1,99 @@
 extends RuleBasedResource
 class_name AbstractAction
 
-@export_group("Action Node", "AN")
-@export var AN_is_wildcard: bool = false:
+var action_id: StringName
+var repr_vars: Array[StringName] # variables of json format
+
+var Agent_Nodes: bool = true:
 	set(value):
-		AN_is_wildcard = value
+		Agent_Nodes = value
 		notify_property_list_changed()
+# Group: Agent_Nodes, prefix: agent
+var agent_is_wildcard: bool = false:
+	set(value):
+		agent_is_wildcard = value
+		notify_property_list_changed()
+var agent_identifier: StringName = ""
+var agent_path: NodePath = ^"."
 
-var AN_identifier: StringName
-var AN_path: NodePath = ^"."
-
-var _action_node: Node
-
-func setup(system_node: Node) -> void:
-	_system_node = system_node
-	if not AN_is_wildcard:
-		_action_node = system_node.get_node(AN_path)
-
-func trigger(bindings: Dictionary) -> Array[Variant]:
-	# Abstract method
-	push_error("Abstract Method Call")
-	return []
+var _agent_node: Node
 
 func _get_property_list():
-	var properties := []
+	var properties: Array[Dictionary] = [
+		{"name": "Agent_Nodes",
+		"type": TYPE_BOOL,
+		"usage": PROPERTY_USAGE_GROUP,
+		"hint_string": "agent"}
+	]
+	if not Agent_Nodes: return properties
 
-	if AN_is_wildcard:
+	properties.append(
+		{"name": "agent_is_wildcard",
+		"type": TYPE_BOOL,
+		"usage": PROPERTY_USAGE_DEFAULT}
+	)
+	if agent_is_wildcard:
 		properties.append(
-			{
-			"name": "AN_identifier",
+			{"name": "agent_identifier",
 			"type": TYPE_STRING_NAME,
-			"usage": PROPERTY_USAGE_DEFAULT,
-			"hint": PROPERTY_HINT_TYPE_STRING,
-			"hint_string": "ID"
-			}
+			"usage": PROPERTY_USAGE_DEFAULT}
 		)
 	else:
 		properties.append(
-			{
-			"name": "AN_path",
+			{"name": "agent_path",
 			"type": TYPE_NODE_PATH,
 			"usage": PROPERTY_USAGE_DEFAULT,
-			"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE,
-			"hint_string": "Node"
-			}
+			"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE}
 		)
 	return properties
 
-func _get_action_nodes(bindings: Dictionary) -> Array:
-	if AN_is_wildcard:
-		var bound_nodepaths: Array = bindings.get(AN_identifier, [])
-		if bound_nodepaths.is_empty():
-			print_debug("No nodes to perform action")
-		return bound_nodepaths
-	else:
-		return [_action_node]
+func setup(system_node: Node) -> void:
+	_system_node = system_node
+	if not agent_is_wildcard:
+		_agent_node = system_node.get_node(agent_path)
 
-func _var_or_path_string() -> String:
-	# Auxilary function
-	return '?' + AN_identifier if AN_is_wildcard else AN_path
+func trigger(bindings: Dictionary) -> Array:
+	# Uses Template Method
+	var results := []
+	for agent in _get_agent_nodes(bindings):
+		var agent_result = _result_from_agent(agent, bindings)
+		if agent_result != null:
+			results.append(agent_result)
+	return results
 
-func _build_var_or_path(var_or_node: String) -> void:
-	# Auxilary function
-	if var_or_node.begins_with('?'):
-		AN_is_wildcard = true
-		AN_identifier = var_or_node.trim_prefix('?')
-		AN_path = ^""
+func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:
+	push_error("Abstract Method")
+	return null
+
+func _get_agent_nodes(bindings: Dictionary) -> Array:
+	if agent_is_wildcard:
+		var bound_nodes: Array = bindings.get(agent_identifier, [])
+		if bound_nodes.is_empty():
+			print_debug("No nodes to perform Action")
+		return bound_nodes
 	else:
-		AN_is_wildcard = false
-		AN_identifier = ""
-		AN_path = NodePath(var_or_node)
+		return [_agent_node]
+
+func to_json_repr() -> Variant:
+	# ["ID", "?wild"|"agent", vars...]
+	var json_array = [action_id]
+	if agent_is_wildcard:
+		json_array.append(var_to_str('?' + agent_identifier))
+	else:
+		json_array.append(var_to_str(agent_path))
+	for variable in repr_vars:
+		json_array.append(var_to_str(get(variable)))
+	return json_array
+
+func build_from_repr(json_repr) -> void:
+	# ["ID", "?wild"|"agent", vars...]
+	var var_or_path = str_to_var(json_repr[1])
+	if var_or_path is String and var_or_path.begins_with('?'):
+		agent_is_wildcard = true
+		agent_identifier = var_or_path.trim_prefix('?')
+	elif var_or_path is NodePath:
+		agent_is_wildcard = false
+		agent_path = var_or_path
+
+	for i in range(repr_vars.size()):
+		set(repr_vars[i], str_to_var(json_repr[i+2]))
