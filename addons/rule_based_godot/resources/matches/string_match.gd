@@ -1,6 +1,6 @@
 @tool
 class_name StringMatch
-extends AbstractMatch
+extends DatumMatch
 
 @export var string_value: String
 

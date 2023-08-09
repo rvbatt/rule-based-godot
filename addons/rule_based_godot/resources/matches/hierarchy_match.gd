@@ -1,6 +1,6 @@
 @tool
 class_name HierarchyMatch
-extends AbstractMatch
+extends DatumMatch
 
 @export_node_path var source_node_path
 var _source_node: Node

@@ -1,6 +1,6 @@
 @tool
 class_name DistanceMatch
-extends AbstractMatch
+extends DatumMatch
 
 @export_node_path var source_node_path: NodePath
 var _source_node: Node

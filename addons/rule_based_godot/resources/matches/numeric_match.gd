@@ -1,6 +1,6 @@
 @tool
 class_name NumericMatch
-extends AbstractMatch
+extends DatumMatch
 
 @export var min_value: float
 @export var max_value: float
