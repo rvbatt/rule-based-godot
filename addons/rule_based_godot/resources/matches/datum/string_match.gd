@@ -2,7 +2,7 @@
 class_name StringMatch
 extends DatumMatch
 
-@export var string_value: String
+@export var string_value: String = ""
 
 static func json_format() -> String:
 	return '["String", "value", "?var|node", "property" | "method", {"types": "arguments"}]'

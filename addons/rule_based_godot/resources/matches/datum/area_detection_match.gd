@@ -27,7 +27,7 @@ func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 	if target_node == null:
 		print_debug("Invalid Area Detection node")
 		return false
-	if target_is_wildcard:
+	if tester_is_wildcard:
 		# All the work is done selecting the candidates
 		return true
 

@@ -5,55 +5,55 @@ extends AbstractMatch
 var repr_vars: Array[StringName] # variables of json format
 
 func _get_property_list():
-	var properties = _target_properties()
+	var properties = _tester_properties()
 	properties.append_array(_extraction_properties())
 	properties.append_array(_retrieval_properties())
 	return properties
 
 ######################### The node that will be tested #########################
-var Target_Node: bool = true:
+var Tester_Node: bool = true:
 	set(value):
-		Target_Node = value
+		Tester_Node = value
 		notify_property_list_changed()
-# Group: Target_Node, prefix: target
-var target_is_wildcard: bool = false:
+# Group: Tester_Node, prefix: tester
+var tester_is_wildcard: bool = false:
 	set(value):
-		target_is_wildcard = value
+		tester_is_wildcard = value
 		if value:
 			retrieval_should_retrieve = false
 		notify_property_list_changed()
-var target_search_groups: PackedStringArray = []
-var target_identifier: StringName = ""
-var target_path: NodePath = ^""
+var tester_search_groups: PackedStringArray = []
+var tester_identifier: StringName = ""
+var tester_path: NodePath = ^""
 
-var _target_node: Node # internal reference
+var _tester_node: Node # internal reference
 
-func _target_properties() -> Array[Dictionary]:
+func _tester_properties() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = [
-		{"name": "Target_Node",
+		{"name": "Tester_Node",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_GROUP,
-		"hint_string": "target"}
+		"hint_string": "tester"}
 	]
-	if not Target_Node: return properties
+	if not Tester_Node: return properties
 
 	properties.append(
-		{"name": "target_is_wildcard",
+		{"name": "tester_is_wildcard",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_DEFAULT}
 	)
-	if target_is_wildcard:
+	if tester_is_wildcard:
 		properties.append_array([
-			{"name": "target_search_groups",
+			{"name": "tester_search_groups",
 			"type": TYPE_PACKED_STRING_ARRAY,
 			"usage": PROPERTY_USAGE_DEFAULT},
-			{"name": "target_identifier",
+			{"name": "tester_identifier",
 			"type": TYPE_STRING_NAME,
 			"usage": PROPERTY_USAGE_DEFAULT}
 		])
 	else:
 		properties.append(
-			{"name": "target_path",
+			{"name": "tester_path",
 			"type": TYPE_NODE_PATH,
 			"usage": PROPERTY_USAGE_DEFAULT,
 			"hint": PROPERTY_HINT_NODE_PATH_TO_EDITED_NODE}
@@ -125,7 +125,7 @@ var retrieval_should_retrieve: bool = false:
 	set(value):
 		retrieval_should_retrieve = value
 		if value:
-			target_is_wildcard = false
+			tester_is_wildcard = false
 		notify_property_list_changed()
 var retrieval_variable: StringName = ""
 
@@ -157,8 +157,8 @@ func setup(system_node: Node) -> void:
 		print_debug("Setup with null system node")
 		return
 	_system_node = system_node
-	if not target_is_wildcard:
-		_target_node = system_node.get_node(target_path)
+	if not tester_is_wildcard:
+		_tester_node = system_node.get_node(tester_path)
 	for path in _preset_paths:
 		set(_preset_paths[path], system_node.get_node(get(path)))
 	for connection in _preset_connections:
@@ -179,9 +179,9 @@ func pre_connect(node_variable: StringName, signal_name: StringName,
 ############################# Is match satisfied ###############################
 func is_satisfied(bindings: Dictionary) -> bool:
 	# Uses Template method
-	if target_is_wildcard:
-		var candidates = bindings.get(target_identifier) \
-			if bindings.has(target_identifier) \
+	if tester_is_wildcard:
+		var candidates: Array = bindings.get(tester_identifier) \
+			if bindings.has(tester_identifier) \
 			else _get_candidates()
 
 		var valid_candidates := []
@@ -189,33 +189,33 @@ func is_satisfied(bindings: Dictionary) -> bool:
 			if _node_satisfies_match(candidate, bindings):
 				valid_candidates.append(candidate)
 
-		bindings[target_identifier] = valid_candidates
+		bindings[tester_identifier] = valid_candidates
 		return not valid_candidates.is_empty()
 
-	return _node_satisfies_match(_target_node, bindings)
+	return _node_satisfies_match(_tester_node, bindings)
 
 func _get_candidates() -> Array[Node]:
 	# If no group is provided, default to descendants of system node
-	if target_search_groups.is_empty():
+	if tester_search_groups.is_empty():
 		return _system_node.get_children(true)
 
 	var scene: SceneTree = _system_node.get_tree()
 	var candidates: Array[Node] = []
-	for group in target_search_groups:
+	for group in tester_search_groups:
 		candidates.append_array(scene.get_nodes_in_group(group))
 	return candidates
 
 func is_in_search_groups(node: Node) -> bool:
 	# If there is no group, allow any node
-	if target_search_groups.is_empty(): return true
+	if tester_search_groups.is_empty(): return true
 
-	for group in target_search_groups:
+	for group in tester_search_groups:
 		if node.is_in_group(group): return true
 
 	return false
 
-func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
-	var data = _get_data(target_node)
+func _node_satisfies_match(tester_node: Node, bindings: Dictionary) -> bool:
+	var data = _get_data(tester_node)
 	if retrieval_should_retrieve:
 		bindings[retrieval_variable] = data
 	return _data_satisfies_match(data)
@@ -224,8 +224,8 @@ func _data_satisfies_match(data: Variant) -> bool:
 	push_error("Abstract Method")
 	return false
 
-func _get_data(target_node: Node) -> Variant:
-	if target_node == null:
+func _get_data(tester_node: Node) -> Variant:
+	if tester_node == null:
 		print_debug("Invalid node")
 		return null
 
@@ -236,16 +236,16 @@ func _get_data(target_node: Node) -> Variant:
 
 	match extraction_type:
 		ExtractionType.PROPERTY:
-			if not extraction_property in target_node:
+			if not extraction_property in tester_node:
 				print_debug("Invalid property")
 				return null
-			return target_node.get(extraction_property)
+			return tester_node.get(extraction_property)
 
 		ExtractionType.METHOD:
-			if not target_node.has_method(extraction_method):
+			if not tester_node.has_method(extraction_method):
 				print_debug("Invalid method")
 				return null
-			return target_node.callv(extraction_method, extraction_arguments)
+			return tester_node.callv(extraction_method, extraction_arguments)
 
 		_:
 			print_debug("Invalid DataExtraction type")
@@ -253,7 +253,7 @@ func _get_data(target_node: Node) -> Variant:
 
 ################################ JSON format ###################################
 func to_json_repr() -> Variant:
-	# ["ID", ("?data"), vars..., "?wild"|"target", ("prop"|"method", [args])]
+	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var json_array = [match_id]
 	if retrieval_should_retrieve:
 		json_array.append(var_to_str('?' + retrieval_variable))
@@ -261,11 +261,11 @@ func to_json_repr() -> Variant:
 	for variable in repr_vars:
 		json_array.append(var_to_str(get(variable)))
 
-	if Target_Node:
-		if target_is_wildcard:
-			json_array.append(var_to_str('?' + target_identifier))
+	if Tester_Node:
+		if tester_is_wildcard:
+			json_array.append(var_to_str('?' + tester_identifier))
 		else:
-			json_array.append(var_to_str(target_path))
+			json_array.append(var_to_str(tester_path))
 
 	if Data_Extraction:
 		match extraction_type:
@@ -280,6 +280,7 @@ func to_json_repr() -> Variant:
 	return json_array
 
 func build_from_repr(json_repr: Array) -> void:
+	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var offset = 1
 	var first_param = str_to_var(json_repr[1])
 	if first_param is String and first_param.begins_with('?'):
@@ -294,11 +295,11 @@ func build_from_repr(json_repr: Array) -> void:
 
 	var var_or_path = str_to_var(json_repr[offset + num_vars])
 	if var_or_path is String and var_or_path.begins_with('?'):
-		target_is_wildcard = true
-		target_identifier = var_or_path.trim_prefix('?')
+		tester_is_wildcard = true
+		tester_identifier = var_or_path.trim_prefix('?')
 	elif var_or_path is NodePath:
-		target_is_wildcard = false
-		target_path = var_or_path
+		tester_is_wildcard = false
+		tester_path = var_or_path
 
 	var num_data_params = json_repr.size() - num_vars - offset - 1
 	if num_data_params == 1:
