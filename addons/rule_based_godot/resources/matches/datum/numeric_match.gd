@@ -14,5 +14,5 @@ func _init():
 	repr_vars = ["min_value", "max_value"]
 
 func _data_satisfies_match(data: Variant) -> bool:
-	if not data is float or data is int: return false
+	if (not data is float) and (not data is int): return false
 	return (min_value <= data) and (data <= max_value)

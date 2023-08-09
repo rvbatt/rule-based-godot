@@ -20,5 +20,5 @@ func _get_data(target_node: Node) -> Variant:
 	return _source_node.global_position.distance_to(target_node.global_position)
 
 func _data_satisfies_match(data: Variant) -> bool:
-	if not data is float or data is int: return false
+	if (not data is float) and (not data is int): return false
 	return (min_distance <= data) and (data <= max_distance)
