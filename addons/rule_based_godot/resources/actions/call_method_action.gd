@@ -5,9 +5,6 @@ extends AbstractAction
 @export var method: StringName
 @export var arguments: Array
 
-static func json_format() -> String:
-	return '["CallMethod", "?var"|"node", "method", ["?vars"|arguments]]'
-
 func _init():
 	action_id = "CallMethod"
 	repr_vars = ["method", "arguments"]

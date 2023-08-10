@@ -1,12 +1,6 @@
 class_name ORMatch
 extends MultiBoolMatch
 
-static func json_format() -> String:
-	return '\
-["OR", [
-	conditions
-]]'
-
 func _init():
 	match_id = "OR"
 

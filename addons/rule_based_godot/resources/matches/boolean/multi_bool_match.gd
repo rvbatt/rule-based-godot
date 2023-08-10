@@ -9,6 +9,10 @@ func setup(system_node: Node) -> void:
 		if condition == null: continue
 		condition.setup(system_node)
 
+func json_format() -> String:
+	# ["ID", [conditions]]
+	return '["' + match_id + '", [conditions]]'
+
 func to_json_repr() -> Variant:
 	# ["ID", [conditions]]
 	var conditions_array := []

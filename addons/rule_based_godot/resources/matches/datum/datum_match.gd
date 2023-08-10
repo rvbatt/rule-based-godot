@@ -252,6 +252,14 @@ func _get_data(tester_node: Node) -> Variant:
 			return null
 
 ################################ JSON format ###################################
+func json_format() -> String:
+	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
+	var string = '["' + match_id + '", ("?data")'
+	for variable in repr_vars:
+		string += ', ' + variable
+	string += ', "?wild"|"tester", ("prop"|"method", [args])]'
+	return string
+
 func to_json_repr() -> Variant:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var json_array = [match_id]

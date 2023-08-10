@@ -6,18 +6,18 @@ extends RuleBasedResource
 
 var _bindings: Dictionary # variable -> value
 
-static func json_format() -> String:
+func setup(system_node: Node) -> void:
+	condition.setup(system_node)
+	for action in actions:
+		action.setup(system_node)
+
+func json_format() -> String:
 	return '\
 {"if":
 		condition,
 	"then": [
 		actions
 	]}'
-
-func setup(system_node: Node) -> void:
-	condition.setup(system_node)
-	for action in actions:
-		action.setup(system_node)
 
 func to_json_repr() -> Variant:
 	# {"if": condition, "then": [actions]}

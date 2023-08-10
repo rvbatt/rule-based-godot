@@ -4,9 +4,6 @@ extends DatumMatch
 
 @export var string_value: String = ""
 
-static func json_format() -> String:
-	return '["String", "value", "?var|node", "property" | "method", {"types": "arguments"}]'
-
 func _init():
 	Data_Extraction = true
 	match_id = "String"

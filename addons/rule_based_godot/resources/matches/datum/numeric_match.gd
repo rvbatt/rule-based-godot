@@ -5,9 +5,6 @@ extends DatumMatch
 @export var min_value: float
 @export var max_value: float
 
-static func json_format() -> String:
-	return '["Numeric", min, max, "?var|node", "property" | "method", {"types": "arguments"}]'
-
 func _init():
 	Data_Extraction = true
 	match_id = "Numeric"

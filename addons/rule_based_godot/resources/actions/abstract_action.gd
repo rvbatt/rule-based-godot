@@ -119,6 +119,13 @@ func _get_agent_nodes(bindings: Dictionary) -> Array:
 		print_debug("No nodes to perform Action")
 	return agents
 
+func json_format() -> String:
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	var string = '["' + action_id + '", "?wild"|["groups"]|"agent"'
+	for variable in repr_vars:
+		string += ', ' + variable
+	return string + ']'
+
 func to_json_repr() -> Variant:
 	# ["ID", "?wild"|["groups"]|"agent", vars...]
 	var json_array = [action_id]

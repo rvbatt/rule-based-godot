@@ -4,15 +4,15 @@ extends RuleBasedResource
 @export var _rule_based_godot: StringName = "RuleSet"
 @export var rules: Array[Rule]
 
-static func json_format() -> String:
+func setup(system_node: Node) -> void:
+	for rule in rules:
+		rule.setup(system_node)
+
+func json_format() -> String:
 	return '\
 {"Rules": [
 	rules
 ]}'
-
-func setup(system_node: Node) -> void:
-	for rule in rules:
-		rule.setup(system_node)
 
 func to_json_repr() -> Variant:
 	# {"Rules": [rules]}

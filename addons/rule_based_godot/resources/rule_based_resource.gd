@@ -4,13 +4,13 @@ class_name RuleBasedResource
 
 var _system_node: Node
 
-static func json_format() -> String:
+func setup(system_node: Node) -> void:
+	_system_node = system_node
+
+func json_format() -> String:
 	# Abstract method
 	push_error("Abstract method call")
 	return ""
-
-func setup(system_node: Node) -> void:
-	_system_node = system_node
 
 func to_json_repr() -> Variant:
 	# Abstract method

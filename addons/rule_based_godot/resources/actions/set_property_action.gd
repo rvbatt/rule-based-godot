@@ -11,9 +11,6 @@ extends AbstractAction
 var _property: StringName = ""
 var _value: Variant = null
 
-static func json_format() -> String:
-	return '["SetProperty", "?var|node", {"property": "?var"|value}]'
-
 func _init():
 	action_id = "SetProperty"
 	repr_vars = ["property_and_value"]

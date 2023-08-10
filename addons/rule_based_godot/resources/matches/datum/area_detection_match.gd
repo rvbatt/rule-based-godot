@@ -9,6 +9,8 @@ var _area # Area2D or Area3D
 var _overlapping := []
 
 func _init():
+	match_id = "AreaDetection"
+	repr_vars = ["area_path"]
 	Data_Retrieval = false
 	preset_node_path("area_path", "_area")
 	pre_connect("_area", "area_entered", _add_overlapping)
@@ -19,9 +21,6 @@ func _add_overlapping(entity: Variant) -> void:
 
 func _remove_overlapping(entity: Variant) -> void:
 	_overlapping.erase(entity)
-
-static func json_format() -> String:
-	return '["AreaDetection", "area_node", ?var|"collider"]'
 
 func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 	if target_node == null:

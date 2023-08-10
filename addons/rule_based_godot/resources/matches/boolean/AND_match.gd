@@ -1,12 +1,6 @@
 class_name ANDMatch
 extends MultiBoolMatch
 
-static func json_format() -> String:
-	return '\
-["AND", [
-	conditions
-]]'
-
 func _init():
 	match_id = "AND"
 

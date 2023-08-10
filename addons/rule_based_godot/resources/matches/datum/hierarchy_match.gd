@@ -12,9 +12,6 @@ func _init():
 	repr_vars = ["source_node_path", "relation"]
 	preset_node_path("source_node_path", "_source_node")
 
-static func json_format() -> String:
-	return '["Hierarchy", "source_node", "(Parent|Sibling|Child) of", "?var|node"]'
-
 func _get_candidates() -> Array[Node]:
 	var candidates = []
 	match relation:
