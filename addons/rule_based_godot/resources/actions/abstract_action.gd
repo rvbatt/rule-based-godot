@@ -1,7 +1,6 @@
 extends RuleBasedResource
 class_name AbstractAction
 
-var action_id: StringName
 var repr_vars: Array[StringName] # variables of json format
 
 var Agent_Nodes: bool = true:
@@ -121,14 +120,14 @@ func _get_agent_nodes(bindings: Dictionary) -> Array:
 
 func json_format() -> String:
 	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var string = '["' + action_id + '", "?wild"|["groups"]|"agent"'
+	var string = '["' + resource_id() + '", "?wild"|["groups"]|"agent"'
 	for variable in repr_vars:
 		string += ', ' + variable
 	return string + ']'
 
 func to_json_repr() -> Variant:
 	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var json_array = [action_id]
+	var json_array = [resource_id()]
 	match agent_type:
 		AgentType.PATH:
 			json_array.append(var_to_str(agent_path))

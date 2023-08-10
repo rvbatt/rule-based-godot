@@ -6,7 +6,6 @@ extends AbstractAction
 @export var arguments: Array
 
 func _init():
-	action_id = "CallMethod"
 	repr_vars = ["method", "arguments"]
 
 func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:

@@ -6,7 +6,6 @@ extends DatumMatch
 
 func _init():
 	Data_Extraction = true
-	match_id = "String"
 	repr_vars = ["string_value"]
 
 func _data_satisfies_match(data: Variant) -> bool:

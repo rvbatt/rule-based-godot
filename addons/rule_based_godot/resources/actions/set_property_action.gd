@@ -12,7 +12,6 @@ var _property: StringName = ""
 var _value: Variant = null
 
 func _init():
-	action_id = "SetProperty"
 	repr_vars = ["property_and_value"]
 
 func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:

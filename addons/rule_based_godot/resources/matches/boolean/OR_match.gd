@@ -1,9 +1,6 @@
 class_name ORMatch
 extends MultiBoolMatch
 
-func _init():
-	match_id = "OR"
-
 func is_satisfied(bindings: Dictionary) -> bool:
 	if subconditions.is_empty():
 		print_debug("Empty ORMatch")

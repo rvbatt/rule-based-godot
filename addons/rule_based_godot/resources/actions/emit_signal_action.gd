@@ -7,7 +7,6 @@ extends AbstractAction
 @export var arguments: Array = [] # same order as dict
 
 func _init():
-	action_id = "EmitSignal"
 	repr_vars = ["signal_name", "parameter_to_type", "arguments"]
 	pre_add_signal("signal_name", "parameter_to_type")
 

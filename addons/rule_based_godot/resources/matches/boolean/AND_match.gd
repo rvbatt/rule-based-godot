@@ -1,9 +1,6 @@
 class_name ANDMatch
 extends MultiBoolMatch
 
-func _init():
-	match_id = "AND"
-
 func is_satisfied(bindings: Dictionary) -> bool:
 	if subconditions.is_empty():
 		print_debug("Empty ANDMatch")

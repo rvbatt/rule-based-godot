@@ -254,7 +254,7 @@ func _get_data(tester_node: Node) -> Variant:
 ################################ JSON format ###################################
 func json_format() -> String:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
-	var string = '["' + match_id + '", ("?data")'
+	var string = '["' + resource_id() + '", ("?data")'
 	for variable in repr_vars:
 		string += ', ' + variable
 	string += ', "?wild"|"tester", ("prop"|"method", [args])]'
@@ -262,7 +262,7 @@ func json_format() -> String:
 
 func to_json_repr() -> Variant:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
-	var json_array = [match_id]
+	var json_array = [resource_id()]
 	if retrieval_should_retrieve:
 		json_array.append(var_to_str('?' + retrieval_variable))
 

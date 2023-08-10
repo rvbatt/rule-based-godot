@@ -8,7 +8,6 @@ var _source_node: Node
 @export var max_distance: float
 
 func _init():
-	match_id = "Distance"
 	repr_vars = ["min_distance", "max_distance", "source_node_path"]
 	preset_node_path("source_node_path", "_source_node")
 

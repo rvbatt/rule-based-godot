@@ -7,6 +7,15 @@ var _system_node: Node
 func setup(system_node: Node) -> void:
 	_system_node = system_node
 
+func resource_id() -> String:
+	var source_code: String = get_script().source_code
+	var start_index: int = source_code.find("class_name") + 11
+	var length: int = \
+			min(source_code.find("\n", start_index), source_code.find(" ", start_index)) \
+			- start_index
+	var id: String = source_code.substr(start_index, length)
+	return id.trim_suffix("Match").trim_suffix("Action")
+
 func json_format() -> String:
 	# Abstract method
 	push_error("Abstract method call")
