@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q72k7"]
 size = Vector2(127, 127)
 
-[node name="MovableArea2D" type="Area2D"]
+[node name="MovableArea2D" type="Area2D" groups=["collider"]]
 position = Vector2(100, 100)
 script = ExtResource("1_7cntl")
 

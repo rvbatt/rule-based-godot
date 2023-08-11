@@ -10,7 +10,7 @@ func _physics_process(_delta):
 func run_tests(_argument):
 	$RuleBasedSystem.test_rules()
 
-func test_signal():
+func test_signal(_arg):
 	print("Signal received")
 
 func _unhandled_input(event):

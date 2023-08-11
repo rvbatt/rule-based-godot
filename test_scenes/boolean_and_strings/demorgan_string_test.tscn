@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_om3es"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="5_o63fc"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/string_match.gd" id="6_ha2k4"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="7_7r6r6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="7_7r6r6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="7_xxitk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="8_eeqa2"]
 
