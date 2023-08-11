@@ -11,9 +11,6 @@ extends AbstractAction
 var _property: StringName = ""
 var _value: Variant = null
 
-func _init():
-	repr_vars = ["property_and_value"]
-
 func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:
 	if not _property in agent:
 		print_debug("Invalid SetPropertyAction property")

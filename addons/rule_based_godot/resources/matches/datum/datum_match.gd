@@ -2,8 +2,6 @@ class_name DatumMatch
 extends AbstractMatch
 # Abstract class for condition components
 
-var repr_vars: Array[StringName] # variables of json format
-
 func _get_property_list():
 	var properties = _tester_properties()
 	properties.append_array(_extraction_properties())
@@ -255,7 +253,7 @@ func _get_data(tester_node: Node) -> Variant:
 func json_format() -> String:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var string = '["' + resource_id() + '", ("?data")'
-	for variable in repr_vars:
+	for variable in exported_vars():
 		string += ', ' + variable
 	string += ', "?wild"|"tester", ("prop"|"method", [args])]'
 	return string
@@ -266,7 +264,7 @@ func to_json_repr() -> Variant:
 	if retrieval_should_retrieve:
 		json_array.append(var_to_str('?' + retrieval_variable))
 
-	for variable in repr_vars:
+	for variable in exported_vars():
 		json_array.append(var_to_str(get(variable)))
 
 	if Tester_Node:
@@ -297,11 +295,12 @@ func build_from_repr(json_repr: Array) -> void:
 		retrieval_variable = first_param.trim_prefix('?')
 		offset = 2
 
-	var num_vars = repr_vars.size()
+	var export_vars = exported_vars()
+	var num_vars = export_vars.size()
 	for i in range(num_vars):
-		set(repr_vars[i], str_to_var(json_repr[i+offset]))
+		set(export_vars[i], str_to_var(json_repr[i + offset]))
 
-	var var_or_path = str_to_var(json_repr[offset + num_vars])
+	var var_or_path = str_to_var(json_repr[num_vars + offset])
 	if var_or_path is String and var_or_path.begins_with('?'):
 		tester_is_wildcard = true
 		tester_identifier = var_or_path.trim_prefix('?')

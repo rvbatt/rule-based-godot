@@ -1,8 +1,6 @@
 extends RuleBasedResource
 class_name AbstractAction
 
-var repr_vars: Array[StringName] # variables of json format
-
 var Agent_Nodes: bool = true:
 	set(value):
 		Agent_Nodes = value
@@ -121,7 +119,7 @@ func _get_agent_nodes(bindings: Dictionary) -> Array:
 func json_format() -> String:
 	# ["ID", "?wild"|["groups"]|"agent", vars...]
 	var string = '["' + resource_id() + '", "?wild"|["groups"]|"agent"'
-	for variable in repr_vars:
+	for variable in exported_vars():
 		string += ', ' + variable
 	return string + ']'
 
@@ -136,7 +134,7 @@ func to_json_repr() -> Variant:
 		AgentType.WILDCARD:
 			json_array.append(var_to_str('?' + agent_identifier))
 
-	for variable in repr_vars:
+	for variable in exported_vars():
 		json_array.append(var_to_str(get(variable)))
 	return json_array
 
@@ -153,5 +151,6 @@ func build_from_repr(json_repr) -> void:
 		agent_type = AgentType.WILDCARD
 		agent_identifier = first_param.trim_prefix('?')
 
-	for i in range(repr_vars.size()):
-		set(repr_vars[i], str_to_var(json_repr[i+2]))
+	var export_vars = exported_vars()
+	for i in range(export_vars.size()):
+		set(export_vars[i], str_to_var(json_repr[i+2]))

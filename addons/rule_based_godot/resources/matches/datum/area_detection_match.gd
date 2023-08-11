@@ -9,7 +9,6 @@ var _area # Area2D or Area3D
 var _overlapping := []
 
 func _init():
-	repr_vars = ["area_path"]
 	Data_Retrieval = false
 	preset_node_path("area_path", "_area")
 	pre_connect("_area", "area_entered", _add_overlapping)

@@ -8,7 +8,6 @@ var _source_node: Node
 
 func _init():
 	Data_Retrieval = false
-	repr_vars = ["source_node_path", "relation"]
 	preset_node_path("source_node_path", "_source_node")
 
 func _get_candidates() -> Array[Node]:

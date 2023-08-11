@@ -7,7 +7,6 @@ extends DatumMatch
 
 func _init():
 	Data_Extraction = true
-	repr_vars = ["min_value", "max_value"]
 
 func _data_satisfies_match(data: Variant) -> bool:
 	if (not data is float) and (not data is int): return false
