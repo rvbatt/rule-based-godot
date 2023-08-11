@@ -5,6 +5,7 @@ var actions: Dictionary:
 	set(value):
 		if not _initialized:
 			actions = value
+
 var matches: Dictionary:
 	set(value):
 		if not _initialized:
