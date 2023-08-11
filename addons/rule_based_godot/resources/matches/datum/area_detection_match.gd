@@ -13,6 +13,8 @@ func _init():
 	preset_node_path("area_path", "_area")
 	pre_connect("_area", "area_entered", _add_overlapping)
 	pre_connect("_area", "body_entered", _add_overlapping)
+	pre_connect("_area", "area_exited", _remove_overlapping)
+	pre_connect("_area", "body_exited", _remove_overlapping)
 
 func _add_overlapping(entity: Variant) -> void:
 	_overlapping.append(entity)
