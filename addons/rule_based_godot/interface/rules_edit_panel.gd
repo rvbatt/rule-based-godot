@@ -4,6 +4,8 @@ class_name RulesEditorPanel
 
 signal rule_set_defined(rules_string)
 
+var rule_factory := RuleFactory.new()
+
 func _ready():
 	$CodeEdit.syntax_highlighter.keyword_colors = {
 		"Rules": Color(1, 0.69803923368454, 0.45098039507866),
@@ -14,15 +16,14 @@ func _ready():
 
 	$Buttons/MatchButton.clear()
 	$Buttons/MatchButton.add_separator("New Match")
-
-	for match_name in RuleFactory.MATCHES():
+	for match_name in rule_factory.matches:
 		$Buttons/MatchButton.add_item(match_name)
 		$CodeEdit.syntax_highlighter.keyword_colors[match_name] = Color(1, 0.43921568989754, 0.52156865596771)
 	$Buttons/MatchButton.selected = 0
 
 	$Buttons/ActionButton.clear()
 	$Buttons/ActionButton.add_separator("New Action")
-	for action_name in RuleFactory.ACTIONS():
+	for action_name in rule_factory.actions:
 		$Buttons/ActionButton.add_item(action_name)
 		$CodeEdit.syntax_highlighter.keyword_colors[action_name] = Color(1, 0.54901963472366, 0.80000001192093)
 	$Buttons/ActionButton.selected = 0
@@ -41,20 +42,18 @@ func _apply_rules_string():
 
 func _insert_new_rule():
 	$CodeEdit.delete_selection()
-	$CodeEdit.insert_text_at_caret(Rule.json_format())
+	$CodeEdit.insert_text_at_caret(rule_factory.get_rule_format())
 
 func _insert_new_match(index: int):
 	$CodeEdit.delete_selection()
 
 	var match_name = $Buttons/MatchButton.get_item_text(index)
-	var match_type = RuleFactory.MATCHES()[match_name]
-	$CodeEdit.insert_text_at_caret(match_type.json_format())
+	$CodeEdit.insert_text_at_caret(rule_factory.get_match_format(match_name))
 	$Buttons/MatchButton.selected = 0
 
 func _insert_new_action(index: int):
 	$CodeEdit.delete_selection()
 
 	var action_name = $Buttons/ActionButton.get_item_text(index)
-	var action_type = RuleFactory.ACTIONS()[action_name]
-	$CodeEdit.insert_text_at_caret(action_type.json_format())
+	$CodeEdit.insert_text_at_caret(rule_factory.get_action_format(action_name))
 	$Buttons/ActionButton.selected = 0

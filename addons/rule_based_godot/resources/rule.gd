@@ -5,6 +5,7 @@ extends RuleBasedResource
 @export var actions: Array[AbstractAction]
 
 var _bindings: Dictionary # variable -> value
+var _rule_factory := RuleFactory.new()
 
 func setup(system_node: Node) -> void:
 	condition.setup(system_node)
@@ -32,10 +33,10 @@ func build_from_repr(json_repr) -> void:
 		push_error(error_string(ERR_INVALID_PARAMETER))
 		return
 
-	condition = RuleFactory.create_match(json_repr["if"])
+	condition = _rule_factory.build_match(json_repr["if"])
 	actions = []
 	for action_repr in json_repr["then"]:
-		actions.append(RuleFactory.create_action(action_repr))
+		actions.append(_rule_factory.build_action(action_repr))
 
 func condition_satisfied() -> bool:
 	_bindings.clear()

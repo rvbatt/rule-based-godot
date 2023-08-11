@@ -3,6 +3,8 @@ extends AbstractMatch
 
 @export var negated_condition: AbstractMatch
 
+var _rule_factory := RuleFactory.new()
+
 func setup(system_node: Node) -> void:
 	if negated_condition != null:
 		negated_condition.setup(system_node)
@@ -12,11 +14,11 @@ func json_format() -> String:
 
 func to_json_repr() -> Variant:
 	# ["NOT", condition]
-	return [&"NOT", negated_condition.to_json_repr()]
+	return ["NOT", negated_condition.to_json_repr()]
 
 func build_from_repr(json_repr) -> void:
 	# ["NOT", condition]
-	negated_condition = RuleFactory.create_match(json_repr[1])
+	negated_condition = _rule_factory.build_match(json_repr[1])
 
 func is_satisfied(bindings: Dictionary) -> bool:
 	if negated_condition == null:
