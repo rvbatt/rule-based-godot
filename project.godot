@@ -10,13 +10,16 @@ config_version=5
 
 [application]
 
-config/name="Rule-Based Godot"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/rule_based_godot/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
