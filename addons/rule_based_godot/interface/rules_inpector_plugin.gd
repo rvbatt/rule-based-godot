@@ -1,12 +1,11 @@
 @tool
 extends EditorInspectorPlugin
-class_name RulesInspectorPlugin
 
-var _rules_edit_panel: RulesEditorPanel
+var _rules_edit_panel: Control
 var _rules_edit_button: Button
 var _current_system_node: RuleBasedSystem
 
-func set_rules_editor(panel: RulesEditorPanel, button: Button):
+func set_rules_editor(panel: Control, button: Button):
 	_rules_edit_panel = panel
 	_rules_edit_button = button
 

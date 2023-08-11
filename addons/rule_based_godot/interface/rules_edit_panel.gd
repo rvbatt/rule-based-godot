@@ -1,6 +1,5 @@
 @tool
 extends VBoxContainer
-class_name RulesEditorPanel
 
 signal rule_set_defined(rules_string)
 

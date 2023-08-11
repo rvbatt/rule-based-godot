@@ -5,7 +5,7 @@ const BOTTOM_PANEL_PATH: String = "res://addons/rule_based_godot/interface/rules
 const INSPECTOR_PATH: String = "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
 
 var rules_edit_panel: Control
-var inspector_plugin: RulesInspectorPlugin
+var inspector_plugin: EditorInspectorPlugin
 
 func _enter_tree():
 	# Initialization of the plugin goes here.
