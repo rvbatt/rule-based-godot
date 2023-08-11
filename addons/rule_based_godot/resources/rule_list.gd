@@ -51,13 +51,13 @@ func add_rules(rules: Array[Rule]) -> void:
 
 func remove_rule_by_name(rule_name: StringName) -> void:
 	for rule in rules:
-		if rule.resource_id() == rule_name:
+		if rule.resource_name == rule_name:
 			rules.erase(rule)
 			break
 
 func get_rule_by_name(rule_name: StringName) -> Rule:
 	for rule in rules:
-		if rule.resource_id() == rule_name:
+		if rule.resource_name == rule_name:
 			return rule
 	return null
 

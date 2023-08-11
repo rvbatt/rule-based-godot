@@ -15,19 +15,18 @@ var _initialized = false
 
 func _init():
 	var all_classes = ProjectSettings.get_global_class_list()
-	matches = id_to_script_dict(all_classes, is_valid_match)
-	actions = id_to_script_dict(all_classes, is_valid_action)
+	matches = _id_to_script_dict(all_classes,
+		func(class_dict):
+			return class_dict["base"] == "DatumMatch" or \
+				class_dict["base"] == "MultiBoolMatch" or \
+				class_dict["class"] == "NOTMatch"
+	)
+	actions = _id_to_script_dict(all_classes,
+		func(class_dict): return class_dict["base"] == "AbstractAction"
+	)
 	_initialized = true
 
-func is_valid_match(class_dict: Dictionary) -> bool:
-	return class_dict["base"] == "DatumMatch" or \
-			class_dict["base"] == "MultiBoolMatch" or \
-			class_dict["class"] == "NOTMatch"
-
-func is_valid_action(class_dict: Dictionary) -> bool:
-	return class_dict["base"] == "AbstractAction"
-
-func id_to_script_dict(classes: Array[Dictionary], filter: Callable) -> Dictionary:
+func _id_to_script_dict(classes: Array[Dictionary], filter: Callable) -> Dictionary:
 	var id_to_path := {}
 	for class_dict in classes.filter(filter):
 		var id = class_dict["class"].trim_suffix("Match").trim_suffix("Action")

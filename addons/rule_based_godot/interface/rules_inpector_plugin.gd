@@ -35,6 +35,8 @@ func _parse_end(object):
 	pass
 
 func _apply_current_rules(rules_string: String):
+	if _current_system_node == null: return
+
 	var rule_list = RuleList.new()
 	rule_list.build_from_repr(JSON.parse_string(rules_string))
 	_current_system_node.set("rule_list", rule_list)

@@ -27,7 +27,3 @@ func build_from_repr(json_repr) -> void:
 	for match_repr in json_repr[1]:
 		var new_condition = _rule_factory.build_match(match_repr)
 		subconditions.append(new_condition)
-
-func is_satisfied(bindings: Dictionary) -> bool:
-	push_error("Abstract method")
-	return false
