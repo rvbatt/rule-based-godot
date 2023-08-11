@@ -2,9 +2,9 @@ class_name RulesFormatSaver
 extends ResourceFormatSaver
 
 func _recognize(resource):
-	# Recognizes RuleSet
+	# Recognizes RuleList
 	if "_rule_based_godot" in resource:
-		return resource.get("_rule_based_godot") == "RuleSet"
+		return resource.get("_rule_based_godot") == "RuleList"
 	return false
 
 func _get_recognized_extensions(resource):

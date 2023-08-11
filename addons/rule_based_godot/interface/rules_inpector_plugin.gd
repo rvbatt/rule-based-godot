@@ -9,7 +9,7 @@ func set_rules_editor(panel: Control, button: Button):
 	_rules_edit_panel = panel
 	_rules_edit_button = button
 
-	_rules_edit_panel.rule_set_defined.connect(_apply_current_rules)
+	_rules_edit_panel.rule_list_defined.connect(_apply_current_rules)
 
 func _can_handle(object):
 	return "_rule_based_godot" in object
@@ -35,6 +35,6 @@ func _parse_end(object):
 	pass
 
 func _apply_current_rules(rules_string: String):
-	var rule_set = RuleSet.new()
-	rule_set.build_from_repr(JSON.parse_string(rules_string))
-	_current_system_node.set("rule_set", rule_set)
+	var rule_list = RuleList.new()
+	rule_list.build_from_repr(JSON.parse_string(rules_string))
+	_current_system_node.set("rule_list", rule_list)

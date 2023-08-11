@@ -1,7 +1,7 @@
 @tool
 extends VBoxContainer
 
-signal rule_set_defined(rules_string)
+signal rule_list_defined(rules_string)
 
 var rule_factory := RuleFactory.new()
 
@@ -37,7 +37,7 @@ func _apply_rules_string():
 		push_error("ParserError in Rules Editor")
 		return
 	if rules_repr is Dictionary and rules_repr.has("Rules"):
-		emit_signal("rule_set_defined", rules_string)
+		emit_signal("rule_list_defined", rules_string)
 
 func _insert_new_rule():
 	$CodeEdit.delete_selection()

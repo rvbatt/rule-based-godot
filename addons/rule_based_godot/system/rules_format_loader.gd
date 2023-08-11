@@ -6,22 +6,22 @@ func _get_recognized_extensions():
 	return extensions
 
 func _handles_type(type):
-	return type == "RuleSet"
+	return type == "RuleList"
 
 func _get_resource_type(path):
 	var dict = _load_json(path)
 	if dict.has("Rules"):
-		return "RuleSet"
+		return "RuleList"
 	return ""
 
 func _load(path, original_path, use_sub_threads, cache_mode) -> Variant:
-	var rule_set_repr = _load_json(path)
-	if rule_set_repr.is_empty():
+	var rule_list_repr = _load_json(path)
+	if rule_list_repr.is_empty():
 		return ERR_PARSE_ERROR
 
-	var rule_set = RuleSet.new()
-	rule_set.build_from_repr(rule_set_repr)
-	return rule_set
+	var rule_list = RuleList.new()
+	rule_list.build_from_repr(rule_list_repr)
+	return rule_list
 
 func _load_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):

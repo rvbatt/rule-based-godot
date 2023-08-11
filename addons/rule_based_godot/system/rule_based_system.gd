@@ -6,15 +6,15 @@ class_name RuleBasedSystem
 @export var _rule_based_godot: StringName = "System"
 
 @export var arbiter: AbstractArbiter = FirstApplicableArbiter.new()
-@export var rule_set: RuleSet
+@export var rule_list: RuleList
 
 func _ready():
-	if rule_set != null:
-		rule_set.setup(self)
-	print(rule_set.to_json_repr())
+	if rule_list != null:
+		rule_list.setup(self)
+	print(rule_list.to_json_repr())
 
 func test_rules() -> Array:
-	var satified_rules = rule_set.satisfied_rules()
+	var satified_rules = rule_list.satisfied_rules()
 
 	if not satified_rules.is_empty():
 		var selected_rule = arbiter.select_rule_to_trigger(satified_rules)

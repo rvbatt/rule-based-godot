@@ -1,7 +1,7 @@
-class_name RuleSet
+class_name RuleList
 extends RuleBasedResource
 
-@export var _rule_based_godot: StringName = "RuleSet"
+@export var _rule_based_godot: StringName = "RuleList"
 @export var rules: Array[Rule]
 
 var _rule_factory := RuleFactory.new()

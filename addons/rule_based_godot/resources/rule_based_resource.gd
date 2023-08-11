@@ -1,6 +1,6 @@
 extends Resource
 class_name RuleBasedResource
-# Abstract class for all resources used in defining a RuleSet
+# Abstract class for all resources used in defining a RuleList
 
 var _system_node: Node
 
