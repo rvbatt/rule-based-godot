@@ -12,6 +12,7 @@ keyword_colors = {
 "CallMethod": Color(1, 0.54902, 0.8, 1),
 "Distance": Color(1, 0.439216, 0.521569, 1),
 "EmitSignal": Color(1, 0.54902, 0.8, 1),
+"Hierarchy": Color(1, 0.439216, 0.521569, 1),
 "NOT": Color(1, 0.439216, 0.521569, 1),
 "Numeric": Color(1, 0.439216, 0.521569, 1),
 "OR": Color(1, 0.439216, 0.521569, 1),
@@ -80,25 +81,27 @@ text = "New Rule"
 
 [node name="MatchButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
-item_count = 8
+item_count = 9
 selected = 0
 popup/item_0/text = "New Match"
 popup/item_0/id = -1
 popup/item_0/separator = true
-popup/item_1/text = "String"
+popup/item_1/text = "AND"
 popup/item_1/id = 1
-popup/item_2/text = "Numeric"
+popup/item_2/text = "AreaDetection"
 popup/item_2/id = 2
 popup/item_3/text = "Distance"
 popup/item_3/id = 3
-popup/item_4/text = "AreaDetection"
+popup/item_4/text = "Hierarchy"
 popup/item_4/id = 4
-popup/item_5/text = "AND"
+popup/item_5/text = "NOT"
 popup/item_5/id = 5
-popup/item_6/text = "OR"
+popup/item_6/text = "Numeric"
 popup/item_6/id = 6
-popup/item_7/text = "NOT"
+popup/item_7/text = "OR"
 popup/item_7/id = 7
+popup/item_8/text = "String"
+popup/item_8/id = 8
 
 [node name="ActionButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
@@ -107,11 +110,11 @@ selected = 0
 popup/item_0/text = "New Action"
 popup/item_0/id = -1
 popup/item_0/separator = true
-popup/item_1/text = "SetProperty"
+popup/item_1/text = "CallMethod"
 popup/item_1/id = 1
-popup/item_2/text = "CallMethod"
+popup/item_2/text = "EmitSignal"
 popup/item_2/id = 2
-popup/item_3/text = "EmitSignal"
+popup/item_3/text = "SetProperty"
 popup/item_3/id = 3
 
 [node name="Options" type="VSeparator" parent="Buttons"]

@@ -29,6 +29,8 @@ func _init():
 func _id_to_script_dict(classes: Array[Dictionary], filter: Callable) -> Dictionary:
 	var id_to_path := {}
 	for class_dict in classes.filter(filter):
+		if not FileAccess.file_exists(class_dict["path"]):
+			continue
 		var id = class_dict["class"].trim_suffix("Match").trim_suffix("Action")
 		id_to_path[id] = load(class_dict["path"])
 	return id_to_path

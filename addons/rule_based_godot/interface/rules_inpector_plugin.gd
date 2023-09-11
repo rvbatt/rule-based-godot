@@ -12,7 +12,15 @@ func set_rules_editor(panel: Control, button: Button):
 	_rules_edit_panel.rule_list_defined.connect(_apply_current_rules)
 
 func _can_handle(object):
-	return "_rule_based_godot" in object
+	match object.get_class():
+		"SectionedInspectorFilter":
+			return false
+		"ImportDockParameters":
+			return false
+		"ScriptEditorDebuggerVariables":
+			return false
+		_:
+			return "_rule_based_godot" in object
 
 func _parse_category(object, category):
 	pass
