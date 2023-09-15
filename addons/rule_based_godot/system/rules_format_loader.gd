@@ -1,5 +1,6 @@
 class_name RulesFormatLoader
 extends ResourceFormatLoader
+# Loads JSON file as RuleList resource
 
 func _get_recognized_extensions():
 	var extensions: PackedStringArray = ["json"]

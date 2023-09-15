@@ -164,12 +164,12 @@ func setup(system_node: Node) -> void:
 		node.connect(connection[1], _preset_connections[connection])
 
 var _preset_paths: Dictionary = {} # path_var -> node_var
-func preset_node_path(path_variable: StringName,
+func _preset_node_path(path_variable: StringName,
 		node_variable: StringName) -> void:
 	_preset_paths[path_variable] = node_variable
 
 var _preset_connections: Dictionary = {} #[node_var, signal_name] -> func
-func pre_connect(node_variable: StringName, signal_name: StringName,
+func _pre_connect(node_variable: StringName, signal_name: StringName,
 		function: Callable):
 	var node_and_signal = [node_variable, signal_name]
 	_preset_connections[node_and_signal] = function
@@ -203,7 +203,7 @@ func _get_candidates() -> Array[Node]:
 		candidates.append_array(scene.get_nodes_in_group(group))
 	return candidates
 
-func is_in_search_groups(node: Node) -> bool:
+func _is_in_search_groups(node: Node) -> bool:
 	# If there is no group, allow any node
 	if tester_search_groups.is_empty(): return true
 
@@ -252,19 +252,19 @@ func _get_data(tester_node: Node) -> Variant:
 ################################ JSON format ###################################
 func json_format() -> String:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
-	var string = '["' + resource_id() + '", ("?data")'
-	for variable in exported_vars():
+	var string = '["' + _resource_id() + '", ("?data")'
+	for variable in _exported_vars():
 		string += ', ' + variable
 	string += ', "?wild"|"tester", ("prop"|"method", [args])]'
 	return string
 
 func to_json_repr() -> Variant:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
-	var json_array = [resource_id()]
+	var json_array = [_resource_id()]
 	if retrieval_should_retrieve:
 		json_array.append(var_to_str('?' + retrieval_variable))
 
-	for variable in exported_vars():
+	for variable in _exported_vars():
 		json_array.append(var_to_str(get(variable)))
 
 	if Tester_Node:
@@ -295,7 +295,7 @@ func build_from_repr(json_repr: Array) -> void:
 		retrieval_variable = first_param.trim_prefix('?')
 		offset = 2
 
-	var export_vars = exported_vars()
+	var export_vars = _exported_vars()
 	var num_vars = export_vars.size()
 	for i in range(num_vars):
 		set(export_vars[i], str_to_var(json_repr[i + offset]))

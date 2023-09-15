@@ -1,22 +1,25 @@
-extends RuleBasedResource
 class_name AbstractAction
+extends RuleBasedResource
+# Generic action, with preconfigurations for:
+# - Agent_Nodes, the nodes that will execute the action
+
+enum AgentType {PATH, GROUPS, WILDCARD}
 
 var Agent_Nodes: bool = true:
 	set(value):
 		Agent_Nodes = value
 		notify_property_list_changed()
 # Group: Agent_Nodes, prefix: agent
-enum AgentType {PATH, GROUPS, WILDCARD}
 var agent_type: AgentType = AgentType.PATH:
 	set(value):
 		agent_type = value
 		notify_property_list_changed()
-
+# Type PATH
 var agent_path: NodePath = ^"."
 var _agent_node: Node = null
-
+# Type GROUPS
 var agent_groups: PackedStringArray = []
-
+# TYPE WILDCARD
 var agent_identifier: StringName = ""
 
 func _get_property_list():
@@ -63,16 +66,6 @@ func _get_property_list():
 	return properties
 
 var _preset_signals = {} # name_var -> param_to_type_var
-func pre_add_signal(name_var: StringName, param_to_type_var: StringName) -> void:
-	_preset_signals[name_var] = param_to_type_var
-
-func signal_param_array(param_to_type: Dictionary) -> Array[Dictionary]:
-	var params: Array[Dictionary] = []
-	for name in param_to_type:
-		params.append(
-			{"name": name, "type": typeof(param_to_type[name])}
-		)
-	return params
 
 func setup(system_node: Node) -> void:
 	_system_node = system_node
@@ -82,23 +75,63 @@ func setup(system_node: Node) -> void:
 			var signal_name = get(name_var)
 			if _agent_node.has_signal(signal_name): continue
 
-			var params = signal_param_array(get(_preset_signals[name_var]))
+			var params = _signal_param_array(get(_preset_signals[name_var]))
 			_agent_node.add_user_signal(get(name_var), params)
+
+func json_format() -> String:
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	var string = '["' + _resource_id() + '", "?wild"|["groups"]|"agent"'
+	for variable in _exported_vars():
+		string += ', ' + variable
+	return string + ']'
+
+func to_json_repr() -> Variant:
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	var json_array = [_resource_id()]
+	match agent_type:
+		AgentType.PATH:
+			json_array.append(var_to_str(agent_path))
+		AgentType.GROUPS:
+			json_array.append(var_to_str(agent_groups))
+		AgentType.WILDCARD:
+			json_array.append(var_to_str('?' + agent_identifier))
+
+	for variable in _exported_vars():
+		json_array.append(var_to_str(get(variable)))
+	return json_array
+
+func build_from_repr(json_repr) -> void:
+	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	var first_param = str_to_var(json_repr[1])
+	if first_param is NodePath:
+		agent_type = AgentType.PATH
+		agent_path = first_param
+	elif first_param is Array:
+		agent_type = AgentType.GROUPS
+		agent_groups = first_param
+	elif first_param is String and first_param.begins_with('?'):
+		agent_type = AgentType.WILDCARD
+		agent_identifier = first_param.trim_prefix('?')
+
+	var export_vars = _exported_vars()
+	for i in range(export_vars.size()):
+		set(export_vars[i], str_to_var(json_repr[i+2]))
 
 func trigger(bindings: Dictionary) -> Array:
 	# Uses Template Method
 	var results := []
 	for agent in _get_agent_nodes(bindings):
-		var agent_result = _result_from_agent(agent, bindings)
+		var agent_result = _trigger_agent(agent, bindings)
 		if agent_result != null:
 			results.append(agent_result)
 	return results
 
-func _result_from_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
 	push_error("Abstract Method")
 	return null
 
 func _get_agent_nodes(bindings: Dictionary) -> Array:
+	# Abstract method
 	var agents := []
 	match agent_type:
 		AgentType.PATH:
@@ -116,41 +149,13 @@ func _get_agent_nodes(bindings: Dictionary) -> Array:
 		print_debug("No nodes to perform Action")
 	return agents
 
-func json_format() -> String:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var string = '["' + resource_id() + '", "?wild"|["groups"]|"agent"'
-	for variable in exported_vars():
-		string += ', ' + variable
-	return string + ']'
+func _pre_add_signal(name_var: StringName, param_to_type_var: StringName) -> void:
+	_preset_signals[name_var] = param_to_type_var
 
-func to_json_repr() -> Variant:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var json_array = [resource_id()]
-	match agent_type:
-		AgentType.PATH:
-			json_array.append(var_to_str(agent_path))
-		AgentType.GROUPS:
-			json_array.append(var_to_str(agent_groups))
-		AgentType.WILDCARD:
-			json_array.append(var_to_str('?' + agent_identifier))
-
-	for variable in exported_vars():
-		json_array.append(var_to_str(get(variable)))
-	return json_array
-
-func build_from_repr(json_repr) -> void:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var first_param = str_to_var(json_repr[1])
-	if first_param is NodePath:
-		agent_type = AgentType.PATH
-		agent_path = first_param
-	elif first_param is Array:
-		agent_type = AgentType.GROUPS
-		agent_groups = first_param
-	elif first_param is String and first_param.begins_with('?'):
-		agent_type = AgentType.WILDCARD
-		agent_identifier = first_param.trim_prefix('?')
-
-	var export_vars = exported_vars()
-	for i in range(export_vars.size()):
-		set(export_vars[i], str_to_var(json_repr[i+2]))
+func _signal_param_array(param_to_type: Dictionary) -> Array[Dictionary]:
+	var params: Array[Dictionary] = []
+	for name in param_to_type:
+		params.append(
+			{"name": name, "type": typeof(param_to_type[name])}
+		)
+	return params

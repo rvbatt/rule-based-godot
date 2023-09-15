@@ -1,30 +1,40 @@
 @tool
 extends VBoxContainer
+# Rules Editor bottom panel
 
 signal rule_list_defined(rules_string)
 
-var rule_factory := RuleFactory.new()
+@export_group("Keyword colors")
+@export var rules_color := Color(1, 0.69803923368454, 0.45098039507866)
+@export var if_color := Color(0.40000000596046, 0.89803922176361, 1)
+@export var then_color := Color(0.40000000596046, 0.89803922176361, 1)
+@export var function_color := Color(0.38823530077934, 0.76078432798386, 0.34901961684227)
+@export var match_color := Color(1, 0.43921568989754, 0.52156865596771)
+@export var action_color := Color(1, 0.54901963472366, 0.80000001192093)
+@export_group("")
+
+@onready var rule_factory := RuleFactory.new()
 
 func _ready():
 	$CodeEdit.syntax_highlighter.keyword_colors = {
-		"Rules": Color(1, 0.69803923368454, 0.45098039507866),
-		"if": Color(0.40000000596046, 0.89803922176361, 1),
-		"then": Color(0.40000000596046, 0.89803922176361, 1),
+		"Rules": rules_color,
+		"if": if_color,
+		"then": then_color,
 	}
-	$CodeEdit.syntax_highlighter.function_color = Color(0.38823530077934, 0.76078432798386, 0.34901961684227)
+	$CodeEdit.syntax_highlighter.function_color = function_color
 
 	$Buttons/MatchButton.clear()
 	$Buttons/MatchButton.add_separator("New Match")
 	for match_name in rule_factory.matches:
 		$Buttons/MatchButton.add_item(match_name)
-		$CodeEdit.syntax_highlighter.keyword_colors[match_name] = Color(1, 0.43921568989754, 0.52156865596771)
+		$CodeEdit.syntax_highlighter.keyword_colors[match_name] = match_color
 	$Buttons/MatchButton.selected = 0
 
 	$Buttons/ActionButton.clear()
 	$Buttons/ActionButton.add_separator("New Action")
 	for action_name in rule_factory.actions:
 		$Buttons/ActionButton.add_item(action_name)
-		$CodeEdit.syntax_highlighter.keyword_colors[action_name] = Color(1, 0.54901963472366, 0.80000001192093)
+		$CodeEdit.syntax_highlighter.keyword_colors[action_name] = action_color
 	$Buttons/ActionButton.selected = 0
 
 func _reset_edit():

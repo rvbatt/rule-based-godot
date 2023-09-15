@@ -1,5 +1,6 @@
 class_name RulesFormatSaver
 extends ResourceFormatSaver
+# Saves the RuleList resource as a JSON file
 
 func _recognize(resource):
 	# Recognizes RuleList

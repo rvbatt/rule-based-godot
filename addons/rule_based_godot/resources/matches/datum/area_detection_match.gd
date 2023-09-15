@@ -2,7 +2,7 @@
 class_name AreaDetectionMatch
 extends DatumMatch
 
-@export_node_path("Area2D", "Area3D") var area_path: NodePath
+@export_node_path("Area2D", "Area3D") var area_path: NodePath = ^""
 var _area # Area2D or Area3D
 # Keep list of areas and bodies overllaping, because the get_overllaping_*
 # methods are not updated immediately after objects have moved
@@ -10,11 +10,11 @@ var _overlapping := []
 
 func _init():
 	Data_Retrieval = false
-	preset_node_path("area_path", "_area")
-	pre_connect("_area", "area_entered", _add_overlapping)
-	pre_connect("_area", "body_entered", _add_overlapping)
-	pre_connect("_area", "area_exited", _remove_overlapping)
-	pre_connect("_area", "body_exited", _remove_overlapping)
+	_preset_node_path("area_path", "_area")
+	_pre_connect("_area", "area_entered", _add_overlapping)
+	_pre_connect("_area", "body_entered", _add_overlapping)
+	_pre_connect("_area", "area_exited", _remove_overlapping)
+	_pre_connect("_area", "body_exited", _remove_overlapping)
 
 func _add_overlapping(entity: Variant) -> void:
 	_overlapping.append(entity)
@@ -42,4 +42,4 @@ func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 	return false
 
 func _get_candidates() -> Array:
-	return _overlapping.filter(is_in_search_groups)
+	return _overlapping.filter(_is_in_search_groups)

@@ -1,5 +1,6 @@
 class_name Rule
 extends RuleBasedResource
+# Single rule in RuleList
 
 @export var condition: AbstractMatch
 @export var actions: Array[AbstractAction]

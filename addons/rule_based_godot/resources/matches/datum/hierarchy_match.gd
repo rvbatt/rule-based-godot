@@ -2,13 +2,13 @@
 class_name HierarchyMatch
 extends DatumMatch
 
-@export_node_path var source_node_path
+@export_node_path var source_node_path: NodePath = ^""
 var _source_node: Node
 @export_enum("Parent of", "Sibling of", "Child of") var relation: String = "Parent of"
 
 func _init():
 	Data_Retrieval = false
-	preset_node_path("source_node_path", "_source_node")
+	_preset_node_path("source_node_path", "_source_node")
 
 func _get_candidates() -> Array[Node]:
 	var candidates = []
@@ -22,7 +22,7 @@ func _get_candidates() -> Array[Node]:
 			candidates = [_system_node.get_parent()]
 
 	# Groups are filters, if none is provided take all candidates
-	return candidates.filter(is_in_search_groups)
+	return candidates.filter(_is_in_search_groups)
 
 func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 	if _source_node == null or target_node == null:

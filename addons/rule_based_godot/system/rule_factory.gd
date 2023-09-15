@@ -1,17 +1,19 @@
-extends Object
 class_name RuleFactory
+extends Object
+# Uses Factory method to build Matches, Actions and Rules
+# from JSON representations
 
 var actions: Dictionary:
 	set(value):
-		if not _initialized:
+		if _can_edit:
 			actions = value
 
 var matches: Dictionary:
 	set(value):
-		if not _initialized:
+		if _can_edit:
 			matches = value
 
-var _initialized = false
+var _can_edit := true
 
 func _init():
 	var all_classes = ProjectSettings.get_global_class_list()
@@ -24,16 +26,7 @@ func _init():
 	actions = _id_to_script_dict(all_classes,
 		func(class_dict): return class_dict["base"] == "AbstractAction"
 	)
-	_initialized = true
-
-func _id_to_script_dict(classes: Array[Dictionary], filter: Callable) -> Dictionary:
-	var id_to_path := {}
-	for class_dict in classes.filter(filter):
-		if not FileAccess.file_exists(class_dict["path"]):
-			continue
-		var id = class_dict["class"].trim_suffix("Match").trim_suffix("Action")
-		id_to_path[id] = load(class_dict["path"])
-	return id_to_path
+	_can_edit = false
 
 func build_match(json_repr: Array) -> AbstractMatch:
 	# Representation: ["Identifier", configuration]
@@ -95,3 +88,12 @@ func build_rule(json_repr: Dictionary) -> Rule:
 
 func get_rule_format() -> String:
 	return Rule.new().json_format()
+
+func _id_to_script_dict(classes: Array[Dictionary], filter: Callable) -> Dictionary:
+	var id_to_path := {}
+	for class_dict in classes.filter(filter):
+		if not FileAccess.file_exists(class_dict["path"]):
+			continue
+		var id = class_dict["class"].trim_suffix("Match").trim_suffix("Action")
+		id_to_path[id] = load(class_dict["path"])
+	return id_to_path
