@@ -8,7 +8,7 @@ func _physics_process(_delta):
 		_connected = true
 
 func run_tests(_argument):
-	$RuleBasedSystem.test_rules()
+	$RuleBasedSystem.iterate()
 
 func test_signal(_arg):
 	print("Signal received")

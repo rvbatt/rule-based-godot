@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_f28px"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_dqord"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="4_kvhqn"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_nyfbl"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_ap00m"]
 [ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_tiowu"]
@@ -12,8 +12,8 @@
 [sub_resource type="Resource" id="Resource_0xolm"]
 script = ExtResource("3_f28px")
 
-[sub_resource type="Resource" id="Resource_3e8u6"]
-script = ExtResource("4_nyfbl")
+[sub_resource type="Resource" id="Resource_h84b5"]
+script = ExtResource("4_dqord")
 method = &"change_color"
 arguments = [Color(0, 0, 0, 1)]
 agent_type = 0
@@ -32,7 +32,7 @@ retrieval_should_retrieve = false
 [sub_resource type="Resource" id="Resource_af2vt"]
 script = ExtResource("5_ap00m")
 condition = SubResource("Resource_k41am")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_3e8u6")])
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_h84b5")])
 
 [sub_resource type="Resource" id="Resource_ubldl"]
 script = ExtResource("6_tiowu")
