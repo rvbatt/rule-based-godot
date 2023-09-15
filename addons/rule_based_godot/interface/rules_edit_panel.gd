@@ -13,7 +13,7 @@ signal rule_list_defined(rules_string)
 @export var action_color := Color(1, 0.54901963472366, 0.80000001192093)
 @export_group("")
 
-@onready var rule_factory := RuleFactory.new()
+var rule_factory := RuleFactory.new()
 
 func _ready():
 	$CodeEdit.syntax_highlighter.keyword_colors = {

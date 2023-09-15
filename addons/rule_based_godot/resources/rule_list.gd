@@ -9,9 +9,9 @@ extends RuleBasedResource
 
 var _rule_factory := RuleFactory.new()
 
-func setup(system_node: Node) -> void:
+func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
 	for rule in rules:
-		rule.setup(system_node)
+		rule.setup(system_node, self._rule_factory)
 
 func json_format() -> String:
 	return '\

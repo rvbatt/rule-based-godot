@@ -12,6 +12,7 @@ extends Node
 func _ready():
 	if rule_list != null:
 		rule_list.setup(self)
+	print(rule_list.to_json_repr())
 
 func iterate() -> Array:
 	var satified_rules = rule_list.satisfied_rules()
