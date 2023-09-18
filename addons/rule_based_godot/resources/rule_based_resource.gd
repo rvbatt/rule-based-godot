@@ -44,3 +44,70 @@ func _exported_vars() -> Array[String]:
 	for var_dict in var_dicts:
 		export_vars.append(var_dict["name"])
 	return export_vars
+
+func _var_to_repr(variable: Variant) -> Variant:
+	match typeof(variable):
+		TYPE_STRING, TYPE_FLOAT, TYPE_BOOL:
+			return variable
+		TYPE_INT:
+			if variable == INF:
+				return "inf"
+			elif variable == -INF:
+				return "-inf"
+			else:
+				return variable
+		TYPE_STRING_NAME:
+			return String(variable)
+		TYPE_NODE_PATH:
+			return '^' + variable.get_concatenated_names()
+		TYPE_ARRAY:
+			return variable.map(_var_to_repr)
+		TYPE_PACKED_STRING_ARRAY:
+			# "PackedStringArray(a, b, c)"
+			return var_to_str(variable).replace('\"', '')
+		TYPE_DICTIONARY:
+			var dict = variable.duplicate(true)
+			for key in dict.keys():
+				var value = _var_to_repr(dict[key])
+				dict.erase(key)
+				dict[_var_to_repr(key)] = value
+			return dict
+		_:
+			return var_to_str(variable)
+
+func _repr_to_var(representation: Variant) -> Variant:
+	match typeof(representation):
+		TYPE_STRING:
+			if representation == "inf":
+				return INF
+			elif representation == "-inf":
+				return -INF
+			elif representation.begins_with('^'):
+				return NodePath(representation.trim_prefix('^'))
+			elif representation.match("PackedStringArray(*)"):
+				var pack_array: PackedStringArray = []
+				var array_string = representation.\
+						trim_prefix("PackedStringArray(").trim_suffix(")")
+				for string in array_string.split(','):
+					pack_array.append(string.strip_edges())
+				return pack_array
+
+			var variable = str_to_var(representation)
+			if variable == null:
+				return representation
+			else:
+				return variable
+
+		TYPE_INT, TYPE_FLOAT, TYPE_BOOL:
+			return representation
+		TYPE_ARRAY:
+			return representation.map(_repr_to_var)
+		TYPE_DICTIONARY:
+			for key in representation.keys():
+				var value = _repr_to_var(representation[key])
+				representation.erase(key)
+				representation[_repr_to_var(key)] = value
+			return representation
+		_:
+			push_error("Invalid representation")
+			return null

@@ -90,19 +90,19 @@ func to_json_repr() -> Variant:
 	var json_array = [_resource_id()]
 	match agent_type:
 		AgentType.PATH:
-			json_array.append(var_to_str(agent_path))
+			json_array.append(_var_to_repr(agent_path))
 		AgentType.GROUPS:
-			json_array.append(var_to_str(agent_groups))
+			json_array.append(_var_to_repr(agent_groups))
 		AgentType.WILDCARD:
-			json_array.append(var_to_str('?' + agent_identifier))
+			json_array.append(_var_to_repr('?' + agent_identifier))
 
 	for variable in _exported_vars():
-		json_array.append(var_to_str(get(variable)))
+		json_array.append(_var_to_repr(get(variable)))
 	return json_array
 
 func build_from_repr(json_repr) -> void:
 	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var first_param = str_to_var(json_repr[1])
+	var first_param = _repr_to_var(json_repr[1])
 	if first_param is NodePath:
 		agent_type = AgentType.PATH
 		agent_path = first_param
@@ -115,7 +115,7 @@ func build_from_repr(json_repr) -> void:
 
 	var export_vars = _exported_vars()
 	for i in range(export_vars.size()):
-		set(export_vars[i], str_to_var(json_repr[i+2]))
+		set(export_vars[i], _repr_to_var(json_repr[i+2]))
 
 func trigger(bindings: Dictionary) -> Array:
 	# Uses Template Method

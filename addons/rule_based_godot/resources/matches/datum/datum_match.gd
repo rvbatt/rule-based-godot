@@ -262,25 +262,25 @@ func to_json_repr() -> Variant:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var json_array = [_resource_id()]
 	if retrieval_should_retrieve:
-		json_array.append(var_to_str('?' + retrieval_variable))
+		json_array.append(_var_to_repr('?' + retrieval_variable))
 
 	for variable in _exported_vars():
-		json_array.append(var_to_str(get(variable)))
+		json_array.append(_var_to_repr(get(variable)))
 
 	if Tester_Node:
 		if tester_is_wildcard:
-			json_array.append(var_to_str('?' + tester_identifier))
+			json_array.append(_var_to_repr('?' + tester_identifier))
 		else:
-			json_array.append(var_to_str(tester_path))
+			json_array.append(_var_to_repr(tester_path))
 
 	if Data_Extraction:
 		match extraction_type:
 			ExtractionType.PROPERTY:
-				json_array.append(var_to_str(extraction_property))
+				json_array.append(_var_to_repr(extraction_property))
 			ExtractionType.METHOD:
 				json_array.append_array([
-					var_to_str(extraction_method),
-					var_to_str(extraction_arguments)
+					_var_to_repr(extraction_method),
+					_var_to_repr(extraction_arguments)
 				])
 
 	return json_array
@@ -288,7 +288,7 @@ func to_json_repr() -> Variant:
 func build_from_repr(json_repr: Array) -> void:
 	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
 	var offset = 1
-	var first_param = str_to_var(json_repr[1])
+	var first_param = _repr_to_var(json_repr[1])
 	if first_param is String and first_param.begins_with('?'):
 		Data_Retrieval = true
 		retrieval_should_retrieve = true
@@ -298,9 +298,9 @@ func build_from_repr(json_repr: Array) -> void:
 	var export_vars = _exported_vars()
 	var num_vars = export_vars.size()
 	for i in range(num_vars):
-		set(export_vars[i], str_to_var(json_repr[i + offset]))
+		set(export_vars[i], _repr_to_var(json_repr[i + offset]))
 
-	var var_or_path = str_to_var(json_repr[num_vars + offset])
+	var var_or_path = _repr_to_var(json_repr[num_vars + offset])
 	if var_or_path is String and var_or_path.begins_with('?'):
 		tester_is_wildcard = true
 		tester_identifier = var_or_path.trim_prefix('?')
@@ -312,9 +312,9 @@ func build_from_repr(json_repr: Array) -> void:
 	if num_data_params == 1:
 		Data_Extraction = true
 		extraction_type = ExtractionType.PROPERTY
-		extraction_property = str_to_var(json_repr[-1])
+		extraction_property = _repr_to_var(json_repr[-1])
 	elif num_data_params == 2:
 		Data_Extraction = true
 		extraction_type = ExtractionType.METHOD
-		extraction_method = str_to_var(json_repr[-2])
-		extraction_arguments = str_to_var(json_repr[-1])
+		extraction_method = _repr_to_var(json_repr[-2])
+		extraction_arguments = _repr_to_var(json_repr[-1])
