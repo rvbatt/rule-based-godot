@@ -150,7 +150,7 @@ func _retrieval_properties() -> Array[Dictionary]:
 	return properties
 
 ######################### Setup on system node ready ###########################
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func setup(system_node: RuleBasedSystem) -> void:
 	if system_node == null:
 		print_debug("Setup with null system node")
 		return

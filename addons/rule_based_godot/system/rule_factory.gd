@@ -40,6 +40,7 @@ func build_match(json_repr: Array) -> AbstractMatch:
 		return AbstractMatch.new()
 
 	var new_match: AbstractMatch = match_script.new()
+	new_match.set_factory(self)
 	new_match.build_from_repr(json_repr)
 	return new_match
 
@@ -63,6 +64,7 @@ func build_action(json_repr: Array) -> AbstractAction:
 		return AbstractAction.new()
 
 	var new_action: AbstractAction = action_script.new()
+	new_action.set_factory(self)
 	new_action.build_from_repr(json_repr)
 	return new_action
 

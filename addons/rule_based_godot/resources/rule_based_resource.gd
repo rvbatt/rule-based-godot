@@ -2,9 +2,14 @@ class_name RuleBasedResource
 extends Resource
 # Abstract class for all resources used in defining a RuleList
 
-var _system_node: RuleBasedSystem
+var _system_node: RuleBasedSystem = null
+var _rule_factory: RuleFactory = null
 
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func set_factory(rule_factory: RuleFactory) -> void:
+	# Abstract method to be called before build_from_repr()
+	_rule_factory = rule_factory
+
+func setup(system_node: RuleBasedSystem) -> void:
 	# Abstract method called when the RuleBasedSystem is ready
 	_system_node = system_node
 

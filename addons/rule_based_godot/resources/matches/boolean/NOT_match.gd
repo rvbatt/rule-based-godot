@@ -2,12 +2,14 @@ class_name NOTMatch
 extends AbstractMatch
 
 @export var negated_condition: AbstractMatch
-var _rule_factory: RuleFactory
 
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory
+	negated_condition.set_factory(rule_factory)
+
+func setup(system_node: RuleBasedSystem) -> void:
 	if negated_condition != null:
-		negated_condition.setup(system_node, rule_factory)
+		negated_condition.setup(system_node)
 
 func json_format() -> String:
 	return '["NOT", condition]'

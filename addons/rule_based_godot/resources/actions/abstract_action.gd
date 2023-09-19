@@ -67,7 +67,7 @@ func _get_property_list():
 
 var _preset_signals = {} # name_var -> param_to_type_var
 
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func setup(system_node: RuleBasedSystem) -> void:
 	_system_node = system_node
 	if agent_type == AgentType.PATH:
 		_agent_node = system_node.get_node(agent_path)

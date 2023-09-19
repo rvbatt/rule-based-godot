@@ -6,13 +6,17 @@ extends RuleBasedResource
 @export var actions: Array[AbstractAction]
 
 var _bindings: Dictionary # variable -> value
-var _rule_factory: RuleFactory
 
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory
-	condition.setup(system_node, rule_factory)
+	condition.set_factory(rule_factory)
 	for action in actions:
-		action.setup(system_node, rule_factory)
+		action.set_factory(rule_factory)
+
+func setup(system_node: RuleBasedSystem) -> void:
+	condition.setup(system_node)
+	for action in actions:
+		action.setup(system_node)
 
 func json_format() -> String:
 	return '\

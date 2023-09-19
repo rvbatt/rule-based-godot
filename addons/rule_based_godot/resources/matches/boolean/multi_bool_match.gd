@@ -3,13 +3,17 @@ extends AbstractMatch
 # Abstract class for multiple-input boolean matches
 
 @export var subconditions: Array[AbstractMatch]
-var _rule_factory: RuleFactory
 
-func setup(system_node: RuleBasedSystem, rule_factory: RuleFactory = null) -> void:
+func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory
 	for condition in subconditions:
 		if condition == null: continue
-		condition.setup(system_node, rule_factory)
+		condition.set_factory(rule_factory)
+
+func setup(system_node: RuleBasedSystem) -> void:
+	for condition in subconditions:
+		if condition == null: continue
+		condition.setup(system_node)
 
 func json_format() -> String:
 	# ["ID", [conditions]]
