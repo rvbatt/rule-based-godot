@@ -13,7 +13,7 @@
 [sub_resource type="Resource" id="Resource_3vvpb"]
 script = ExtResource("3_77ei6")
 
-[sub_resource type="Resource" id="Resource_6yhmq"]
+[sub_resource type="Resource" id="Resource_yg55r"]
 script = ExtResource("3_om3es")
 property_and_value = {
 "color": Color(1, 0.498039, 0, 1)
@@ -21,8 +21,7 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_l0urg"]
-resource_name = "red"
+[sub_resource type="Resource" id="Resource_nrldv"]
 script = ExtResource("6_ber7j")
 string_value = "red"
 tester_is_wildcard = false
@@ -31,13 +30,11 @@ extraction_type = 0
 extraction_property = &"text"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_rmc6t"]
-resource_name = "not red"
+[sub_resource type="Resource" id="Resource_gfacj"]
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_l0urg")
+negated_condition = SubResource("Resource_nrldv")
 
-[sub_resource type="Resource" id="Resource_pwode"]
-resource_name = "yellow"
+[sub_resource type="Resource" id="Resource_7w5qv"]
 script = ExtResource("6_ber7j")
 string_value = "yellow"
 tester_is_wildcard = false
@@ -46,30 +43,27 @@ extraction_type = 0
 extraction_property = &"text"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_jdysp"]
-resource_name = "not yellow"
+[sub_resource type="Resource" id="Resource_0g1ux"]
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_pwode")
+negated_condition = SubResource("Resource_7w5qv")
 
-[sub_resource type="Resource" id="Resource_wvqeg"]
-resource_name = "(not red) or (not yellow)"
+[sub_resource type="Resource" id="Resource_b2isn"]
 script = ExtResource("5_o63fc")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_rmc6t"), SubResource("Resource_jdysp")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_gfacj"), SubResource("Resource_0g1ux")])
 
-[sub_resource type="Resource" id="Resource_i2vkn"]
-resource_name = "not( (not red) or (not yellow) )"
+[sub_resource type="Resource" id="Resource_ojt1l"]
 script = ExtResource("7_xxitk")
-negated_condition = SubResource("Resource_wvqeg")
+negated_condition = SubResource("Resource_b2isn")
 
-[sub_resource type="Resource" id="Resource_k82fx"]
+[sub_resource type="Resource" id="Resource_jxn72"]
 script = ExtResource("8_eeqa2")
-condition = SubResource("Resource_i2vkn")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_6yhmq")])
+condition = SubResource("Resource_ojt1l")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_yg55r")])
 
-[sub_resource type="Resource" id="Resource_i45l6"]
+[sub_resource type="Resource" id="Resource_tk0iu"]
 script = ExtResource("7_7r6r6")
-_rule_based_godot = null
-rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_k82fx")])
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("8_eeqa2")]([SubResource("Resource_jxn72")])
 
 [node name="DeMorganStringTest" type="Node2D"]
 script = ExtResource("1_5qdb1")
@@ -77,7 +71,7 @@ script = ExtResource("1_5qdb1")
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("2_gfkh2")
 arbiter = SubResource("Resource_3vvpb")
-rule_list = SubResource("Resource_i45l6")
+rule_list = SubResource("Resource_tk0iu")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0

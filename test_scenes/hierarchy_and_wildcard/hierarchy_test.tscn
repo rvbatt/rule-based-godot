@@ -12,7 +12,7 @@
 [sub_resource type="Resource" id="Resource_hut6e"]
 script = ExtResource("3_2gpba")
 
-[sub_resource type="Resource" id="Resource_il53l"]
+[sub_resource type="Resource" id="Resource_byb4r"]
 script = ExtResource("2_djs4n")
 property_and_value = {
 "text": "yes"
@@ -20,20 +20,20 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../Statements/AParentB/answer")
 
-[sub_resource type="Resource" id="Resource_kcdvr"]
+[sub_resource type="Resource" id="Resource_po74r"]
 script = ExtResource("4_hvotr")
 source_node_path = NodePath("../Root/A/AChildren")
 relation = "Parent of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/B")
 
-[sub_resource type="Resource" id="Resource_b7tn2"]
+[sub_resource type="Resource" id="Resource_rpu1h"]
 resource_name = "A parent of B"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_kcdvr")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_il53l")])
+condition = SubResource("Resource_po74r")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_byb4r")])
 
-[sub_resource type="Resource" id="Resource_02w6u"]
+[sub_resource type="Resource" id="Resource_qdqjx"]
 script = ExtResource("2_djs4n")
 property_and_value = {
 "text": "yes"
@@ -41,20 +41,20 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../Statements/CChildA/answer")
 
-[sub_resource type="Resource" id="Resource_rnber"]
+[sub_resource type="Resource" id="Resource_s5xrp"]
 script = ExtResource("4_hvotr")
 source_node_path = NodePath("../Root/A/AChildren/C")
 relation = "Child of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren")
 
-[sub_resource type="Resource" id="Resource_e43tb"]
+[sub_resource type="Resource" id="Resource_x25w0"]
 resource_name = "C child of A"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_rnber")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_02w6u")])
+condition = SubResource("Resource_s5xrp")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_qdqjx")])
 
-[sub_resource type="Resource" id="Resource_o6ct1"]
+[sub_resource type="Resource" id="Resource_t13sb"]
 script = ExtResource("2_djs4n")
 property_and_value = {
 "text": "yes"
@@ -62,23 +62,23 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../Statements/BSibliingC/answer")
 
-[sub_resource type="Resource" id="Resource_lnxb5"]
+[sub_resource type="Resource" id="Resource_vbcsd"]
 script = ExtResource("4_hvotr")
 source_node_path = NodePath("../Root/A/AChildren/B")
 relation = "Sibling of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/C")
 
-[sub_resource type="Resource" id="Resource_plnrn"]
+[sub_resource type="Resource" id="Resource_e5p4e"]
 resource_name = "B sibling of C"
 script = ExtResource("3_sxtgj")
-condition = SubResource("Resource_lnxb5")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_o6ct1")])
+condition = SubResource("Resource_vbcsd")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_t13sb")])
 
-[sub_resource type="Resource" id="Resource_flun7"]
+[sub_resource type="Resource" id="Resource_xkgee"]
 script = ExtResource("4_udnf2")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("3_sxtgj")]([SubResource("Resource_b7tn2"), SubResource("Resource_e43tb"), SubResource("Resource_plnrn")])
+rules = Array[ExtResource("3_sxtgj")]([SubResource("Resource_rpu1h"), SubResource("Resource_x25w0"), SubResource("Resource_e5p4e")])
 
 [sub_resource type="GDScript" id="GDScript_eiek8"]
 script/source = "extends Button
@@ -90,7 +90,7 @@ script = ExtResource("1_4p4v4")
 [node name="RuleBasedSystem" type="Node" parent="."]
 script = ExtResource("1_ihwfs")
 arbiter = SubResource("Resource_hut6e")
-rule_list = SubResource("Resource_flun7")
+rule_list = SubResource("Resource_xkgee")
 
 [node name="Root" type="VBoxContainer" parent="."]
 offset_left = 273.0

@@ -16,3 +16,6 @@ func test_signal(_arg):
 func _unhandled_input(event):
 	if event.is_action_pressed("test_rule_based_system"):
 		run_tests(0)
+
+func test_print(variable: Variant) -> void:
+	print(variable)
