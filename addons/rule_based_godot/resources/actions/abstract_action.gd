@@ -18,9 +18,9 @@ var agent_type: AgentType = AgentType.PATH:
 var agent_path: NodePath = ^"."
 var _agent_node: Node = null
 # Type GROUPS
-var agent_groups: PackedStringArray = []
+var agent_groups := PackedStringArray()
 # TYPE WILDCARD
-var agent_identifier: StringName = ""
+var agent_identifier: StringName = &""
 
 func _get_property_list():
 	var properties: Array[Dictionary] = [

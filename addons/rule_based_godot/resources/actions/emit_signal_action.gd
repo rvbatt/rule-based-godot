@@ -2,7 +2,7 @@
 class_name EmitSignalAction
 extends AbstractAction
 
-@export var signal_name: StringName = ""
+@export var signal_name: StringName = &""
 @export var parameter_to_type: Dictionary = {}
 @export var arguments: Array = [] # same order as dict
 

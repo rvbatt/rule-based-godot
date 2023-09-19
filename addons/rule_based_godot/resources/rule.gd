@@ -2,16 +2,10 @@ class_name Rule
 extends RuleBasedResource
 # Single rule in RuleList
 
-@export var condition: AbstractMatch
-@export var actions: Array[AbstractAction]
+@export var condition: AbstractMatch = null
+@export var actions: Array[AbstractAction] = []
 
 var _bindings: Dictionary # variable -> value
-
-func set_factory(rule_factory: RuleFactory) -> void:
-	_rule_factory = rule_factory
-	condition.set_factory(rule_factory)
-	for action in actions:
-		action.set_factory(rule_factory)
 
 func setup(system_node: RuleBasedSystem) -> void:
 	condition.setup(system_node)

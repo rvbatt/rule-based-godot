@@ -83,6 +83,7 @@ func build_rule(json_repr: Dictionary) -> Rule:
 		return null
 
 	var new_rule = Rule.new()
+	new_rule.set_factory(self)
 	new_rule.condition = build_match(json_repr["if"])
 	for action_repr in json_repr["then"]:
 		new_rule.actions.append(build_action(action_repr))

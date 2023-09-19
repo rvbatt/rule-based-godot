@@ -2,7 +2,7 @@ class_name MultiBoolMatch
 extends AbstractMatch
 # Abstract class for multiple-input boolean matches
 
-@export var subconditions: Array[AbstractMatch]
+@export var subconditions: Array[AbstractMatch] = []
 
 func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory

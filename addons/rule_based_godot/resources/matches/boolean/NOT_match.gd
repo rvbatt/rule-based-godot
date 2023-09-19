@@ -1,7 +1,7 @@
 class_name NOTMatch
 extends AbstractMatch
 
-@export var negated_condition: AbstractMatch
+@export var negated_condition: AbstractMatch = null
 
 func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory

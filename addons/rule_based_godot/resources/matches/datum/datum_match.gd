@@ -21,7 +21,7 @@ var tester_is_wildcard: bool = false:
 			retrieval_should_retrieve = false
 		notify_property_list_changed()
 var tester_search_groups: PackedStringArray = []
-var tester_identifier: StringName = ""
+var tester_identifier: StringName = &""
 var tester_path: NodePath = ^""
 
 var _tester_node: Node # internal reference
@@ -69,8 +69,8 @@ var extraction_type: ExtractionType = ExtractionType.PROPERTY:
 	set(value):
 		extraction_type = value
 		notify_property_list_changed()
-var extraction_property: StringName = ""
-var extraction_method: StringName = ""
+var extraction_property: StringName = &""
+var extraction_method: StringName = &""
 var extraction_arguments: Array = []
 
 func _extraction_properties() -> Array[Dictionary]:
@@ -125,7 +125,7 @@ var retrieval_should_retrieve: bool = false:
 		if value:
 			tester_is_wildcard = false
 		notify_property_list_changed()
-var retrieval_variable: StringName = ""
+var retrieval_variable: StringName = &""
 
 func _retrieval_properties() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = [

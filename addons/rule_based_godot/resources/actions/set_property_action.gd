@@ -8,7 +8,7 @@ extends AbstractAction
 		property_and_value = prop_to_val
 		_property = prop_to_val.keys()[0]
 		_value = prop_to_val[_property]
-var _property: StringName = ""
+var _property: StringName = &""
 var _value: Variant = null
 
 func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
