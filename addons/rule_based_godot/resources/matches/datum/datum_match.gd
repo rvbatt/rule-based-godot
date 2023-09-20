@@ -20,7 +20,7 @@ var tester_is_wildcard: bool = false:
 		if value:
 			retrieval_should_retrieve = false
 		notify_property_list_changed()
-var tester_search_groups: PackedStringArray = []
+var tester_search_groups: Array[StringName] = []
 var tester_identifier: StringName = &""
 var tester_path: NodePath = ^""
 
@@ -43,8 +43,10 @@ func _tester_properties() -> Array[Dictionary]:
 	if tester_is_wildcard:
 		properties.append_array([
 			{"name": "tester_search_groups",
-			"type": TYPE_PACKED_STRING_ARRAY,
-			"usage": PROPERTY_USAGE_DEFAULT},
+			"type": TYPE_ARRAY,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_TYPE_STRING,
+			"hint_string": "%d:" % [TYPE_STRING_NAME]},
 			{"name": "tester_identifier",
 			"type": TYPE_STRING_NAME,
 			"usage": PROPERTY_USAGE_DEFAULT}
@@ -251,15 +253,15 @@ func _get_data(tester_node: Node) -> Variant:
 
 ################################ JSON format ###################################
 func json_format() -> String:
-	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
+	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
 	var string = '["' + _resource_id() + '", ("?data")'
 	for variable in _exported_vars():
 		string += ', ' + variable
-	string += ', "?wild"|"tester", ("prop"|"method", [args])]'
+	string += ', "(?wild", [groups]|"tester"), ("prop"|"method", [args])]'
 	return string
 
 func to_json_repr() -> Variant:
-	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
+	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
 	var json_array = [_resource_id()]
 	if retrieval_should_retrieve:
 		json_array.append(_var_to_repr('?' + retrieval_variable))
@@ -270,6 +272,7 @@ func to_json_repr() -> Variant:
 	if Tester_Node:
 		if tester_is_wildcard:
 			json_array.append(_var_to_repr('?' + tester_identifier))
+			json_array.append(_var_to_repr(tester_search_groups))
 		else:
 			json_array.append(_var_to_repr(tester_path))
 
@@ -286,7 +289,7 @@ func to_json_repr() -> Variant:
 	return json_array
 
 func build_from_repr(json_repr: Array) -> void:
-	# ["ID", ("?data"), vars..., "?wild"|"tester", ("prop"|"method", [args])]
+	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
 	var offset = 1
 	var first_param = _repr_to_var(json_repr[1])
 	if first_param is String and first_param.begins_with('?'):
@@ -302,8 +305,11 @@ func build_from_repr(json_repr: Array) -> void:
 
 	var var_or_path = _repr_to_var(json_repr[num_vars + offset])
 	if var_or_path is String and var_or_path.begins_with('?'):
+		offset += 1
 		tester_is_wildcard = true
 		tester_identifier = var_or_path.trim_prefix('?')
+		tester_search_groups = []
+		tester_search_groups.assign(_repr_to_var(json_repr[num_vars + offset]))
 	elif var_or_path is NodePath:
 		tester_is_wildcard = false
 		tester_path = var_or_path

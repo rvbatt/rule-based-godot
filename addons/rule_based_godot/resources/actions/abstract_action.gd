@@ -18,7 +18,7 @@ var agent_type: AgentType = AgentType.PATH:
 var agent_path: NodePath = ^"."
 var _agent_node: Node = null
 # Type GROUPS
-var agent_groups := PackedStringArray()
+var agent_groups: Array[StringName] = []
 # TYPE WILDCARD
 var agent_identifier: StringName = &""
 
@@ -53,8 +53,10 @@ func _get_property_list():
 		AgentType.GROUPS:
 			properties.append(
 				{"name": "agent_groups",
-				"type": TYPE_PACKED_STRING_ARRAY,
-				"usage": PROPERTY_USAGE_DEFAULT}
+				"type": TYPE_ARRAY,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_TYPE_STRING,
+				"hint_string": "%d:" % [TYPE_STRING_NAME]}
 			)
 		AgentType.WILDCARD:
 			properties.append(
@@ -108,7 +110,8 @@ func build_from_repr(json_repr) -> void:
 		agent_path = first_param
 	elif first_param is Array:
 		agent_type = AgentType.GROUPS
-		agent_groups = first_param
+		agent_groups = []
+		agent_groups.assign(first_param)
 	elif first_param is String and first_param.begins_with('?'):
 		agent_type = AgentType.WILDCARD
 		agent_identifier = first_param.trim_prefix('?')
