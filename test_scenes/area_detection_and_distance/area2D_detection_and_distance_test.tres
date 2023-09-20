@@ -1,0 +1,135 @@
+[gd_resource type="Resource" script_class="RuleList" load_steps=24 format=3 uid="uid://btuwkpknwri8j"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_p1oim"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="2_gmtx5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="3_dkr35"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="4_qk5ud"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="5_r48e0"]
+
+[sub_resource type="Resource" id="Resource_8jh2d"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(0.498039, 0.498039, 0.498039, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_76j07"]
+script = ExtResource("2_gmtx5")
+source_node_path = NodePath("../Colliders/TileMap")
+min_distance = 0.0
+max_distance = 500.0
+tester_is_wildcard = false
+tester_path = NodePath("../MovableArea2D")
+retrieval_should_retrieve = false
+
+[sub_resource type="Resource" id="Resource_jlt3m"]
+resource_name = "Distance"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_76j07")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8jh2d")])
+
+[sub_resource type="Resource" id="Resource_djkju"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(0, 0, 0, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_b1nty"]
+script = ExtResource("4_qk5ud")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = false
+tester_path = NodePath("../Colliders/Area2D")
+
+[sub_resource type="Resource" id="Resource_1sa8l"]
+resource_name = "Area2D"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_b1nty")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_djkju")])
+
+[sub_resource type="Resource" id="Resource_sdvf5"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(1, 0, 0, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_2m0k0"]
+script = ExtResource("4_qk5ud")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = false
+tester_path = NodePath("../Colliders/StaticBody2D")
+
+[sub_resource type="Resource" id="Resource_131tm"]
+resource_name = "Static"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_2m0k0")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_sdvf5")])
+
+[sub_resource type="Resource" id="Resource_ro5te"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(0, 1, 0, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_5hfq1"]
+script = ExtResource("4_qk5ud")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = false
+tester_path = NodePath("../Colliders/RigidBody2D")
+
+[sub_resource type="Resource" id="Resource_j43ud"]
+resource_name = "Rigid"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_5hfq1")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_ro5te")])
+
+[sub_resource type="Resource" id="Resource_mmsnw"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(0, 0, 1, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_ndst2"]
+script = ExtResource("4_qk5ud")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = false
+tester_path = NodePath("../Colliders/CharacterBody2D")
+
+[sub_resource type="Resource" id="Resource_wvyf2"]
+resource_name = "Character"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_ndst2")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_mmsnw")])
+
+[sub_resource type="Resource" id="Resource_5b3sp"]
+script = ExtResource("1_p1oim")
+property_and_value = {
+"color": Color(1, 0, 1, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_voqkj"]
+script = ExtResource("4_qk5ud")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = false
+tester_path = NodePath("../Colliders/TileMap")
+
+[sub_resource type="Resource" id="Resource_mu4lk"]
+resource_name = "Tile"
+script = ExtResource("3_dkr35")
+condition = SubResource("Resource_voqkj")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_5b3sp")])
+
+[resource]
+script = ExtResource("5_r48e0")
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("3_dkr35")]([SubResource("Resource_jlt3m"), SubResource("Resource_1sa8l"), SubResource("Resource_131tm"), SubResource("Resource_j43ud"), SubResource("Resource_wvyf2"), SubResource("Resource_mu4lk")])

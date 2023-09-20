@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="RuleList" load_steps=12 format=3 uid="uid://b6ae3ab0hd6q0"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_fhr1r"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="2_oolb2"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="3_gu6nx"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="4_bmlmc"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_mnnnv"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_84j7q"]
+
+[sub_resource type="Resource" id="Resource_dpdhk"]
+script = ExtResource("1_fhr1r")
+property_and_value = {
+"color": Color(0, 0, 0, 1)
+}
+agent_type = 0
+agent_path = NodePath("ColorRect")
+
+[sub_resource type="Resource" id="Resource_xaaq8"]
+script = ExtResource("2_oolb2")
+signal_name = &"test_signal"
+parameter_to_type = {}
+arguments = []
+agent_type = 0
+agent_path = NodePath(".")
+
+[sub_resource type="Resource" id="Resource_8l5t6"]
+script = ExtResource("3_gu6nx")
+string_value = ""
+tester_is_wildcard = false
+tester_path = NodePath("LineEdit")
+extraction_type = 0
+extraction_property = &"text"
+retrieval_should_retrieve = false
+
+[sub_resource type="Resource" id="Resource_dmdrt"]
+script = ExtResource("4_bmlmc")
+negated_condition = SubResource("Resource_8l5t6")
+
+[sub_resource type="Resource" id="Resource_yoj6c"]
+script = ExtResource("5_mnnnv")
+condition = SubResource("Resource_dmdrt")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_dpdhk"), SubResource("Resource_xaaq8")])
+
+[resource]
+script = ExtResource("6_84j7q")
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("5_mnnnv")]([SubResource("Resource_yoj6c")])

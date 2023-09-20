@@ -2,26 +2,26 @@
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_16e81"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_nswr2"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_4m3vm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_fwqsd"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="4_q781q"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="5_pkxgd"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_7qleq"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_av3r3"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_xh355"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="5_t5eq1"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="6_k165o"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_beao0"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_h5vtr"]
 
-[sub_resource type="Resource" id="Resource_ae36n"]
+[sub_resource type="Resource" id="Resource_kfh4c"]
 script = ExtResource("3_fwqsd")
 
-[sub_resource type="Resource" id="Resource_qq1tl"]
-script = ExtResource("3_4m3vm")
+[sub_resource type="Resource" id="Resource_jdsap"]
+script = ExtResource("4_xh355")
 property_and_value = {
 "color": Color(0, 0, 0, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_w6b57"]
-script = ExtResource("5_pkxgd")
+[sub_resource type="Resource" id="Resource_uw0s2"]
+script = ExtResource("6_k165o")
 string_value = "black"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit")
@@ -29,8 +29,8 @@ extraction_type = 0
 extraction_property = &"text"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_jdxs0"]
-script = ExtResource("5_pkxgd")
+[sub_resource type="Resource" id="Resource_jvkxl"]
+script = ExtResource("6_k165o")
 string_value = "black"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit2")
@@ -38,27 +38,28 @@ extraction_type = 0
 extraction_property = &"text"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_b5mv7"]
-script = ExtResource("4_q781q")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_w6b57"), SubResource("Resource_jdxs0")])
+[sub_resource type="Resource" id="Resource_eywxm"]
+script = ExtResource("5_t5eq1")
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_uw0s2"), SubResource("Resource_jvkxl")])
 
-[sub_resource type="Resource" id="Resource_620xa"]
-script = ExtResource("6_av3r3")
-condition = SubResource("Resource_b5mv7")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_qq1tl")])
+[sub_resource type="Resource" id="Resource_lakai"]
+script = ExtResource("7_beao0")
+condition = SubResource("Resource_eywxm")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_jdsap")])
 
-[sub_resource type="Resource" id="Resource_dqk3j"]
-script = ExtResource("6_7qleq")
+[sub_resource type="Resource" id="Resource_v3uay"]
+script = ExtResource("8_h5vtr")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("6_av3r3")]([SubResource("Resource_620xa")])
+rules = Array[ExtResource("7_beao0")]([SubResource("Resource_lakai")])
 
 [node name="StringORStringTest" type="Node2D"]
 script = ExtResource("1_16e81")
 
-[node name="RuleBasedSystem" type="Node" parent="."]
+[node name="RuleBasedSystem" type="Timer" parent="."]
+wait_time = 3.0
 script = ExtResource("2_nswr2")
-arbiter = SubResource("Resource_ae36n")
-rule_list = SubResource("Resource_dqk3j")
+arbiter = SubResource("Resource_kfh4c")
+rule_list = SubResource("Resource_v3uay")
 
 [node name="LineEdit" type="LineEdit" parent="."]
 offset_left = 57.0

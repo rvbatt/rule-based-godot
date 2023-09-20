@@ -2,25 +2,25 @@
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_p08fm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_0x4s6"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_61la8"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="3_g6751"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_4mxr2"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_hsg4l"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_wj8ih"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_ldtqc"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="5_6hqyg"]
 [ext_resource type="Script" path="res://test_scenes/color_rect_method.gd" id="6_6xy53"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_tiowu"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_vlxf7"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="7_7ek62"]
 
-[sub_resource type="Resource" id="Resource_p5428"]
-script = ExtResource("3_61la8")
+[sub_resource type="Resource" id="Resource_4q84s"]
+script = ExtResource("3_wj8ih")
 
-[sub_resource type="Resource" id="Resource_0ssdx"]
-script = ExtResource("4_4mxr2")
+[sub_resource type="Resource" id="Resource_upx5k"]
+script = ExtResource("4_ldtqc")
 method = &"change_color"
 arguments = [Color(0, 0, 0, 1)]
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_2r1ik"]
-script = ExtResource("3_g6751")
+[sub_resource type="Resource" id="Resource_58ul0"]
+script = ExtResource("5_6hqyg")
 min_value = 5.0
 max_value = 10.0
 tester_is_wildcard = false
@@ -29,23 +29,23 @@ extraction_type = 0
 extraction_property = &"value"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_ssk35"]
-script = ExtResource("4_hsg4l")
-condition = SubResource("Resource_2r1ik")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_0ssdx")])
+[sub_resource type="Resource" id="Resource_2cre1"]
+script = ExtResource("6_vlxf7")
+condition = SubResource("Resource_58ul0")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_upx5k")])
 
-[sub_resource type="Resource" id="Resource_a3cj6"]
-script = ExtResource("6_tiowu")
+[sub_resource type="Resource" id="Resource_flib7"]
+script = ExtResource("7_7ek62")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("4_hsg4l")]([SubResource("Resource_ssk35")])
+rules = Array[ExtResource("6_vlxf7")]([SubResource("Resource_2cre1")])
 
 [node name="NumbericTest" type="Node2D"]
 script = ExtResource("1_p08fm")
 
-[node name="RuleBasedSystem" type="Node" parent="."]
+[node name="RuleBasedSystem" type="Timer" parent="."]
 script = ExtResource("2_0x4s6")
-arbiter = SubResource("Resource_p5428")
-rule_list = SubResource("Resource_a3cj6")
+arbiter = SubResource("Resource_4q84s")
+rule_list = SubResource("Resource_flib7")
 
 [node name="SpinBox" type="SpinBox" parent="."]
 offset_left = 530.0
@@ -59,5 +59,3 @@ offset_top = 115.0
 offset_right = 754.0
 offset_bottom = 344.0
 script = ExtResource("6_6xy53")
-
-[connection signal="value_changed" from="SpinBox" to="." method="run_tests"]

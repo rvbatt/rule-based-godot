@@ -9,6 +9,5 @@ func _physics_process(_delta):
 func _on_area_entered(area):
 	print("Area entered: " + area.name)
 
-
 func _on_body_entered(body):
 	print("Body entered: " + body.name)

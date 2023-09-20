@@ -2,128 +2,123 @@
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_oplh7"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_do1h6"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_3iist"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_xmhyo"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="5_67y8h"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_et72x"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="5_gsuqd"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_lpdu5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="5_s5pcb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_qxvns"]
 [ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="7_de4d7"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="7_rapdb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_mwh6d"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection_and_distance/components/mesh_library.tres" id="8_y82o8"]
 
-[sub_resource type="Resource" id="Resource_gctnr"]
+[sub_resource type="Resource" id="Resource_rja4w"]
 script = ExtResource("3_xmhyo")
 
-[sub_resource type="Resource" id="Resource_dhe2r"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_u2703"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(0, 0, 0, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_nhj4q"]
-script = ExtResource("5_gsuqd")
+[sub_resource type="Resource" id="Resource_ttdtq"]
+script = ExtResource("5_s5pcb")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/Area3D")
 
-[sub_resource type="Resource" id="Resource_me8un"]
-resource_name = "Area3D"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_nhj4q")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_dhe2r")])
+[sub_resource type="Resource" id="Resource_hy7wp"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_ttdtq")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_u2703")])
 
-[sub_resource type="Resource" id="Resource_2apls"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_oycxr"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(1, 0, 0, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_x31fs"]
-script = ExtResource("5_gsuqd")
+[sub_resource type="Resource" id="Resource_fifni"]
+script = ExtResource("5_s5pcb")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/StaticBody3D")
 
-[sub_resource type="Resource" id="Resource_7qtf4"]
-resource_name = "Static"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_x31fs")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_2apls")])
+[sub_resource type="Resource" id="Resource_0xs21"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_fifni")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_oycxr")])
 
-[sub_resource type="Resource" id="Resource_wkdt7"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_b5kad"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(0, 1, 0, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_5mxst"]
-script = ExtResource("5_gsuqd")
+[sub_resource type="Resource" id="Resource_v0eiq"]
+script = ExtResource("5_s5pcb")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/RigidBody3D")
 
-[sub_resource type="Resource" id="Resource_qiv1d"]
-resource_name = "Rigid"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_5mxst")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_wkdt7")])
+[sub_resource type="Resource" id="Resource_0ybhw"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_v0eiq")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_b5kad")])
 
-[sub_resource type="Resource" id="Resource_mb672"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_jqe8y"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(0, 0, 1, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_wmx3p"]
-script = ExtResource("5_gsuqd")
+[sub_resource type="Resource" id="Resource_mry42"]
+script = ExtResource("5_s5pcb")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/CharacterBody3D")
 
-[sub_resource type="Resource" id="Resource_dwt5h"]
-resource_name = "Character"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_wmx3p")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_mb672")])
+[sub_resource type="Resource" id="Resource_ady53"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_mry42")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_jqe8y")])
 
-[sub_resource type="Resource" id="Resource_ma2ji"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_5kjqr"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(1, 0, 1, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_028kp"]
-script = ExtResource("5_gsuqd")
+[sub_resource type="Resource" id="Resource_krrr1"]
+script = ExtResource("5_s5pcb")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/GridMap")
 
-[sub_resource type="Resource" id="Resource_2tlyy"]
-resource_name = "Grid"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_028kp")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_ma2ji")])
+[sub_resource type="Resource" id="Resource_8fhmg"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_krrr1")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_5kjqr")])
 
-[sub_resource type="Resource" id="Resource_1dero"]
-script = ExtResource("3_3iist")
+[sub_resource type="Resource" id="Resource_vh5tl"]
+script = ExtResource("4_lpdu5")
 property_and_value = {
 "color": Color(0.498039, 0.498039, 0.498039, 1)
 }
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_3a51j"]
-script = ExtResource("5_67y8h")
+[sub_resource type="Resource" id="Resource_j45vj"]
+script = ExtResource("7_rapdb")
 source_node_path = NodePath("../Colliders/GridMap")
 min_distance = 10.0
 max_distance = inf
@@ -131,16 +126,15 @@ tester_is_wildcard = false
 tester_path = NodePath("../MovableArea3D")
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_0ebkf"]
-resource_name = "Distance"
-script = ExtResource("5_et72x")
-condition = SubResource("Resource_3a51j")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_1dero")])
+[sub_resource type="Resource" id="Resource_1suph"]
+script = ExtResource("6_qxvns")
+condition = SubResource("Resource_j45vj")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_vh5tl")])
 
-[sub_resource type="Resource" id="Resource_vsokq"]
-script = ExtResource("7_de4d7")
+[sub_resource type="Resource" id="Resource_nt6ah"]
+script = ExtResource("8_mwh6d")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("5_et72x")]([SubResource("Resource_me8un"), SubResource("Resource_7qtf4"), SubResource("Resource_qiv1d"), SubResource("Resource_dwt5h"), SubResource("Resource_2tlyy"), SubResource("Resource_0ebkf")])
+rules = Array[ExtResource("6_qxvns")]([SubResource("Resource_hy7wp"), SubResource("Resource_0xs21"), SubResource("Resource_0ybhw"), SubResource("Resource_ady53"), SubResource("Resource_8fhmg"), SubResource("Resource_1suph")])
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
 size = Vector2(20, 20)
@@ -170,10 +164,10 @@ albedo_color = Color(0, 0, 1, 1)
 [node name="Area3DDetectionTest" type="Node3D"]
 script = ExtResource("1_oplh7")
 
-[node name="RuleBasedSystem" type="Node" parent="."]
+[node name="RuleBasedSystem" type="Timer" parent="."]
 script = ExtResource("2_do1h6")
-arbiter = SubResource("Resource_gctnr")
-rule_list = SubResource("Resource_vsokq")
+arbiter = SubResource("Resource_rja4w")
+rule_list = SubResource("Resource_nt6ah")
 
 [node name="MovableArea3D" parent="." instance=ExtResource("7_2f534")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91942)
@@ -260,6 +254,3 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="Label3D" type="Label3D" parent="Colliders/GridMap"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03996, 1.8295, -0.958556)
 text = "GridMap"
-
-[connection signal="area_entered" from="MovableArea3D" to="." method="run_tests"]
-[connection signal="body_entered" from="MovableArea3D" to="." method="run_tests"]

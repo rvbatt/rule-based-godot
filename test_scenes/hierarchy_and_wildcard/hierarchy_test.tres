@@ -1,0 +1,74 @@
+[gd_resource type="Resource" script_class="RuleList" load_steps=14 format=3 uid="uid://busp83voxsmc1"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_qo0dv"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/hierarchy_match.gd" id="2_bo0cd"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="3_7vctk"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="4_6iqmt"]
+
+[sub_resource type="Resource" id="Resource_byb4r"]
+script = ExtResource("1_qo0dv")
+property_and_value = {
+"text": "yes"
+}
+agent_type = 0
+agent_path = NodePath("../Statements/AParentB/answer")
+
+[sub_resource type="Resource" id="Resource_po74r"]
+script = ExtResource("2_bo0cd")
+source_node_path = NodePath("../Root/A/AChildren")
+relation = "Parent of"
+tester_is_wildcard = false
+tester_path = NodePath("../Root/A/AChildren/B")
+
+[sub_resource type="Resource" id="Resource_rpu1h"]
+resource_name = "A parent of B"
+script = ExtResource("3_7vctk")
+condition = SubResource("Resource_po74r")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_byb4r")])
+
+[sub_resource type="Resource" id="Resource_qdqjx"]
+script = ExtResource("1_qo0dv")
+property_and_value = {
+"text": "yes"
+}
+agent_type = 0
+agent_path = NodePath("../Statements/CChildA/answer")
+
+[sub_resource type="Resource" id="Resource_s5xrp"]
+script = ExtResource("2_bo0cd")
+source_node_path = NodePath("../Root/A/AChildren/C")
+relation = "Child of"
+tester_is_wildcard = false
+tester_path = NodePath("../Root/A/AChildren")
+
+[sub_resource type="Resource" id="Resource_x25w0"]
+resource_name = "C child of A"
+script = ExtResource("3_7vctk")
+condition = SubResource("Resource_s5xrp")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_qdqjx")])
+
+[sub_resource type="Resource" id="Resource_t13sb"]
+script = ExtResource("1_qo0dv")
+property_and_value = {
+"text": "yes"
+}
+agent_type = 0
+agent_path = NodePath("../Statements/BSibliingC/answer")
+
+[sub_resource type="Resource" id="Resource_vbcsd"]
+script = ExtResource("2_bo0cd")
+source_node_path = NodePath("../Root/A/AChildren/B")
+relation = "Sibling of"
+tester_is_wildcard = false
+tester_path = NodePath("../Root/A/AChildren/C")
+
+[sub_resource type="Resource" id="Resource_e5p4e"]
+resource_name = "B sibling of C"
+script = ExtResource("3_7vctk")
+condition = SubResource("Resource_vbcsd")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_t13sb")])
+
+[resource]
+script = ExtResource("4_6iqmt")
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("3_7vctk")]([SubResource("Resource_rpu1h"), SubResource("Resource_x25w0"), SubResource("Resource_e5p4e")])

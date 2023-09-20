@@ -2,68 +2,70 @@
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_l4jm5"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_l2boe"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_jauo2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_kl5b2"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="4_j38vk"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="6_48xal"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_5a35l"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="7_v3nlx"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_ov2x6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_ahvvd"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="5_2y1gw"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="6_lq2gx"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="7_ewt55"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="8_r5rat"]
 [ext_resource type="PackedScene" uid="uid://c4b8d7i8ncdjq" path="res://test_scenes/hierarchy_and_wildcard/components/multiple_variables.tscn" id="9_63r5g"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="9_adj3j"]
 
-[sub_resource type="Resource" id="Resource_h5e21"]
+[sub_resource type="Resource" id="Resource_sq4om"]
 script = ExtResource("3_kl5b2")
 
-[sub_resource type="Resource" id="Resource_rj43f"]
-script = ExtResource("3_jauo2")
+[sub_resource type="Resource" id="Resource_a5m22"]
+script = ExtResource("4_ahvvd")
 property_and_value = {
 "string": "Wildcard"
 }
 agent_type = 2
 agent_identifier = &"wild"
 
-[sub_resource type="Resource" id="Resource_54djj"]
-script = ExtResource("6_48xal")
+[sub_resource type="Resource" id="Resource_k1xwb"]
+script = ExtResource("6_lq2gx")
 min_value = 5.0
 max_value = 10.0
 tester_is_wildcard = true
-tester_search_groups = PackedStringArray()
+tester_search_groups = Array[StringName]([])
 tester_identifier = &"wild"
 extraction_type = 0
 extraction_property = &"number"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_q1cc4"]
-script = ExtResource("7_v3nlx")
+[sub_resource type="Resource" id="Resource_xjwiw"]
+script = ExtResource("7_ewt55")
 string_value = "yes"
 tester_is_wildcard = true
-tester_search_groups = PackedStringArray()
+tester_search_groups = Array[StringName]([])
 tester_identifier = &"wild"
 extraction_type = 0
 extraction_property = &"string"
 retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_g71pw"]
-script = ExtResource("4_j38vk")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_54djj"), SubResource("Resource_q1cc4")])
+[sub_resource type="Resource" id="Resource_a5nbq"]
+script = ExtResource("5_2y1gw")
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_k1xwb"), SubResource("Resource_xjwiw")])
 
-[sub_resource type="Resource" id="Resource_wq67j"]
-script = ExtResource("7_5a35l")
-condition = SubResource("Resource_g71pw")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_rj43f")])
+[sub_resource type="Resource" id="Resource_q8xxh"]
+script = ExtResource("8_r5rat")
+condition = SubResource("Resource_a5nbq")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_a5m22")])
 
-[sub_resource type="Resource" id="Resource_ltgwe"]
-script = ExtResource("8_ov2x6")
+[sub_resource type="Resource" id="Resource_c3o8v"]
+script = ExtResource("9_adj3j")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("7_5a35l")]([SubResource("Resource_wq67j")])
+rules = Array[ExtResource("8_r5rat")]([SubResource("Resource_q8xxh")])
 
 [node name="WildcardString" type="Node2D"]
 script = ExtResource("1_l4jm5")
 
-[node name="RuleBasedSystem" type="Node" parent="."]
+[node name="RuleBasedSystem" type="Timer" parent="."]
+wait_time = 5.0
 script = ExtResource("2_l2boe")
-arbiter = SubResource("Resource_h5e21")
-rule_list = SubResource("Resource_ltgwe")
+iteration_update = 2
+arbiter = SubResource("Resource_sq4om")
+rule_list = SubResource("Resource_c3o8v")
 
 [node name="MultipleVariables" parent="RuleBasedSystem" groups=["multiple"] instance=ExtResource("9_63r5g")]
 anchors_preset = 5

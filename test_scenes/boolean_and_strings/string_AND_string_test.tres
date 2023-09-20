@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="RuleList" load_steps=11 format=3 uid="uid://dd8b083a26dgd"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_j5r26"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="2_6ysfj"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="3_88cr3"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_s1vqr"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="5_6xd5a"]
+
+[sub_resource type="Resource" id="Resource_cut8s"]
+script = ExtResource("1_j5r26")
+property_and_value = {
+"color": Color(1, 0.498039, 0, 1)
+}
+agent_type = 0
+agent_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_hxt25"]
+script = ExtResource("3_88cr3")
+string_value = "red"
+tester_is_wildcard = false
+tester_path = NodePath("../LineEdit")
+extraction_type = 0
+extraction_property = &"text"
+retrieval_should_retrieve = false
+
+[sub_resource type="Resource" id="Resource_upax8"]
+script = ExtResource("3_88cr3")
+string_value = "yellow"
+tester_is_wildcard = false
+tester_path = NodePath("../LineEdit2")
+extraction_type = 0
+extraction_property = &"text"
+retrieval_should_retrieve = false
+
+[sub_resource type="Resource" id="Resource_3g4dd"]
+script = ExtResource("2_6ysfj")
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_hxt25"), SubResource("Resource_upax8")])
+
+[sub_resource type="Resource" id="Resource_kchyd"]
+script = ExtResource("4_s1vqr")
+condition = SubResource("Resource_3g4dd")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_cut8s")])
+
+[resource]
+script = ExtResource("5_6xd5a")
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("4_s1vqr")]([SubResource("Resource_kchyd")])
