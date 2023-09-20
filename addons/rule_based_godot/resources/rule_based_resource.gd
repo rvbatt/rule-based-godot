@@ -52,9 +52,9 @@ func _exported_vars() -> Array[String]:
 
 func _var_to_repr(variable: Variant) -> Variant:
 	match typeof(variable):
-		TYPE_STRING, TYPE_FLOAT, TYPE_BOOL:
+		TYPE_STRING, TYPE_INT, TYPE_BOOL:
 			return variable
-		TYPE_INT:
+		TYPE_FLOAT:
 			if variable == INF:
 				return "inf"
 			elif variable == -INF:
