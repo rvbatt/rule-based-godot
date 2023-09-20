@@ -5,7 +5,8 @@ extends AbstractMatch
 
 func set_factory(rule_factory: RuleFactory) -> void:
 	_rule_factory = rule_factory
-	negated_condition.set_factory(rule_factory)
+	if negated_condition != null:
+		negated_condition.set_factory(rule_factory)
 
 func setup(system_node: RuleBasedSystem) -> void:
 	if negated_condition != null:
