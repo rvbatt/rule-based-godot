@@ -253,15 +253,15 @@ func _get_data(tester_node: Node) -> Variant:
 
 ################################ JSON format ###################################
 func json_format() -> String:
-	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
-	var string = '["' + _resource_id() + '", ("?data")'
+	# [ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]
+	var string = '[' + _resource_id() + ', <?data>'
 	for variable in _exported_vars():
 		string += ', ' + variable
-	string += ', "(?wild", [groups]|"tester"), ("prop"|"method", [args])]'
+	string += ', (tester_path|?wild, [groups]) <, (prop|method, [args])]'
 	return string
 
 func to_json_repr() -> Variant:
-	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
+	# [ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]
 	var json_array = [_resource_id()]
 	if retrieval_should_retrieve:
 		json_array.append(_var_to_repr('?' + retrieval_variable))
@@ -289,7 +289,7 @@ func to_json_repr() -> Variant:
 	return json_array
 
 func build_from_repr(json_repr: Array) -> void:
-	# ["ID", ("?data"), vars..., ("?wild", [groups]|"tester"), ("prop"|"method", [args])]
+	# [ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]
 	var offset = 1
 	var first_param = _repr_to_var(json_repr[1])
 	if first_param is String and first_param.begins_with('?'):

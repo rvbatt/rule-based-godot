@@ -16,18 +16,18 @@ func setup(system_node: RuleBasedSystem) -> void:
 		condition.setup(system_node)
 
 func json_format() -> String:
-	# ["ID", [conditions]]
-	return '["' + _resource_id() + '", [conditions]]'
+	# [ID, [conditions]]
+	return '[' + _resource_id() + ', [conditions]]'
 
 func to_json_repr() -> Variant:
-	# ["ID", [conditions]]
+	# [ID, [conditions]]
 	var conditions_array := []
 	for condition in subconditions:
 		conditions_array.append(condition.to_json_repr())
 	return [_resource_id(), conditions_array]
 
 func build_from_repr(json_repr) -> void:
-	# ["ID", [conditions]]
+	# [ID, [conditions]]
 	subconditions = []
 	for match_repr in json_repr[1]:
 		var new_condition = _rule_factory.build_match(match_repr)

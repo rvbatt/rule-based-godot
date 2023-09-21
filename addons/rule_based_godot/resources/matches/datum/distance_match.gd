@@ -2,13 +2,13 @@
 class_name DistanceMatch
 extends DatumMatch
 
-@export_node_path var source_node_path: NodePath = ^""
+@export_node_path var source_path: NodePath = ^""
 var _source_node: Node
 @export var min_distance: float = 0
 @export var max_distance: float = 0
 
 func _init():
-	_preset_node_path("source_node_path", "_source_node")
+	_preset_node_path("source_path", "_source_node")
 
 func _get_data(target_node: Node) -> Variant:
 	if _source_node == null or target_node == null:

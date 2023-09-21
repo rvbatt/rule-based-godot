@@ -81,14 +81,14 @@ func setup(system_node: RuleBasedSystem) -> void:
 			_agent_node.add_user_signal(get(name_var), params)
 
 func json_format() -> String:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
-	var string = '["' + _resource_id() + '", "?wild"|["groups"]|"agent"'
+	# [ID, (agent_path|?wild|[groups]|), vars...]
+	var string = '[' + _resource_id() + ', (agent_path|?wild|[groups])'
 	for variable in _exported_vars():
 		string += ', ' + variable
 	return string + ']'
 
 func to_json_repr() -> Variant:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	# [ID, (agent_path|?wild|[groups]|), vars...]
 	var json_array = [_resource_id()]
 	match agent_type:
 		AgentType.PATH:
@@ -103,7 +103,7 @@ func to_json_repr() -> Variant:
 	return json_array
 
 func build_from_repr(json_repr) -> void:
-	# ["ID", "?wild"|["groups"]|"agent", vars...]
+	# [ID, (agent_path|?wild|[groups]|), vars...]
 	var first_param = _repr_to_var(json_repr[1])
 	if first_param is NodePath:
 		agent_type = AgentType.PATH
