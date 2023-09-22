@@ -19,8 +19,8 @@ func _init():
 	var all_classes = ProjectSettings.get_global_class_list()
 	matches = _id_to_script_dict(all_classes,
 		func(class_dict):
-			return class_dict["base"] == "DatumMatch" or \
-				class_dict["base"] == "MultiBoolMatch" or \
+			return class_dict["base"] == "AbstractDatumMatch" or \
+				class_dict["base"] == "AbstractMultiBoolMatch" or \
 				class_dict["class"] == "NOTMatch"
 	)
 	actions = _id_to_script_dict(all_classes,

@@ -1,4 +1,4 @@
-class_name MultiBoolMatch
+class_name AbstractMultiBoolMatch
 extends AbstractMatch
 # Abstract class for multiple-input boolean matches
 
