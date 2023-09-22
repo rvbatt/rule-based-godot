@@ -4,23 +4,43 @@ A plugin for Godot game engine that  implements a generic Rule-Based System. Thi
 ## Adding rules to a scene
 1. Add a **RuleBasedSystem** node to the scene. It's recommended to make the
 nodes controlled by the system children of this node, that way the node paths
-relative to the system are straight forward
+using the system as origin are straight forward
 2. Set the type of _Iteration Update_ that the system will use:
    - `Every frame`: iterates every physics frame. **Use this with caution**, a
    large set of rules can take a while to run through
    - `On Timer`: iterates every _wait\_time_ seconds, which can be defined in the _Timer_ category on the Inspector
    - `On Call`: only iterates when the method _iterate()_ is called explicity. You can connect external signals to this method if you want to have a better control over it
 3. Add an _Arbiter_. **Don't choose the _AbstractArbiter_**, because that's the abstract class and it doesn't implement the necessary function
-4. Create a new **RuleList** and start adding rules on the array, as many as you need
-5. For each **Rule**, create its components (**never choose the ones that start with _Abstract_**, just like the the arbiter):
+4. Now you can choose to use either the _Inspector_, with graphical interface, or the _Rules Editor_ bottom panel, with a code driven approach, to declare the rules
+
+### Creating rules in the Inspector
+Since the **RuleList** and all of its components are resources, you can save and load any part of the data structure, sharing common rules, conditions or actions between several systems. The following steps talk about creating new
+ones from scratch, but you can skip any creation if you load an existing resource instead.
+
+5. Create a new **RuleList** and start adding rules on the array, as many as you need
+6. For each **Rule**, create its components (**never choose the ones that start with _Abstract_**):
    1. Create a _Condition_. If you choose a boolean match (NOT, OR, AND), you can then create its subconditions, repeating this step. If you choose a datum match,
    edit its properties, and don't forget to expand the groups to check them out
    2. Add an _Action_ to the array, then edit its properties, including the ones on
    the groups. You can repeat this step as many times as you want
+7. (optional) Once you have defined the behavior you want, you can save a part or all of
+the list of rules as a resource file. You can save a _Condition_, an individual _Action_, a **Rule** or the whole **RuleList**
 
-## Rules Editor
-You can define rules in the **Rules Editor** bottom panel using a JSON syntax.
+### Declaring rules in the Rules Editor
+You can define rules in the **Rules Editor** bottom panel using a JSON syntax. The panel connects itself to the last **RuleBasedSystem** that you've clicked,
+which will be the one showing on the Inspector.
 
+5. Open the **Rules Editor** and use the `Reset` button if there is some leftover text in the editor
+6. Delete the "condition", keep the caret at that position and click the `New Match` button. Choose one of the options that popped up and click it. The format of the selected match will be inserted in the editor, where the caret was
+7. Follow the syntax explained in the [documentation](#syntax-documentation) and replace the placeholders with the configuration you want. If you chose a boolean match, there will be another "condition" or "conditions", so repeat the
+previous step
+8. Delete "actions" and click the `New action` button. Click one option. The JSON format of that type of action will be inserted where the caret was
+9. Like step 7, replace the placeholders with the action properties, following the [syntax](#syntax-documentation)
+10. (optional) Add new rules using the `New Rule` button, which inserts the template on the caret position. Repeat steps 6 to 9 with every new rule
+11. When your rules are done, click the `Apply` button to set the current
+**RuleBasedSystem**'s rule list. If the syntax is wrong, a JSON parsing error will appear and the "apply" will abort
+
+## JSON syntax
 ### How to read the syntax documentation
 Here are the patterns adopted to represent the syntax:
 
@@ -33,11 +53,12 @@ Here are the patterns adopted to represent the syntax:
 - `(choiceA|choiceB|choiceC.1, choiceC.2)`: you need to pick **one** of the choices
 separated by **|** and between **( )**. One choice can have several items separated by commas. For example, _(melee\_weapon|ranged\_weapon, ammunition)_ can be replaced by _sword_ or by _bow, arrow_
 
-The term `condition` can be replaced by **NOTMatch**, subtypes of **MultiBoolMatch** or subtypes of **DatumMatch**.
+The term `condition` can be replaced by a **NOTMatch**, subtypes of **MultiBoolMatch** or subtypes of **DatumMatch**.
 
 The `ID` of a component is its _class\_name_ without the "Action" or "Match" suffix.
 
-### JSON syntax
+### Syntax documentation
+
 - **Rule List**: `{"Rules": [rules]}`
 - **Rule**: `{"if": condition, "then": [actions]}`
 - Matches:
@@ -54,4 +75,4 @@ The `ID` of a component is its _class\_name_ without the "Action" or "Match" suf
 - Actions: `[ID, (agent_path|?wild|[groups]|), vars...]` (template)
    - **Set Property**: `["SetProperty", (agent_path|?wild|[groups]|), {property: value}]`. Obs: `{property: value}` only has only one entry
    - **Call Method**: `["CallMethod", (agent_path|?wild|[groups]|), method, [args]]`
-   - **Emit Signal**: `["EmitSignal", (agent_path|?wild|[groups]|), signal <, {params: types}, [args]>]`. Obs: `{params: types}` is a dictionary with the name of the signal parameters as keys and an arbitrary element with the same type as the corresponding argument as values. For example: _{number\_param: 1, string\_param: ""}_
+   - **Emit Signal**: `["EmitSignal", (agent_path|?wild|[groups]|), signal <, {params: types}, [args]>]`. Obs: `{params: types}` is a dictionary with the name of the signal parameters as keys and an arbitrary element with the same type as the corresponding argument as value. For example: _{number\_param: 1, string\_param: ""}_
