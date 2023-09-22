@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="LeastRecentlyUsedArbiter" load_steps=2 format=3 uid="uid://c2niiymvf2ovc"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/least_recently_used_arbiter.gd" id="1_cs6vr"]
+
+[resource]
+resource_name = "Least Recently Used"
+script = ExtResource("1_cs6vr")

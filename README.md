@@ -10,7 +10,8 @@ using the system as origin are straight forward
    large set of rules can take a while to run through
    - `On Timer`: iterates every _wait\_time_ seconds, which can be defined in the _Timer_ category on the Inspector
    - `On Call`: only iterates when the method _iterate()_ is called explicity. You can connect external signals to this method if you want to have a better control over it
-3. Add an _Arbiter_. **Don't choose the _AbstractArbiter_**, because that's the abstract class and it doesn't implement the necessary function
+3. Add an _Arbiter_. **Don't choose the _AbstractArbiter_**, because that's the abstract class and it doesn't implement the necessary function. It's recommended to `Quick Load` a resource file, because the arbiters don't need
+to be local to the scene, so use the same saved one and avoid creating another
 4. Now you can choose to use either the _Inspector_, with graphical interface, or the _Rules Editor_ bottom panel, with a code driven approach, to declare the rules
 
 ### Creating rules in the Inspector

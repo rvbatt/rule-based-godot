@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="FirstApplicableArbiter" load_steps=2 format=3 uid="uid://dduon64x0dy62"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="1_46q0b"]
+
+[resource]
+resource_name = "First Applicable"
+script = ExtResource("1_46q0b")
