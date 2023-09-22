@@ -257,7 +257,7 @@ func json_format() -> String:
 	var string = '[' + _resource_id() + ', <?data>'
 	for variable in _exported_vars():
 		string += ', ' + variable
-	string += ', (tester_path|?wild, [groups]) <, (prop|method, [args])]'
+	string += ', (tester_path|?wild, [groups]) <, (prop|method, [args])>]'
 	return string
 
 func to_json_repr() -> Variant:
