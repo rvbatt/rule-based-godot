@@ -32,8 +32,8 @@ func _load_json(path: String) -> Dictionary:
 	if string == "":
 		return {}
 
-	var dict: Dictionary = JSON.parse_string(string)
-	if dict == null:
+	var json_parser = JSON.new()
+	if json_parser.parse(string) != OK:
 		return {}
 
-	return dict
+	return json_parser.data

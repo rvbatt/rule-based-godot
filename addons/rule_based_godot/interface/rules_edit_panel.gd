@@ -37,6 +37,10 @@ func _ready():
 		$CodeEdit.syntax_highlighter.keyword_colors[action_name] = action_color
 	$Buttons/ActionButton.selected = 0
 
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		rule_factory.free()
+
 func _reset_edit():
 	$CodeEdit.text = $CodeEdit.placeholder_text
 
