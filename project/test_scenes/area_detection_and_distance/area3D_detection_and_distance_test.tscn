@@ -1,0 +1,265 @@
+[gd_scene load_steps=37 format=3 uid="uid://i5168sp0akob"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_oplh7"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_do1h6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_3iist"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="4_42jq5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_et72x"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/distance_match.gd" id="6_h8s5a"]
+[ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="7_de4d7"]
+[ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection_and_distance/components/mesh_library.tres" id="8_y82o8"]
+
+[sub_resource type="Resource" id="Resource_a3yq7"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_8iluw"]
+script = ExtResource("4_42jq5")
+area_path = NodePath("../MovableArea3D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/Area3D")
+
+[sub_resource type="Resource" id="Resource_asxml"]
+resource_name = "Area"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_8iluw")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_a3yq7")])
+
+[sub_resource type="Resource" id="Resource_way8f"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(1, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_hj4cq"]
+script = ExtResource("4_42jq5")
+area_path = NodePath("../MovableArea3D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/StaticBody3D")
+
+[sub_resource type="Resource" id="Resource_b8wvp"]
+resource_name = "Static"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_hj4cq")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_way8f")])
+
+[sub_resource type="Resource" id="Resource_lq2pk"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 1, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_s1oyl"]
+script = ExtResource("4_42jq5")
+area_path = NodePath("../MovableArea3D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/RigidBody3D")
+
+[sub_resource type="Resource" id="Resource_pttn5"]
+resource_name = "Rigid"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_s1oyl")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_lq2pk")])
+
+[sub_resource type="Resource" id="Resource_hesm1"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_knqq0"]
+script = ExtResource("4_42jq5")
+area_path = NodePath("../MovableArea3D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/CharacterBody3D")
+
+[sub_resource type="Resource" id="Resource_n6847"]
+resource_name = "Character"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_knqq0")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_hesm1")])
+
+[sub_resource type="Resource" id="Resource_fq0tu"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(1, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_7klar"]
+script = ExtResource("4_42jq5")
+area_path = NodePath("../MovableArea3D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/GridMap")
+
+[sub_resource type="Resource" id="Resource_20lt4"]
+resource_name = "Grid"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_7klar")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_fq0tu")])
+
+[sub_resource type="Resource" id="Resource_yokbs"]
+script = ExtResource("3_3iist")
+property = &"color"
+type_and_value = {
+"Color": Color(0.498039, 0.498039, 0.458824, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_j61oi"]
+script = ExtResource("6_h8s5a")
+source_node_path = NodePath("../MovableArea3D")
+min_distance = 10.0
+max_distance = inf
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/GridMap")
+
+[sub_resource type="Resource" id="Resource_v4opu"]
+resource_name = "Distance"
+script = ExtResource("5_et72x")
+condition = SubResource("Resource_j61oi")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_yokbs")])
+
+[sub_resource type="Resource" id="Resource_83uek"]
+script = ExtResource("7_de4d7")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("5_et72x")]([SubResource("Resource_asxml"), SubResource("Resource_b8wvp"), SubResource("Resource_pttn5"), SubResource("Resource_n6847"), SubResource("Resource_20lt4"), SubResource("Resource_v4opu")])
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f2x8s"]
+size = Vector2(20, 20)
+center_offset = Vector3(0, -0.5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e8t3t"]
+albedo_color = Color(0.486275, 0.486275, 0.486275, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jrcvy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3msf8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tfav"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0ii2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lgfw"]
+resource_local_to_scene = true
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qqyh"]
+resource_local_to_scene = true
+albedo_color = Color(0, 0, 1, 1)
+
+[node name="Area3DDetectionTest" type="Node3D"]
+script = ExtResource("1_oplh7")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_do1h6")
+rule_set = SubResource("Resource_83uek")
+
+[node name="MovableArea3D" parent="." instance=ExtResource("7_2f534")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.91942)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 176.0
+grow_horizontal = 0
+
+[node name="Floor" type="CSGMesh3D" parent="."]
+mesh = SubResource("PlaneMesh_f2x8s")
+material = SubResource("StandardMaterial3D_e8t3t")
+
+[node name="Colliders" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.40263, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Area3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/Area3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8tfav")
+
+[node name="Label3D" type="Label3D" parent="Colliders/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.889387, 0)
+text = "Area3D"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/StaticBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/StaticBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_d0ii2")
+
+[node name="Label3D" type="Label3D" parent="Colliders/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+text = "Static"
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.38627, 0, -4.7343)
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/RigidBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/RigidBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8lgfw")
+
+[node name="Label3D" type="Label3D" parent="Colliders/RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.864454, 0)
+text = "Rigid"
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/CharacterBody3D"]
+shape = SubResource("BoxShape3D_jrcvy")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Colliders/CharacterBody3D"]
+mesh = SubResource("BoxMesh_3msf8")
+material = SubResource("StandardMaterial3D_8qqyh")
+
+[node name="Label3D" type="Label3D" parent="Colliders/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.864454, 0)
+text = "Character"
+
+[node name="GridMap" type="GridMap" parent="Colliders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("8_y82o8")
+data = {
+"cells": PackedInt32Array(65535, 65535, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Label3D" type="Label3D" parent="Colliders/GridMap"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03996, 1.8295, -0.958556)
+text = "GridMap"
+
+[connection signal="area_entered" from="MovableArea3D" to="." method="run_tests"]
+[connection signal="body_entered" from="MovableArea3D" to="." method="run_tests"]

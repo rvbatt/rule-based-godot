@@ -1,0 +1,138 @@
+[gd_scene load_steps=3 format=3 uid="uid://7pockqeqe7mo"]
+
+[ext_resource type="Script" path="res://addons/rule_based_godot/interface/rules_edit_panel.gd" id="1_46k7w"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
+number_color = Color(0.631373, 1, 0.878431, 1)
+symbol_color = Color(1, 0.929412, 0.631373, 1)
+keyword_colors = {
+"AND": Color(1, 0.439216, 0.521569, 1),
+"AreaDetection": Color(1, 0.439216, 0.521569, 1),
+"CallMethod": Color(1, 0.54902, 0.8, 1),
+"Distance": Color(1, 0.439216, 0.521569, 1),
+"EmitSignal": Color(1, 0.54902, 0.8, 1),
+"NOT": Color(1, 0.439216, 0.521569, 1),
+"Numeric": Color(1, 0.439216, 0.521569, 1),
+"OR": Color(1, 0.439216, 0.521569, 1),
+"Rules": Color(1, 0.698039, 0.45098, 1),
+"SetProperty": Color(1, 0.54902, 0.8, 1),
+"String": Color(1, 0.439216, 0.521569, 1),
+"if": Color(0.4, 0.898039, 1, 1),
+"then": Color(0.4, 0.898039, 1, 1)
+}
+
+[node name="Rules Editor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_46k7w")
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 3
+text = "{\"Rules\": [
+	{\"if\":
+		condition,
+	\"then\": [
+		actions
+	]}
+]}"
+placeholder_text = "{\"Rules\": [
+	{\"if\":
+		condition,
+	\"then\": [
+		actions
+	]}
+]}"
+wrap_mode = 1
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+syntax_highlighter = SubResource("CodeHighlighter_qf84p")
+caret_blink = true
+symbol_lookup_on_click = true
+line_folding = true
+line_length_guidelines = Array[int]([80])
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_zero_pad_line_numbers = true
+gutters_draw_fold_gutter = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="RuleButton" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "New Rule"
+
+[node name="MatchButton" type="OptionButton" parent="Buttons"]
+layout_mode = 2
+item_count = 8
+selected = 0
+popup/item_0/text = "New Match"
+popup/item_0/id = -1
+popup/item_0/separator = true
+popup/item_1/text = "String"
+popup/item_1/id = 1
+popup/item_2/text = "Numeric"
+popup/item_2/id = 2
+popup/item_3/text = "Distance"
+popup/item_3/id = 3
+popup/item_4/text = "AreaDetection"
+popup/item_4/id = 4
+popup/item_5/text = "AND"
+popup/item_5/id = 5
+popup/item_6/text = "OR"
+popup/item_6/id = 6
+popup/item_7/text = "NOT"
+popup/item_7/id = 7
+
+[node name="ActionButton" type="OptionButton" parent="Buttons"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "New Action"
+popup/item_0/id = -1
+popup/item_0/separator = true
+popup/item_1/text = "SetProperty"
+popup/item_1/id = 1
+popup/item_2/text = "CallMethod"
+popup/item_2/id = 2
+popup/item_3/text = "EmitSignal"
+popup/item_3/id = 3
+
+[node name="Options" type="VSeparator" parent="Buttons"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="Buttons"]
+layout_mode = 2
+text = "Reset"
+
+[node name="VSeparator" type="VSeparator" parent="Buttons"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="ApplyButton" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Apply"
+
+[connection signal="pressed" from="Buttons/RuleButton" to="." method="_insert_new_rule"]
+[connection signal="item_selected" from="Buttons/MatchButton" to="." method="_insert_new_match"]
+[connection signal="item_selected" from="Buttons/ActionButton" to="." method="_insert_new_action"]
+[connection signal="pressed" from="Buttons/ResetButton" to="." method="_reset_edit"]
+[connection signal="pressed" from="Buttons/ApplyButton" to="." method="_apply_rules_string"]

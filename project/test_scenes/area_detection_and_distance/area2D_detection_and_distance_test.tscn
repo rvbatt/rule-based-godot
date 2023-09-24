@@ -1,0 +1,271 @@
+[gd_scene load_steps=32 format=3 uid="uid://j2nmi7dkugko"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_erwra"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_4ujxe"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="3_v43oa"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/area_detection_match.gd" id="4_jhumk"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_set.gd" id="4_ow8o7"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_kii8g"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/distance_match.gd" id="6_sqsih"]
+[ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="7_hc01y"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="8_ar5bj"]
+
+[sub_resource type="Resource" id="Resource_g7mac"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(0.498039, 0.498039, 0.498039, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_kccpo"]
+script = ExtResource("6_sqsih")
+source_node_path = NodePath("../MovableArea2D")
+min_distance = inf_neg
+max_distance = 500.0
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/TileMap")
+
+[sub_resource type="Resource" id="Resource_42fed"]
+resource_name = "Distance"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_kccpo")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_g7mac")])
+
+[sub_resource type="Resource" id="Resource_x28rg"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_k22c3"]
+script = ExtResource("4_jhumk")
+area_path = NodePath("../MovableArea2D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/Area2D")
+
+[sub_resource type="Resource" id="Resource_i24bd"]
+resource_name = "Area"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_k22c3")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_x28rg")])
+
+[sub_resource type="Resource" id="Resource_plol7"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(1, 0, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_i8hag"]
+script = ExtResource("4_jhumk")
+area_path = NodePath("../MovableArea2D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/StaticBody2D")
+
+[sub_resource type="Resource" id="Resource_f3d45"]
+resource_name = "Static"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_i8hag")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_plol7")])
+
+[sub_resource type="Resource" id="Resource_lrlag"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 1, 0, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_mjglb"]
+script = ExtResource("4_jhumk")
+area_path = NodePath("../MovableArea2D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/RigidBody2D")
+
+[sub_resource type="Resource" id="Resource_t5163"]
+resource_name = "Rigid"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_mjglb")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_lrlag")])
+
+[sub_resource type="Resource" id="Resource_r00l5"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(0, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_bjmyp"]
+script = ExtResource("4_jhumk")
+area_path = NodePath("../MovableArea2D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/CharacterBody2D")
+
+[sub_resource type="Resource" id="Resource_jf5ir"]
+resource_name = "Character"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_bjmyp")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_r00l5")])
+
+[sub_resource type="Resource" id="Resource_hoekv"]
+script = ExtResource("3_v43oa")
+property = &"color"
+type_and_value = {
+"Color": Color(1, 0, 1, 1)
+}
+AN_is_wildcard = false
+AN_path = NodePath("../ColorRect")
+
+[sub_resource type="Resource" id="Resource_hpd7b"]
+script = ExtResource("4_jhumk")
+area_path = NodePath("../MovableArea2D")
+TN_is_wildcard = false
+TN_path = NodePath("../Colliders/TileMap")
+
+[sub_resource type="Resource" id="Resource_ojrhu"]
+resource_name = "Tile"
+script = ExtResource("5_kii8g")
+condition = SubResource("Resource_hpd7b")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_hoekv")])
+
+[sub_resource type="Resource" id="Resource_61vfx"]
+script = ExtResource("4_ow8o7")
+_rule_based_godot = &"RuleSet"
+rules = Array[ExtResource("5_kii8g")]([SubResource("Resource_42fed"), SubResource("Resource_i24bd"), SubResource("Resource_f3d45"), SubResource("Resource_t5163"), SubResource("Resource_jf5ir"), SubResource("Resource_ojrhu")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
+size = Vector2(63, 63)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5usdp"]
+texture = ExtResource("8_ar5bj")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/modulate = Color(1, 0, 1, 1)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_udfra"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/4 = SubResource("TileSetAtlasSource_5usdp")
+
+[node name="Area2DDetectionTest" type="Node2D"]
+script = ExtResource("1_erwra")
+
+[node name="RuleBasedSystem" type="Node" parent="."]
+script = ExtResource("2_4ujxe")
+rule_arbitration = "Least Recently Used"
+rule_set = SubResource("Resource_61vfx")
+
+[node name="MovableArea2D" parent="." instance=ExtResource("7_hc01y")]
+position = Vector2(80, 80)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 874.0
+offset_top = 65.0
+offset_right = 1014.0
+offset_bottom = 160.0
+
+[node name="Colliders" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Colliders"]
+position = Vector2(992, 352)
+
+[node name="Label" type="Label" parent="Colliders/Area2D"]
+offset_left = -24.0
+offset_top = -56.0
+offset_right = 33.0
+offset_bottom = -30.0
+text = "Area2D"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/Area2D"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/Area2D"]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ar5bj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Colliders"]
+position = Vector2(864, 352)
+
+[node name="Label" type="Label" parent="Colliders/StaticBody2D"]
+offset_left = -40.0
+offset_top = -56.0
+offset_right = 42.0
+offset_bottom = -30.0
+text = "StaticBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/StaticBody2D"]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ar5bj")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Colliders"]
+position = Vector2(736, 352)
+gravity_scale = 0.0
+
+[node name="Label" type="Label" parent="Colliders/RigidBody2D"]
+offset_left = -40.0
+offset_top = -56.0
+offset_right = 37.0
+offset_bottom = -30.0
+text = "RigidBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/RigidBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/RigidBody2D"]
+modulate = Color(1, 1, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ar5bj")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Colliders"]
+position = Vector2(608, 352)
+
+[node name="Label" type="Label" parent="Colliders/CharacterBody2D"]
+offset_left = -48.0
+offset_top = -56.0
+offset_right = 67.0
+offset_bottom = -30.0
+text = "CharacterBody"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/CharacterBody2D"]
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Colliders/CharacterBody2D"]
+modulate = Color(0, 1, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ar5bj")
+
+[node name="TileMap" type="TileMap" parent="Colliders"]
+position = Vector2(480, 352)
+tile_set = SubResource("TileSet_udfra")
+cell_quadrant_size = 1
+format = 2
+layer_0/tile_data = PackedInt32Array(-1, 4, 0)
+
+[node name="Label" type="Label" parent="Colliders/TileMap"]
+offset_left = -88.0
+offset_top = -152.0
+offset_right = -48.0
+offset_bottom = -129.0
+text = "TileMap"
+
+[connection signal="area_entered" from="MovableArea2D" to="." method="run_tests"]
+[connection signal="body_entered" from="MovableArea2D" to="." method="run_tests"]
