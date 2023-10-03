@@ -9,7 +9,7 @@ var _area # Area2D or Area3D
 var _overlapping := []
 
 func _init():
-	Data_Retrieval = false
+	Data_Based_Node = false
 	_preset_node_path("area_path", "_area")
 	_pre_connect("_area", "area_entered", _add_overlapping)
 	_pre_connect("_area", "body_entered", _add_overlapping)

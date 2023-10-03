@@ -7,7 +7,7 @@ var _source_node: Node
 @export_enum("Parent of", "Sibling of", "Child of") var relation: String = "Parent of"
 
 func _init():
-	Data_Retrieval = false
+	Data_Based_Node = false
 	_preset_node_path("source_path", "_source_node")
 
 func _get_candidates() -> Array[Node]:
