@@ -71,7 +71,7 @@ var _preset_signals = {} # name_var -> param_to_type_var
 
 func setup(system_node: RuleBasedSystem) -> void:
 	_system_node = system_node
-	if agent_type == AgentType.PATH:
+	if Agent_Nodes and agent_type == AgentType.PATH:
 		_agent_node = system_node.get_node(agent_path)
 		for name_var in _preset_signals:
 			var signal_name = get(name_var)
@@ -122,6 +122,10 @@ func build_from_repr(json_repr) -> void:
 
 func trigger(bindings: Dictionary) -> Array:
 	# Uses Template Method
+	if not Agent_Nodes:
+		push_error("trigger() should be implemented if Agent_Nodes = false")
+		return []
+
 	var results := []
 	for agent in _get_agent_nodes(bindings):
 		var agent_result = _trigger_agent(agent, bindings)
