@@ -2,16 +2,16 @@
 extends EditorInspectorPlugin
 # Connects Rules Editor with current RuleBasedSystem
 
-var _rules_edit_panel: Control
-var _rules_edit_button: Button
+var _rules_editor: Control
+var _rules_editor_button: Button
 var _current_system_node: RuleBasedSystem
 
-func set_rules_editor(panel: Control, button: Button):
+func set_rules_editor(rules_editor_panel: Control, button: Button):
 	# Called at plugin startup
-	_rules_edit_panel = panel
-	_rules_edit_button = button
+	_rules_editor = rules_editor_panel
+	_rules_editor_button = button
 
-	_rules_edit_panel.rule_list_defined.connect(_apply_current_rules)
+	_rules_editor.rule_list_defined.connect(_apply_current_rules)
 
 func _can_handle(object):
 	match object.get_class():
@@ -34,8 +34,8 @@ func _parse_begin(object):
 	if object.get("_rule_based_godot") == "System":
 		_current_system_node = object as RuleBasedSystem
 	# Open bottom panel
-	if not _rules_edit_button.button_pressed:
-		_rules_edit_button.emit_signal("toggled", true)
+	if not _rules_editor_button.button_pressed:
+		_rules_editor_button.emit_signal("toggled", true)
 
 func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wide):
 	# removes _rule_based_godot from inspector

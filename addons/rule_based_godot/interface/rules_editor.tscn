@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://7pockqeqe7mo"]
 
-[ext_resource type="Script" path="res://addons/rule_based_godot/interface/rules_edit_panel.gd" id="1_46k7w"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/interface/rules_editor.gd" id="1_3bx8v"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
 number_color = Color(0.631373, 1, 0.878431, 1)
@@ -31,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_46k7w")
+script = ExtResource("1_3bx8v")
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
 custom_minimum_size = Vector2(0, 160)
