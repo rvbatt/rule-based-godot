@@ -9,14 +9,14 @@ extends AbstractAction
 func _init():
 	_pre_add_signal("signal_name", "parameter_to_type")
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
 	var args = arguments
 	for i in range(args.size()):
 		var arg = args[i]
 		if arg is String and arg.begins_with('?'):
 			args[i] = bindings.get(arg.trim_prefix('?'))
 
-	if not agent.has_signal(signal_name):
-		agent.add_user_signal(signal_name, _signal_param_array(parameter_to_type))
+	if not agent_node.has_signal(signal_name):
+		agent_node.add_user_signal(signal_name, _signal_param_array(parameter_to_type))
 
-	return agent.emit_signal(signal_name, args)
+	return agent_node.emit_signal(signal_name, args)

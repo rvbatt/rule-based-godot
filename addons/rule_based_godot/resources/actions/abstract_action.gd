@@ -133,7 +133,7 @@ func trigger(bindings: Dictionary) -> Array:
 			results.append(agent_result)
 	return results
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
 	push_error("Abstract Method")
 	return null
 

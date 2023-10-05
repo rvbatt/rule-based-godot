@@ -11,13 +11,13 @@ extends AbstractAction
 var _property := &""
 var _value: Variant = null
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
-	if not _property in agent:
+func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
+	if not _property in agent_node:
 		print_debug("Invalid SetPropertyAction property")
 		return null
 
 	var value_to_set = _value
 	if _value is String and _value.begins_with('?'):
 		value_to_set = bindings.get(_value.trim_prefix('?'))
-	agent.set(_property, value_to_set)
+	agent_node.set(_property, value_to_set)
 	return value_to_set
