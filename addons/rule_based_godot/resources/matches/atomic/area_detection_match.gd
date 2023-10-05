@@ -1,6 +1,6 @@
 @tool
 class_name AreaDetectionMatch
-extends AbstractDatumMatch
+extends AbstractAtomicMatch
 
 @export_node_path("Area2D", "Area3D") var area_path: NodePath = ^""
 var _area # Area2D or Area3D

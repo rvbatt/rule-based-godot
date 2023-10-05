@@ -1,4 +1,4 @@
-class_name AbstractDatumMatch
+class_name AbstractAtomicMatch
 extends AbstractMatch
 # Abstract class for condition components
 

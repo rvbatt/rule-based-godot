@@ -1,5 +1,5 @@
 class_name ANDMatch
-extends AbstractMultiBoolMatch
+extends AbstractBooleanMatch
 
 func is_satisfied(bindings: Dictionary) -> bool:
 	if subconditions.is_empty():
