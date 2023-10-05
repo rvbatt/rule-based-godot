@@ -2,8 +2,8 @@
 class_name CallMethodAction
 extends AbstractAction
 
-@export var method: StringName = &""
-@export var arguments: Array = []
+@export var method := &""
+@export var arguments := []
 
 func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
 	if agent.has_method(method):

@@ -2,9 +2,9 @@
 class_name EmitSignalAction
 extends AbstractAction
 
-@export var signal_name: StringName = &""
-@export var parameter_to_type: Dictionary = {}
-@export var arguments: Array = [] # same order as dict
+@export var signal_name := &""
+@export var parameter_to_type := {}
+@export var arguments := [] # same order as dict
 
 func _init():
 	_pre_add_signal("signal_name", "parameter_to_type")

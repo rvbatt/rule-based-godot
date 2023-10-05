@@ -1,7 +1,7 @@
 class_name LeastRecentlyUsedArbiter
 extends AbstractArbiter
 
-var _recent_rules: Array[Rule]
+var _recent_rules: Array[Rule] = []
 
 func select_rule_to_trigger(satisfied_rules: Array[Rule]) -> Rule:
 	# If this is the first time, use First Applicable

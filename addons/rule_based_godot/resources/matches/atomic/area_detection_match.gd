@@ -2,7 +2,7 @@
 class_name AreaDetectionMatch
 extends AbstractAtomicMatch
 
-@export_node_path("Area2D", "Area3D") var area_path: NodePath = ^""
+@export_node_path("Area2D", "Area3D") var area_path := ^""
 var _area # Area2D or Area3D
 # Keep list of areas and bodies overllaping, because the get_overllaping_*
 # methods are not updated immediately after objects have moved

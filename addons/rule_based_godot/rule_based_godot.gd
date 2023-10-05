@@ -1,8 +1,8 @@
 @tool
 extends EditorPlugin
 
-const RULES_EDITOR_PATH: String = "res://addons/rule_based_godot/interface/rules_editor.tscn"
-const INSPECTOR_PATH: String = "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
+const RULES_EDITOR_PATH := "res://addons/rule_based_godot/interface/rules_editor.tscn"
+const INSPECTOR_PATH := "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
 
 var rules_editor: Control
 var inspector_plugin: EditorInspectorPlugin

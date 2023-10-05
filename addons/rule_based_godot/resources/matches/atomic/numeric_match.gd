@@ -2,8 +2,8 @@
 class_name NumericMatch
 extends AbstractAtomicMatch
 
-@export var min_value: float = 0
-@export var max_value: float = 0
+@export var min_value := 0.0
+@export var max_value := 0.0
 
 func _init():
 	Get_Node_Data_Preset = true

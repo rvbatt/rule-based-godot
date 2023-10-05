@@ -9,22 +9,22 @@ func _get_property_list():
 	return properties
 
 ######################### The node that will be tested #########################
-var Tester_Node: bool = true:
+var Tester_Node := true:
 	set(value):
 		Tester_Node = value
 		if value == false:
 			Data_Based_Node = false
 		notify_property_list_changed()
 # Group: Tester_Node, prefix: tester
-var tester_is_wildcard: bool = false:
+var tester_is_wildcard := false:
 	set(value):
 		tester_is_wildcard = value
 		if value:
 			should_retrieve_data = false
 		notify_property_list_changed()
 var tester_search_groups: Array[StringName] = []
-var tester_identifier: StringName = &""
-var tester_path: NodePath = ^""
+var tester_identifier := &""
+var tester_path := ^""
 
 var _tester_node: Node # internal reference
 
@@ -62,19 +62,19 @@ func _tester_properties() -> Array[Dictionary]:
 	return properties
 
 ######################### Match is based on node data ##########################
-var Data_Based_Node: bool = true:
+var Data_Based_Node := true:
 	set(value):
 		Data_Based_Node = value
 		if value == false:
 			Get_Node_Data_Preset = false
 		notify_property_list_changed()
-var should_retrieve_data: bool = false:
+var should_retrieve_data := false:
 	set(value):
 		should_retrieve_data = value
 		if value:
 			tester_is_wildcard = false
 		notify_property_list_changed()
-var data_variable: StringName = &""
+var data_variable := &""
 
 func _retrieval_properties() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
@@ -94,20 +94,20 @@ func _retrieval_properties() -> Array[Dictionary]:
 	return properties
 
 ################### Presets for the _get_data(node) function ###################
-var Get_Node_Data_Preset: bool = false:
+var Get_Node_Data_Preset := false:
 	set(value):
 		Get_Node_Data_Preset = value
 		notify_property_list_changed()
 var Data_Extraction # just group name
 # Group: Data_Extraction, prefix: extraction
 enum ExtractionType {PROPERTY, METHOD}
-var extraction_type: ExtractionType = ExtractionType.PROPERTY:
+var extraction_type := ExtractionType.PROPERTY:
 	set(value):
 		extraction_type = value
 		notify_property_list_changed()
-var extraction_property: StringName = &""
-var extraction_method: StringName = &""
-var extraction_arguments: Array = []
+var extraction_property := &""
+var extraction_method := &""
+var extraction_arguments := []
 
 func _extraction_properties() -> Array[Dictionary]:
 	var properties: Array[Dictionary] = []
@@ -162,12 +162,12 @@ func setup(system_node: RuleBasedSystem) -> void:
 		var node: Node = get(connection[0])
 		node.connect(connection[1], _preset_connections[connection])
 
-var _preset_paths: Dictionary = {} # path_var -> node_var
+var _preset_paths := {} # path_var -> node_var
 func _preset_node_path(path_variable: StringName,
 		node_variable: StringName) -> void:
 	_preset_paths[path_variable] = node_variable
 
-var _preset_connections: Dictionary = {} #[node_var, signal_name] -> func
+var _preset_connections := {} #[node_var, signal_name] -> func
 func _pre_connect(node_variable: StringName, signal_name: StringName,
 		function: Callable):
 	var node_and_signal = [node_variable, signal_name]

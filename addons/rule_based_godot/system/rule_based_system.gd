@@ -7,9 +7,9 @@ signal iteration_results(results: Array)
 enum IterationUpdate {EVERY_FRAME, ON_TIMER, ON_CALL}
 
 # Identifier for the RulesInspectorPlugin
-@export var _rule_based_godot: StringName = "System"
+@export var _rule_based_godot := &"System"
 
-@export var iteration_update: IterationUpdate = IterationUpdate.ON_TIMER:
+@export var iteration_update := IterationUpdate.ON_TIMER:
 	set = _set_iteration_update
 @export var arbiter: AbstractArbiter = FirstApplicableArbiter.new()
 @export var rule_list := RuleList.new()

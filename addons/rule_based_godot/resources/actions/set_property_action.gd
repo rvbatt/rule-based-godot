@@ -2,13 +2,13 @@
 class_name SetPropertyAction
 extends AbstractAction
 
-@export var property_and_value: Dictionary = {}: # Singleton
+@export var property_and_value := {}: # Singleton
 	set(prop_to_val):
 		if prop_to_val.size() != 1: return
 		property_and_value = prop_to_val
 		_property = prop_to_val.keys()[0]
 		_value = prop_to_val[_property]
-var _property: StringName = &""
+var _property := &""
 var _value: Variant = null
 
 func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:

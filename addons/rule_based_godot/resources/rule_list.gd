@@ -3,7 +3,7 @@ extends RuleBasedResource
 # The list of rules orderd by priority, descending
 
 # # Identifier for the RulesFormatSaver
-@export var _rule_based_godot: StringName = &"RuleList"
+@export var _rule_based_godot := &"RuleList"
 
 @export var rules: Array[Rule] = []:
 	set(array):

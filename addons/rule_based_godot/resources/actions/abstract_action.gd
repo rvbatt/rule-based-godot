@@ -5,22 +5,22 @@ extends RuleBasedResource
 
 enum AgentType {PATH, GROUPS, WILDCARD}
 
-var Agent_Nodes: bool = true:
+var Agent_Nodes := true:
 	set(value):
 		Agent_Nodes = value
 		notify_property_list_changed()
 # Group: Agent_Nodes, prefix: agent
-var agent_type: AgentType = AgentType.PATH:
+var agent_type := AgentType.PATH:
 	set(value):
 		agent_type = value
 		notify_property_list_changed()
 # Type PATH
-var agent_path: NodePath = ^"."
+var agent_path := ^"."
 var _agent_node: Node = null
 # Type GROUPS
 var agent_groups: Array[StringName] = []
 # TYPE WILDCARD
-var agent_identifier: StringName = &""
+var agent_identifier := &""
 
 func _get_property_list():
 	var properties: Array[Dictionary] = [

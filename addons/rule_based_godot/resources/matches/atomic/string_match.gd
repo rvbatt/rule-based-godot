@@ -2,7 +2,7 @@
 class_name StringMatch
 extends AbstractAtomicMatch
 
-@export var string_value: String = ""
+@export var string_value := ""
 
 func _init():
 	Get_Node_Data_Preset = true

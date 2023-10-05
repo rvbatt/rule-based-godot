@@ -2,9 +2,9 @@
 class_name HierarchyMatch
 extends AbstractAtomicMatch
 
-@export_node_path var source_path: NodePath = ^""
+@export_node_path var source_path := ^""
 var _source_node: Node
-@export_enum("Parent of", "Sibling of", "Child of") var relation: String = "Parent of"
+@export_enum("Parent of", "Sibling of", "Child of") var relation := "Parent of"
 
 func _init():
 	Data_Based_Node = false
