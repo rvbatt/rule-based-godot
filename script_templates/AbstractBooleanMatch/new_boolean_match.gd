@@ -1,3 +1,7 @@
+# meta-name: New Boolean Match
+# meta-description: New type of multi-input boolean match for rules
+# meta-default: true
+
 # Must have a class_name. Use the suffix 'Match'
 class_name NewBooleanMatch
 extends AbstractBooleanMatch

@@ -1,3 +1,7 @@
+# meta-name: New Atomic Match
+# meta-description: New type of atomic match for rules
+# meta-default: true
+
 @tool # Atomic matches need to be @tool
 # Must have a class_name. Use the suffix 'Match'
 class_name NewAtomicMatch 
