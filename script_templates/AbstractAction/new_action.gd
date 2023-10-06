@@ -2,7 +2,6 @@
 # meta-description: New type of action for rules
 # meta-default: true
 
-
 @tool # Actions need to be @tool
 # Must have a class_name. Use the suffix 'Action'
 class_name NewAction
