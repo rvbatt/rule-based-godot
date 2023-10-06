@@ -128,7 +128,7 @@ func trigger(bindings: Dictionary) -> Array:
 
 	var results := []
 	for agent in _get_agent_nodes(bindings):
-		var agent_result = _trigger_agent(agent, bindings)
+		var agent_result = _trigger_node(agent, bindings)
 		if agent_result != null:
 			results.append(agent_result)
 	return results
