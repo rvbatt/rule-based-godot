@@ -1,4 +1,4 @@
-@icon("../ruler_icon.png")
+@icon("../ruler_icon.svg")
 class_name RuleBasedSystem
 extends Timer
 # System object that will be placed in scenes

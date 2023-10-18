@@ -11,7 +11,7 @@ func _enter_tree():
 	# Initialization of the plugin goes here.
 	add_custom_type("RuleBasedSystem", "Timer",
 		preload("system/rule_based_system.gd"),
-		preload("ruler_icon.png"))
+		preload("ruler_icon.svg"))
 
 	rules_editor = preload(RULES_EDITOR_PATH).instantiate()
 	var button = add_control_to_bottom_panel(rules_editor, "Rules Editor")
