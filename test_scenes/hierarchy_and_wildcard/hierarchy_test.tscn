@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_ihwfs"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/least_recently_used_arbiter.gd" id="3_2gpba"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_m4yu8"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/hierarchy_match.gd" id="5_xb1r4"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/hierarchy_match.gd" id="5_ykmlp"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_74hg6"]
 [ext_resource type="Script" path="res://test_scenes/hierarchy_and_wildcard/components/button_tree.gd" id="7_80qkv"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="7_aqvhy"]
@@ -21,8 +21,8 @@ agent_type = 0
 agent_path = NodePath("../Statements/AParentB/answer")
 
 [sub_resource type="Resource" id="Resource_i6i0l"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren")
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A/AChildren")
 relation = "Parent of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/B")
@@ -41,8 +41,8 @@ agent_type = 0
 agent_path = NodePath("../Statements/CChildA/answer")
 
 [sub_resource type="Resource" id="Resource_t3r2a"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren/C")
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A/AChildren/C")
 relation = "Child of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren")
@@ -61,8 +61,8 @@ agent_type = 0
 agent_path = NodePath("../Statements/BSibliingC/answer")
 
 [sub_resource type="Resource" id="Resource_s4gdo"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren/B")
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A/AChildren/B")
 relation = "Sibling of"
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/C")

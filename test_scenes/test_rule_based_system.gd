@@ -11,7 +11,7 @@ func run_tests(_argument):
 	$RuleBasedSystem.iterate()
 
 func test_signal(_arg):
-	print("Signal received")
+	print("Signal received")	
 
 func _unhandled_input(event):
 	if event.is_action_pressed("test_rule_based_system"):

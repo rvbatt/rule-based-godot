@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_0dfvf"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="2_ftye1"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="3_6t7dj"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="4_30yu3"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/numeric_match.gd" id="3_6t7dj"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="4_30yu3"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_vb7ax"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_f38gn"]
 

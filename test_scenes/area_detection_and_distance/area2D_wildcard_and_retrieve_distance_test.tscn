@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_h8bwa"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_e44h4"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_cliig"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="5_mn2vp"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="5_grdgq"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_kq74b"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="7_52pc1"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="7_y3whx"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_8cxdq"]
 [ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="9_eus64"]
 [ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="10_eheht"]
@@ -23,7 +23,7 @@ agent_type = 2
 agent_identifier = &"area"
 
 [sub_resource type="Resource" id="Resource_s8l58"]
-script = ExtResource("5_mn2vp")
+script = ExtResource("5_grdgq")
 area_path = NodePath("../Area2D")
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([&"collider"])
@@ -43,14 +43,14 @@ agent_type = 1
 agent_groups = Array[StringName]([&"dist"])
 
 [sub_resource type="Resource" id="Resource_ngkdk"]
-script = ExtResource("7_52pc1")
-source_node_path = NodePath("../Area2D")
+script = ExtResource("7_y3whx")
+source_path = NodePath("../Area2D")
 min_distance = inf_neg
 max_distance = inf
 tester_is_wildcard = false
 tester_path = NodePath("../MovableArea2D")
-retrieval_should_retrieve = true
-retrieval_variable = &"dist"
+should_retrieve_data = true
+data_variable = &"dist"
 
 [sub_resource type="Resource" id="Resource_mfo71"]
 script = ExtResource("6_kq74b")
@@ -70,6 +70,7 @@ script = ExtResource("1_shxu2")
 
 [node name="RuleBasedSystem" type="Timer" parent="."]
 script = ExtResource("2_h8bwa")
+iteration_update = 0
 arbiter = SubResource("Resource_wt57c")
 rule_list = SubResource("Resource_524sc")
 

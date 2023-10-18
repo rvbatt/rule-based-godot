@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_do1h6"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_xmhyo"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_lpdu5"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="5_s5pcb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="5_88n3a"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_qxvns"]
 [ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="7_rapdb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="7_xoy6n"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_mwh6d"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection_and_distance/components/mesh_library.tres" id="8_y82o8"]
 
@@ -23,7 +23,7 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_ttdtq"]
-script = ExtResource("5_s5pcb")
+script = ExtResource("5_88n3a")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/Area3D")
@@ -42,7 +42,7 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_fifni"]
-script = ExtResource("5_s5pcb")
+script = ExtResource("5_88n3a")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/StaticBody3D")
@@ -61,7 +61,7 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_v0eiq"]
-script = ExtResource("5_s5pcb")
+script = ExtResource("5_88n3a")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/RigidBody3D")
@@ -80,7 +80,7 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_mry42"]
-script = ExtResource("5_s5pcb")
+script = ExtResource("5_88n3a")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/CharacterBody3D")
@@ -99,7 +99,7 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_krrr1"]
-script = ExtResource("5_s5pcb")
+script = ExtResource("5_88n3a")
 area_path = NodePath("../MovableArea3D")
 tester_is_wildcard = false
 tester_path = NodePath("../Colliders/GridMap")
@@ -118,13 +118,13 @@ agent_type = 0
 agent_path = NodePath("../ColorRect")
 
 [sub_resource type="Resource" id="Resource_j45vj"]
-script = ExtResource("7_rapdb")
-source_node_path = NodePath("../Colliders/GridMap")
+script = ExtResource("7_xoy6n")
+source_path = NodePath("../Colliders/GridMap")
 min_distance = 10.0
 max_distance = inf
 tester_is_wildcard = false
 tester_path = NodePath("../MovableArea3D")
-retrieval_should_retrieve = false
+should_retrieve_data = false
 
 [sub_resource type="Resource" id="Resource_1suph"]
 script = ExtResource("6_qxvns")

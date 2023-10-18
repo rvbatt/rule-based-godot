@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RuleList" load_steps=24 format=3 uid="uid://btuwkpknwri8j"]
 
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_p1oim"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/distance_match.gd" id="2_gmtx5"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="2_gmtx5"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="3_dkr35"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/area_detection_match.gd" id="4_qk5ud"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="4_qk5ud"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="5_r48e0"]
 
 [sub_resource type="Resource" id="Resource_8jh2d"]

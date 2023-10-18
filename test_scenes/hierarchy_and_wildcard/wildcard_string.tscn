@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_kl5b2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_ahvvd"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="5_2y1gw"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/numeric_match.gd" id="6_lq2gx"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="7_ewt55"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/numeric_match.gd" id="6_77s5q"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="7_wdlw0"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="8_r5rat"]
 [ext_resource type="PackedScene" uid="uid://c4b8d7i8ncdjq" path="res://test_scenes/hierarchy_and_wildcard/components/multiple_variables.tscn" id="9_63r5g"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="9_adj3j"]
@@ -23,25 +23,25 @@ agent_type = 2
 agent_identifier = &"wild"
 
 [sub_resource type="Resource" id="Resource_k1xwb"]
-script = ExtResource("6_lq2gx")
+script = ExtResource("6_77s5q")
 min_value = 5.0
 max_value = 10.0
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([])
 tester_identifier = &"wild"
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"number"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_xjwiw"]
-script = ExtResource("7_ewt55")
+script = ExtResource("7_wdlw0")
 string_value = "yes"
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([])
 tester_identifier = &"wild"
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"string"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_a5nbq"]
 script = ExtResource("5_2y1gw")
