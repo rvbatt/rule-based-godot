@@ -10,8 +10,8 @@ func _init():
 	_pre_add_signal("signal_name", "parameter_to_type")
 
 func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
-	var args = arguments
-	for i in range(args.size()):
+	var args = arguments.duplicate(true)
+	for i in range(len(args)):
 		var arg = args[i]
 		if arg is String and arg.begins_with('?'):
 			args[i] = bindings.get(arg.trim_prefix('?'))
