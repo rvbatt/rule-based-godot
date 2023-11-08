@@ -2,9 +2,9 @@
 # meta-description: New type of action for rules
 # meta-default: true
 
-@tool # Actions need to be @tool
-# Must have a class_name. Use the suffix 'Action'
-class_name NewAction
+@tool # Actions MUST be @tool
+# MUST have a class_name. Recommended use of the suffix 'Action'
+#class_name Action
 extends AbstractAction
 
 # Export variables and give them a default value 
@@ -21,17 +21,22 @@ func _init():
 	# Adds a signal if Agent_Nodes = true and (agent_)type = Path
 	_pre_add_signal("_signal_var", "_parameter_to_type")
 
-# Should only be implemented if Agent_Nodes = false
+# Should ONLY be implemented IF Agent_Nodes = false
 #func trigger(bindings: Dictionary) -> Array:
+#	## Returns some result of triggering rhis action
 #	return []
 
 # Can be optionally implemented if Agent_Nodes = true
 #func _get_agent_nodes(bindings: Dictionary) -> Array:
-#	## Gets all the nodes that will perform the action
+#	## Returns all the nodes that will perform the action
 #	## consider checking agent_type
 #	return []
 
-# Needs to be implemeted if Agent_Nodes = true
-func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
+# NEEDS to be implemeted IF Agent_Nodes = true
+func _trigger_node(agent: Node, bindings: Dictionary) -> Variant:
+	## Returns some result of triggering this node
+	## Should check bindings for data variables, e.g.:
+	# if data_var is String and data_var.begins_with('?'):
+	# 	data_var = bindings.get(data_var.trim_prefix('?'))
 	push_error("Abstract Method")
 	return null
