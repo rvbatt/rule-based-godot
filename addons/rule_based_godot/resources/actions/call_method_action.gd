@@ -5,7 +5,7 @@ extends AbstractAction
 @export var method := &""
 @export var arguments := []
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_node(agent: Node, bindings: Dictionary) -> Variant:
 	if agent.has_method(method):
 		var args =  arguments.duplicate(true)
 		for i in range(len(args)):
