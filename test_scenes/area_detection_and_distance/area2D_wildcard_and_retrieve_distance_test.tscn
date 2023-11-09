@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cxfyra0kwmufu"]
+[gd_scene load_steps=18 format=3 uid="uid://cxfyra0kwmufu"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_shxu2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_h8bwa"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_e44h4"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_cliig"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="5_grdgq"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_partk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_kq74b"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="7_y3whx"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_8cxdq"]
@@ -14,56 +14,44 @@
 [sub_resource type="Resource" id="Resource_wt57c"]
 script = ExtResource("3_e44h4")
 
-[sub_resource type="Resource" id="Resource_2jjx0"]
-script = ExtResource("4_cliig")
-property_and_value = {
-"color": Color(0, 0, 0, 1)
-}
-agent_type = 2
-agent_identifier = &"area"
+[sub_resource type="Resource" id="Resource_otyjn"]
+script = ExtResource("4_partk")
+method = &"set_brightness"
+arguments = ["?dist"]
+agent_type = 0
+agent_path = NodePath("MetalDetector")
 
-[sub_resource type="Resource" id="Resource_s8l58"]
-script = ExtResource("5_grdgq")
-area_path = NodePath("../Area2D")
-tester_is_wildcard = true
-tester_search_groups = Array[StringName]([&"collider"])
-tester_identifier = &"area"
-
-[sub_resource type="Resource" id="Resource_rw2f4"]
-script = ExtResource("6_kq74b")
-condition = SubResource("Resource_s8l58")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_2jjx0")])
-
-[sub_resource type="Resource" id="Resource_j33xu"]
+[sub_resource type="Resource" id="Resource_wxjj5"]
 script = ExtResource("4_cliig")
 property_and_value = {
 "text": "?dist"
 }
 agent_type = 1
-agent_groups = Array[StringName]([&"dist"])
+agent_groups = Array[StringName]([&"distance_tag"])
 
-[sub_resource type="Resource" id="Resource_ngkdk"]
+[sub_resource type="Resource" id="Resource_uw1vf"]
 script = ExtResource("7_y3whx")
-source_path = NodePath("../Area2D")
-min_distance = inf_neg
+source_path = NodePath("MetalDetector")
+min_distance = 0.0
 max_distance = inf
-tester_is_wildcard = false
-tester_path = NodePath("../MovableArea2D")
+tester_is_wildcard = true
+tester_search_groups = Array[StringName]([&"metal"])
+tester_identifier = &"found_metal"
 should_retrieve_data = true
 data_variable = &"dist"
 
-[sub_resource type="Resource" id="Resource_mfo71"]
+[sub_resource type="Resource" id="Resource_8bcl5"]
 script = ExtResource("6_kq74b")
-condition = SubResource("Resource_ngkdk")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_j33xu")])
+condition = SubResource("Resource_uw1vf")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_otyjn"), SubResource("Resource_wxjj5")])
 
-[sub_resource type="Resource" id="Resource_524sc"]
+[sub_resource type="Resource" id="Resource_fr532"]
 script = ExtResource("8_8cxdq")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("6_kq74b")]([SubResource("Resource_rw2f4"), SubResource("Resource_mfo71")])
+rules = Array[ExtResource("6_kq74b")]([SubResource("Resource_8bcl5")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
-size = Vector2(63, 63)
+size = Vector2(30, 30)
 
 [node name="Area2DDetectionTest" type="Node2D"]
 script = ExtResource("1_shxu2")
@@ -72,43 +60,58 @@ script = ExtResource("1_shxu2")
 script = ExtResource("2_h8bwa")
 iteration_update = 0
 arbiter = SubResource("Resource_wt57c")
-rule_list = SubResource("Resource_524sc")
+rule_list = SubResource("Resource_fr532")
+
+[node name="MetalDetector" parent="RuleBasedSystem" instance=ExtResource("9_eus64")]
+position = Vector2(698, 263)
+
+[node name="Metal" type="Area2D" parent="." groups=["metal"]]
+position = Vector2(550, 300)
+
+[node name="Label" type="Label" parent="Metal"]
+offset_left = -27.0
+offset_top = 20.0
+offset_right = 30.0
+offset_bottom = 46.0
+text = "Metal"
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Metal"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ikocs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Metal"]
+modulate = Color(0, 0, 0, 1)
+z_index = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("10_eheht")
 
 [node name="DistanceValue" type="HBoxContainer" parent="."]
-offset_left = 535.0
-offset_top = 240.0
-offset_right = 616.0
-offset_bottom = 280.0
+offset_left = 336.0
+offset_top = 149.0
+offset_right = 417.0
+offset_bottom = 189.0
 
 [node name="Distance" type="Label" parent="DistanceValue"]
 layout_mode = 2
-text = "Distance: "
+text = "Distance Tag Group: "
 
-[node name="Value" type="Label" parent="DistanceValue" groups=["dist"]]
+[node name="Value" type="Label" parent="DistanceValue" groups=["distance_tag"]]
 layout_mode = 2
 
-[node name="MovableArea2D" parent="." instance=ExtResource("9_eus64")]
-position = Vector2(80, 80)
+[node name="DistanceValue2" type="HBoxContainer" parent="."]
+offset_left = 335.0
+offset_top = 113.0
+offset_right = 416.0
+offset_bottom = 153.0
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(234, 83)
+[node name="Distance" type="Label" parent="DistanceValue2"]
+layout_mode = 2
+text = "Other group: "
 
-[node name="Label" type="Label" parent="Area2D"]
-offset_left = -24.0
-offset_top = -56.0
-offset_right = 33.0
-offset_bottom = -30.0
-text = "Area2D"
-metadata/_edit_use_anchors_ = true
+[node name="Value" type="Label" parent="DistanceValue2" groups=["other"]]
+layout_mode = 2
+text = "?"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.5, -0.5)
-shape = SubResource("RectangleShape2D_ikocs")
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-modulate = Color(0, 0, 0, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_eheht")
-
-[connection signal="area_entered" from="MovableArea2D" to="." method="run_tests"]
-[connection signal="body_entered" from="MovableArea2D" to="." method="run_tests"]
+[connection signal="area_entered" from="RuleBasedSystem/MetalDetector" to="." method="run_tests"]
+[connection signal="body_entered" from="RuleBasedSystem/MetalDetector" to="." method="run_tests"]
