@@ -11,6 +11,8 @@ func _on_a_pressed():
 	match _selected_button:
 		null:
 			_selected_button = a_button
+		a_button:
+			_selected_button = null
 		b_button:
 			if a_button.find_parent("B") == b_button:
 				a_button.reparent(b_button.get_parent())
@@ -33,6 +35,8 @@ func _on_b_pressed():
 			_deselect_all()
 		null:
 			_selected_button = b_button
+		b_button:
+			_selected_button = null
 		c_button:
 			if b_button.find_parent("C") == c_button:
 				b_button.reparent(c_button.get_parent())
@@ -55,6 +59,8 @@ func _on_c_pressed():
 			_deselect_all()
 		null:
 			_selected_button = c_button
+		c_button:
+			_selected_button = null
 
 func _deselect_all():
 	print("deselect")
