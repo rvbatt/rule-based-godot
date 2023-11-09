@@ -19,8 +19,6 @@ var Tester_Node := true:
 var tester_is_wildcard := false:
 	set(value):
 		tester_is_wildcard = value
-		if value:
-			should_retrieve_data = false
 		notify_property_list_changed()
 var tester_search_groups: Array[StringName] = []
 var tester_identifier := &""
@@ -71,8 +69,6 @@ var Data_Based_Node := true:
 var should_retrieve_data := false:
 	set(value):
 		should_retrieve_data = value
-		if value:
-			tester_is_wildcard = false
 		notify_property_list_changed()
 var data_variable := &""
 
@@ -154,6 +150,7 @@ func setup(system_node: RuleBasedSystem) -> void:
 		print_debug("Setup with null system node")
 		return
 	_system_node = system_node
+	print("Wild: " + str(tester_is_wildcard))
 	if Tester_Node and not tester_is_wildcard:
 		_tester_node = system_node.get_node(tester_path)
 	for path in _preset_paths:
