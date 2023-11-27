@@ -78,6 +78,7 @@ separated by **|** and between **( )**. One choice can have several items separa
 	    - **AND**: `["AND", [conditions]]`
 	    - **OR**: `["OR", [conditions]]`
    - Datum: _[ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]_ (template)
+       - **DistinctVariables**: `["DistinctVariables", [distinct_variables]]`
 	    - **Area Detection**: `["AreaDetection", area_path, (tester_path|?wild, [groups])]`
           > Obs: _area\_path_ must be the path to either an _Area2D_ or _Area3D_
 	    - **Distance**: `["Distance", <?dist,> source_path, min_distance, max_distance, (tester_path|?wild, [groups])]`
