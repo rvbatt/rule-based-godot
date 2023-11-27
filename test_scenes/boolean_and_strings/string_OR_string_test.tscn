@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://drcjdpshf2gbw"]
+[gd_scene load_steps=13 format=3 uid="uid://drcjdpshf2gbw"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_16e81"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_nswr2"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_fwqsd"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_xh355"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="5_t5eq1"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="6_35hbm"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_beao0"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_h5vtr"]
 
@@ -20,27 +19,9 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_uw0s2"]
-script = ExtResource("6_35hbm")
-string_value = "black"
-tester_is_wildcard = false
-tester_path = NodePath("../LineEdit")
-should_retrieve_data = false
-extraction_type = 0
-extraction_property = &"text"
-
-[sub_resource type="Resource" id="Resource_jvkxl"]
-script = ExtResource("6_35hbm")
-string_value = "black"
-tester_is_wildcard = false
-tester_path = NodePath("../LineEdit2")
-should_retrieve_data = false
-extraction_type = 0
-extraction_property = &"text"
-
 [sub_resource type="Resource" id="Resource_eywxm"]
 script = ExtResource("5_t5eq1")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_uw0s2"), SubResource("Resource_jvkxl")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([])
 
 [sub_resource type="Resource" id="Resource_lakai"]
 script = ExtResource("7_beao0")

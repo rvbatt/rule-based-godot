@@ -162,6 +162,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 3.0
 offset_right = 40.0
+offset_bottom = 85.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Root@A@AChildren@B@BChildren@C@CChildren" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_right = 40.0
 offset_bottom = 98.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -221,6 +233,7 @@ position = Vector2(377, 290)
 points = PackedVector2Array(0, 0, 0, 50, 20, 50)
 width = 2.0
 
+[connection signal="changed" from="Root" to="." method="run_tests"]
 [connection signal="pressed" from="Root/A" to="Root" method="_on_a_pressed"]
 [connection signal="pressed" from="Root/A/AChildren/B" to="Root" method="_on_b_pressed"]
 [connection signal="pressed" from="Root/A/AChildren/B/BChildren/C" to="Root" method="_on_c_pressed"]

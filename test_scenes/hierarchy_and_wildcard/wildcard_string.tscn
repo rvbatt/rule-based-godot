@@ -20,32 +20,32 @@ property_and_value = {
 "string": "Wildcard"
 }
 agent_type = 2
-agent_identifier = &"wild"
+agent_identifier = &"multiple"
 
-[sub_resource type="Resource" id="Resource_k1xwb"]
+[sub_resource type="Resource" id="Resource_igie8"]
 script = ExtResource("6_77s5q")
 min_value = 5.0
 max_value = 10.0
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([])
-tester_identifier = &"wild"
+tester_identifier = &"multiple"
 should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"number"
 
-[sub_resource type="Resource" id="Resource_xjwiw"]
+[sub_resource type="Resource" id="Resource_610gk"]
 script = ExtResource("7_wdlw0")
 string_value = "yes"
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([])
-tester_identifier = &"wild"
+tester_identifier = &"multiple"
 should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"string"
 
 [sub_resource type="Resource" id="Resource_a5nbq"]
 script = ExtResource("5_2y1gw")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_k1xwb"), SubResource("Resource_xjwiw")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_igie8"), SubResource("Resource_610gk")])
 
 [sub_resource type="Resource" id="Resource_q8xxh"]
 script = ExtResource("8_r5rat")

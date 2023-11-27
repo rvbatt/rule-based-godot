@@ -26,9 +26,9 @@ script = ExtResource("6_pojff")
 string_value = "red"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit")
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"text"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_fw0xt"]
 script = ExtResource("7_s5bpq")
@@ -39,9 +39,9 @@ script = ExtResource("6_pojff")
 string_value = "yellow"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit2")
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"text"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_dxdfs"]
 script = ExtResource("7_s5bpq")

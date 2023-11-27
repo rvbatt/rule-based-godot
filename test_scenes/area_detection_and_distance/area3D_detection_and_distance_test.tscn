@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_lpdu5"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="5_88n3a"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_qxvns"]
-[ext_resource type="PackedScene" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
+[ext_resource type="PackedScene" uid="uid://2k3bffm3kikw" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.tscn" id="7_2f534"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="7_xoy6n"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_mwh6d"]
 [ext_resource type="MeshLibrary" uid="uid://d3umxoaohcvew" path="res://test_scenes/area_detection_and_distance/components/mesh_library.tres" id="8_y82o8"]
@@ -120,7 +120,7 @@ agent_path = NodePath("../ColorRect")
 [sub_resource type="Resource" id="Resource_j45vj"]
 script = ExtResource("7_xoy6n")
 source_path = NodePath("../Colliders/GridMap")
-min_distance = 10.0
+min_distance = 15.0
 max_distance = inf
 tester_is_wildcard = false
 tester_path = NodePath("../MovableArea3D")

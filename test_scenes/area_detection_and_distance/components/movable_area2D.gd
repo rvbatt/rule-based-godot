@@ -17,5 +17,4 @@ func _on_body_entered(body):
 	print("Body entered: " + body.name)
 
 func set_brightness(distance):
-	print(16 - float(distance) * 15/600)
 	$PointLight2D.energy = 16 - 0.025 * float(distance)

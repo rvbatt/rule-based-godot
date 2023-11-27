@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+signal changed(Button)
+
 @onready var a_button: Button = find_child("A", true)
 @onready var b_button: Button = find_child("B", true)
 @onready var c_button: Button = find_child("C", true)
@@ -12,16 +14,18 @@ func _on_a_pressed():
 		null:
 			_selected_button = a_button
 		a_button:
-			_selected_button = null
+			_deselect_all()
 		b_button:
 			if a_button.find_parent("B") == b_button:
 				a_button.reparent(b_button.get_parent())
 			b_button.reparent(a_button.get_child(0))
+			emit_signal("changed", a_button)
 			_deselect_all()
 		c_button:
 			if a_button.find_parent("C") == c_button:
 				a_button.reparent(c_button.get_parent())
 			c_button.reparent(a_button.get_child(0))
+			emit_signal("changed", a_button)
 			_deselect_all()
 
 func _on_b_pressed():
@@ -32,15 +36,17 @@ func _on_b_pressed():
 			if b_button.find_parent("A") == a_button:
 				b_button.reparent(a_button.get_parent())
 			a_button.reparent(b_button.get_child(0))
+			emit_signal("changed", b_button)
 			_deselect_all()
 		null:
 			_selected_button = b_button
 		b_button:
-			_selected_button = null
+			_deselect_all()
 		c_button:
 			if b_button.find_parent("C") == c_button:
 				b_button.reparent(c_button.get_parent())
 			c_button.reparent(b_button.get_child(0))
+			emit_signal("changed", b_button)
 			_deselect_all()
 
 func _on_c_pressed():
@@ -51,16 +57,18 @@ func _on_c_pressed():
 			if c_button.find_parent("A") == a_button:
 				c_button.reparent(a_button.get_parent())
 			a_button.reparent(c_button.get_child(0))
+			emit_signal("changed", c_button)
 			_deselect_all()
 		b_button:
 			if c_button.find_parent("B") == b_button:
 				c_button.reparent(b_button.get_parent())
 			b_button.reparent(c_button.get_child(0))
+			emit_signal("changed", c_button)
 			_deselect_all()
 		null:
 			_selected_button = c_button
 		c_button:
-			_selected_button = null
+			_deselect_all()
 
 func _deselect_all():
 	print("deselect")
