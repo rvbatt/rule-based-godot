@@ -24,7 +24,7 @@ var agent_identifier := &""
 
 func _get_property_list():
 	var properties: Array[Dictionary] = [
-		{"name": "Agent_Nodes",
+		{"name": "Agent Nodes",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_GROUP,
 		"hint_string": "agent"}

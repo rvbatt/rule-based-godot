@@ -31,7 +31,7 @@ func _tester_properties() -> Array[Dictionary]:
 	if not Tester_Node: return properties
 
 	properties.append_array([
-		{"name": "Tester_Node",
+		{"name": "Tester Node",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_GROUP,
 		"hint_string": "tester"},
@@ -94,7 +94,6 @@ var Get_Node_Data_Preset := false:
 	set(value):
 		Get_Node_Data_Preset = value
 		notify_property_list_changed()
-var Data_Extraction # just group name
 # Group: Data_Extraction, prefix: extraction
 enum ExtractionType {PROPERTY, METHOD}
 var extraction_type := ExtractionType.PROPERTY:
@@ -114,7 +113,7 @@ func _extraction_properties() -> Array[Dictionary]:
 		extract_types += type.capitalize() + ","
 	extract_types = extract_types.trim_suffix(",")
 	properties.append_array([
-		{"name": "Data_Extraction",
+		{"name": "Data Extraction",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_GROUP,
 		"hint_string": "extraction"},
@@ -150,7 +149,6 @@ func setup(system_node: RuleBasedSystem) -> void:
 		print_debug("Setup with null system node")
 		return
 	_system_node = system_node
-	print("Wild: " + str(tester_is_wildcard))
 	if Tester_Node and not tester_is_wildcard:
 		_tester_node = system_node.get_node(tester_path)
 	for path in _preset_paths:
