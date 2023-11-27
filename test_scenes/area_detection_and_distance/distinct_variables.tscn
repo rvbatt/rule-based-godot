@@ -1,0 +1,90 @@
+[gd_scene load_steps=21 format=3 uid="uid://b6rrl32rahpxo"]
+
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_7xjl1"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="1_m83qp"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_md1f3"]
+[ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="2_5dqej"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="2_kprw8"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="3_3eonh"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="3_fqu43"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/area_detection_match.gd" id="4_5a0h6"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="4_xpr2i"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="5_tfn2b"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/variables_match.gd" id="7_nrxsj"]
+
+[sub_resource type="Resource" id="Resource_j5vug"]
+script = ExtResource("2_kprw8")
+
+[sub_resource type="Resource" id="Resource_bensm"]
+script = ExtResource("3_fqu43")
+method = &"set_brightness"
+arguments = [16.0]
+agent_type = 0
+agent_path = NodePath("../MovableArea2D")
+
+[sub_resource type="Resource" id="Resource_ed2kj"]
+script = ExtResource("4_5a0h6")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = true
+tester_search_groups = Array[StringName]([&"collider"])
+tester_identifier = &"1"
+
+[sub_resource type="Resource" id="Resource_3u8a8"]
+script = ExtResource("4_5a0h6")
+area_path = NodePath("../MovableArea2D")
+tester_is_wildcard = true
+tester_search_groups = Array[StringName]([&"collider"])
+tester_identifier = &"2"
+
+[sub_resource type="Resource" id="Resource_ro6qd"]
+script = ExtResource("7_nrxsj")
+distinct_variables = Array[StringName]([&"1", &"2"])
+
+[sub_resource type="Resource" id="Resource_e2okd"]
+script = ExtResource("3_3eonh")
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_ed2kj"), SubResource("Resource_3u8a8"), SubResource("Resource_ro6qd")])
+
+[sub_resource type="Resource" id="Resource_t8n5p"]
+script = ExtResource("4_xpr2i")
+condition = SubResource("Resource_e2okd")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_bensm")])
+
+[sub_resource type="Resource" id="Resource_856tf"]
+script = ExtResource("5_tfn2b")
+_rule_based_godot = &"RuleList"
+rules = Array[ExtResource("4_xpr2i")]([SubResource("Resource_t8n5p")])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4me18"]
+size = Vector2(130, 130)
+
+[node name="distinct_variables" type="Node2D"]
+script = ExtResource("1_7xjl1")
+
+[node name="RuleBasedSystem" type="Timer" parent="."]
+script = ExtResource("1_md1f3")
+iteration_update = 2
+arbiter = SubResource("Resource_j5vug")
+rule_list = SubResource("Resource_856tf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(378, 262)
+texture = ExtResource("1_m83qp")
+
+[node name="1" type="Area2D" parent="Sprite2D" groups=["collider"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/1"]
+shape = SubResource("RectangleShape2D_4me18")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(527, 264)
+texture = ExtResource("1_m83qp")
+
+[node name="2" type="Area2D" parent="Sprite2D2" groups=["collider"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D2/2"]
+shape = SubResource("RectangleShape2D_4me18")
+
+[node name="MovableArea2D" parent="." instance=ExtResource("2_5dqej")]
+
+[connection signal="area_entered" from="Sprite2D/1" to="." method="run_tests"]
+[connection signal="area_entered" from="Sprite2D2/2" to="." method="run_tests"]
