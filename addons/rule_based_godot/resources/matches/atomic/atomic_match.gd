@@ -299,7 +299,18 @@ func build_from_repr(json_repr: Array) -> void:
 	var export_vars = _exported_vars()
 	var num_vars = export_vars.size()
 	for i in range(num_vars):
-		set(export_vars[i], _repr_to_var(json_repr[i + offset]))
+		var var_value = get(export_vars[i])
+		if var_value is Array and var_value.is_typed():
+			set(export_vars[i], Array(_repr_to_var(json_repr[i + offset]),
+					var_value.get_typed_builtin(),
+					var_value.get_typed_class_name(),
+					var_value.get_typed_script())
+			)
+		else:
+			set(export_vars[i], _repr_to_var(json_repr[i + offset]))
+
+	if json_repr.size() == num_vars + 1: # Not a node-based match
+		return
 
 	var var_or_path = _repr_to_var(json_repr[num_vars + offset])
 	if var_or_path is String and var_or_path.begins_with('?'):
