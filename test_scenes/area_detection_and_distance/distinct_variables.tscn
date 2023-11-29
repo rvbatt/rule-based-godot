@@ -15,44 +15,44 @@
 [sub_resource type="Resource" id="Resource_j5vug"]
 script = ExtResource("2_kprw8")
 
-[sub_resource type="Resource" id="Resource_bensm"]
+[sub_resource type="Resource" id="Resource_8ix88"]
 script = ExtResource("3_fqu43")
 method = &"set_brightness"
 arguments = [16.0]
 agent_type = 0
-agent_path = NodePath("../MovableArea2D")
+agent_path = NodePath("MovableArea2D")
 
-[sub_resource type="Resource" id="Resource_ed2kj"]
+[sub_resource type="Resource" id="Resource_11lae"]
 script = ExtResource("4_5a0h6")
-area_path = NodePath("../MovableArea2D")
+area_path = NodePath("MovableArea2D")
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([&"collider"])
-tester_identifier = &"1"
+tester_identifier = &"obj1"
 
-[sub_resource type="Resource" id="Resource_3u8a8"]
+[sub_resource type="Resource" id="Resource_wjy56"]
 script = ExtResource("4_5a0h6")
-area_path = NodePath("../MovableArea2D")
+area_path = NodePath("MovableArea2D")
 tester_is_wildcard = true
 tester_search_groups = Array[StringName]([&"collider"])
-tester_identifier = &"2"
+tester_identifier = &"obj2"
 
-[sub_resource type="Resource" id="Resource_ro6qd"]
+[sub_resource type="Resource" id="Resource_j2bev"]
 script = ExtResource("7_nrxsj")
-distinct_variables = Array[StringName]([&"1", &"2"])
+distinct_variables = Array[StringName]([&"obj1", &"obj2"])
 
-[sub_resource type="Resource" id="Resource_e2okd"]
+[sub_resource type="Resource" id="Resource_c3kfj"]
 script = ExtResource("3_3eonh")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_ed2kj"), SubResource("Resource_3u8a8"), SubResource("Resource_ro6qd")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_11lae"), SubResource("Resource_wjy56"), SubResource("Resource_j2bev")])
 
-[sub_resource type="Resource" id="Resource_t8n5p"]
+[sub_resource type="Resource" id="Resource_qc2lr"]
 script = ExtResource("4_xpr2i")
-condition = SubResource("Resource_e2okd")
-actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_bensm")])
+condition = SubResource("Resource_c3kfj")
+actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_8ix88")])
 
-[sub_resource type="Resource" id="Resource_856tf"]
+[sub_resource type="Resource" id="Resource_55bs8"]
 script = ExtResource("5_tfn2b")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("4_xpr2i")]([SubResource("Resource_t8n5p")])
+rules = Array[ExtResource("4_xpr2i")]([SubResource("Resource_qc2lr")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4me18"]
 size = Vector2(130, 130)
@@ -64,9 +64,19 @@ script = ExtResource("1_7xjl1")
 script = ExtResource("1_md1f3")
 iteration_update = 2
 arbiter = SubResource("Resource_j5vug")
-rule_list = SubResource("Resource_856tf")
+rule_list = SubResource("Resource_55bs8")
+
+[node name="MovableArea2D" parent="RuleBasedSystem" instance=ExtResource("2_5dqej")]
+
+[node name="Label" type="Label" parent="RuleBasedSystem/MovableArea2D"]
+offset_left = -44.0
+offset_top = -92.0
+offset_right = 43.0
+offset_bottom = -66.0
+text = "Área Móvel"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 position = Vector2(378, 262)
 texture = ExtResource("1_m83qp")
 
@@ -76,6 +86,7 @@ texture = ExtResource("1_m83qp")
 shape = SubResource("RectangleShape2D_4me18")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 position = Vector2(527, 264)
 texture = ExtResource("1_m83qp")
 
@@ -83,8 +94,6 @@ texture = ExtResource("1_m83qp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D2/2"]
 shape = SubResource("RectangleShape2D_4me18")
-
-[node name="MovableArea2D" parent="." instance=ExtResource("2_5dqej")]
 
 [connection signal="area_entered" from="Sprite2D/1" to="." method="run_tests"]
 [connection signal="area_entered" from="Sprite2D2/2" to="." method="run_tests"]
