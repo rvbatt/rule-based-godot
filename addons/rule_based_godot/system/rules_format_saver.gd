@@ -2,13 +2,13 @@ class_name RulesFormatSaver
 extends ResourceFormatSaver
 # Saves the RuleList resource as a JSON file
 
-func _recognize(resource):
+func _recognize(resource) -> bool:
 	# Recognizes RuleList
 	if "_rule_based_godot" in resource:
 		return resource.get("_rule_based_godot") == "RuleList"
 	return false
 
-func _get_recognized_extensions(resource):
+func _get_recognized_extensions(resource) -> PackedStringArray:
 	var extensions: PackedStringArray = ["json"]
 	return extensions
 

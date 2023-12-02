@@ -2,14 +2,14 @@ class_name RulesFormatLoader
 extends ResourceFormatLoader
 # Loads JSON file as RuleList resource
 
-func _get_recognized_extensions():
+func _get_recognized_extensions() -> PackedStringArray:
 	var extensions: PackedStringArray = ["json"]
 	return extensions
 
-func _handles_type(type):
+func _handles_type(type) -> bool:
 	return type == "RuleList"
 
-func _get_resource_type(path):
+func _get_resource_type(path) -> String:
 	var dict = _load_json(path)
 	if dict.has("Rules"):
 		return "RuleList"
