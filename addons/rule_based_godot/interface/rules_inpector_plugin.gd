@@ -6,14 +6,14 @@ var _rules_editor: Control
 var _rules_editor_button: Button
 var _current_system_node: RuleBasedSystem
 
-func set_rules_editor(rules_editor_panel: Control, button: Button):
+func set_rules_editor(rules_editor_panel: Control, button: Button) -> void:
 	# Called at plugin startup
 	_rules_editor = rules_editor_panel
 	_rules_editor_button = button
 
 	_rules_editor.rule_list_defined.connect(_apply_current_rules)
 
-func _can_handle(object):
+func _can_handle(object) -> bool:
 	match object.get_class():
 		"SectionedInspectorFilter":
 			return false
@@ -37,7 +37,8 @@ func _parse_begin(object):
 	if not _rules_editor_button.button_pressed:
 		_rules_editor_button.emit_signal("toggled", true)
 
-func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wide):
+func _parse_property(object, type, name, hint_type, hint_string,
+		usage_flags, wide) -> bool:
 	# removes _rule_based_godot from inspector
 	if name == "_rule_based_godot": return true
 	return false
