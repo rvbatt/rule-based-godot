@@ -1,7 +1,21 @@
 # Rule-Based Godot
 A plugin for [Godot Engine 4.1+](https://godotengine.org/) that functions as a Rule-Based System framework. This was developed as the capstone project for my Computer Science bachelor degree at USP.
 
-## Instalation
+### Table of contents
+1. [Installation](#instalation)
+   1. [Using gd-plug](#using-gd-plug)
+   2. [Directly from the Repository](#directly-from-the-repository)
+2. [Adding rules to a scene](#adding-rules-to-a-scene)
+   1. [Creating rules in the Inspector](#creating-rules-in-the-inspector)
+   2. [Declaring rules in the RulesEditor](#declaring-rules-in-the-rules-editor)
+3. [Resources](#resources)
+   1. [Available](#available)
+   2. [Creating new ones](#creating-new-ones)
+4. [JSON syntax](#json-syntax)
+   1. [How to read the syntax documentation](#how-to-read-the-syntax-documentation)
+   2. [Syntax documentation](#syntax-documentation)
+
+## Installation
 ### Using [gd-plug](https://github.com/imjp94/gd-plug)
 Supposing the plugin manager is already installed (check its documentation for details), you need only to:
 1. Add the `plug.gd` file below in the project root. If the file already exists, add the new line in the *_plugging()* function:
