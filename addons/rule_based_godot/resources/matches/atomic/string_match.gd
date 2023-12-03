@@ -1,11 +1,11 @@
 @tool
 class_name StringMatch
-extends AbstractDatumMatch
+extends AbstractAtomicMatch
 
-@export var string_value: String = ""
+@export var string_value := ""
 
 func _init():
-	Data_Extraction = true
+	Get_Node_Data_Preset = true
 
 func _data_satisfies_match(data: Variant) -> bool:
 	if not data is String: return false

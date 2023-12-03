@@ -1,11 +1,11 @@
 @tool
 class_name DistanceMatch
-extends AbstractDatumMatch
+extends AbstractAtomicMatch
 
-@export_node_path var source_path: NodePath = ^""
+@export_node_path var source_path := ^""
 var _source_node: Node
-@export var min_distance: float = 0
-@export var max_distance: float = 0
+@export var min_distance := 0.0
+@export var max_distance := 0.0
 
 func _init():
 	_preset_node_path("source_path", "_source_node")

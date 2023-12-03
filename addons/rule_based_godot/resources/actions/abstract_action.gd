@@ -1,35 +1,37 @@
 class_name AbstractAction
 extends RuleBasedResource
-# Generic action, with preconfigurations for:
-# - Agent_Nodes, the nodes that will execute the action
+# Generic action, with preconfigurations:
+# - Agent_Nodes: action trigger nodes
 
 enum AgentType {PATH, GROUPS, WILDCARD}
 
-var Agent_Nodes: bool = true:
+var Agent_Nodes := true:
 	set(value):
 		Agent_Nodes = value
 		notify_property_list_changed()
 # Group: Agent_Nodes, prefix: agent
-var agent_type: AgentType = AgentType.PATH:
+var agent_type := AgentType.PATH:
 	set(value):
 		agent_type = value
 		notify_property_list_changed()
 # Type PATH
-var agent_path: NodePath = ^"."
+var agent_path := ^"."
 var _agent_node: Node = null
 # Type GROUPS
 var agent_groups: Array[StringName] = []
 # TYPE WILDCARD
-var agent_identifier: StringName = &""
+var agent_identifier := &""
 
 func _get_property_list():
-	var properties: Array[Dictionary] = [
-		{"name": "Agent_Nodes",
+	var properties: Array[Dictionary] = []
+	if not Agent_Nodes: return properties
+
+	properties.append(
+		{"name": "Agent Nodes",
 		"type": TYPE_BOOL,
 		"usage": PROPERTY_USAGE_GROUP,
 		"hint_string": "agent"}
-	]
-	if not Agent_Nodes: return properties
+	)
 
 	var agent_types := ""
 	for type in AgentType:
@@ -71,7 +73,7 @@ var _preset_signals = {} # name_var -> param_to_type_var
 
 func setup(system_node: RuleBasedSystem) -> void:
 	_system_node = system_node
-	if agent_type == AgentType.PATH:
+	if Agent_Nodes and agent_type == AgentType.PATH:
 		_agent_node = system_node.get_node(agent_path)
 		for name_var in _preset_signals:
 			var signal_name = get(name_var)
@@ -81,55 +83,65 @@ func setup(system_node: RuleBasedSystem) -> void:
 			_agent_node.add_user_signal(get(name_var), params)
 
 func json_format() -> String:
-	# [ID, (agent_path|?wild|[groups]|), vars...]
-	var string = '[' + _resource_id() + ', (agent_path|?wild|[groups])'
+	# [ID, (agent_path|?wild|[groups]), vars...]
+	var string = '[' + _resource_id()
+	if Agent_Nodes: string += ', (agent_path|?wild|[groups])'
+
 	for variable in _exported_vars():
 		string += ', ' + variable
 	return string + ']'
 
 func to_json_repr() -> Variant:
-	# [ID, (agent_path|?wild|[groups]|), vars...]
+	# [ID, (agent_path|?wild|[groups]), vars...]
 	var json_array = [_resource_id()]
-	match agent_type:
-		AgentType.PATH:
-			json_array.append(_var_to_repr(agent_path))
-		AgentType.GROUPS:
-			json_array.append(_var_to_repr(agent_groups))
-		AgentType.WILDCARD:
-			json_array.append(_var_to_repr('?' + agent_identifier))
+
+	if Agent_Nodes: # Node-based
+		match agent_type:
+			AgentType.PATH:
+				json_array.append(_var_to_repr(agent_path))
+			AgentType.GROUPS:
+				json_array.append(_var_to_repr(agent_groups))
+			AgentType.WILDCARD:
+				json_array.append(_var_to_repr('?' + agent_identifier))
 
 	for variable in _exported_vars():
 		json_array.append(_var_to_repr(get(variable)))
 	return json_array
 
 func build_from_repr(json_repr) -> void:
-	# [ID, (agent_path|?wild|[groups]|), vars...]
-	var first_param = _repr_to_var(json_repr[1])
-	if first_param is NodePath:
-		agent_type = AgentType.PATH
-		agent_path = first_param
-	elif first_param is Array:
-		agent_type = AgentType.GROUPS
-		agent_groups = []
-		agent_groups.assign(first_param)
-	elif first_param is String and first_param.begins_with('?'):
-		agent_type = AgentType.WILDCARD
-		agent_identifier = first_param.trim_prefix('?')
-
+	# [ID, (agent_path|?wild|[groups]), vars...]
 	var export_vars = _exported_vars()
+
+	if json_repr.size() - 1 > export_vars.size(): # Node-based
+		var first_param = _repr_to_var(json_repr[1])
+		if first_param is NodePath:
+			agent_type = AgentType.PATH
+			agent_path = first_param
+		elif first_param is Array:
+			agent_type = AgentType.GROUPS
+			agent_groups = []
+			agent_groups.assign(first_param)
+		elif first_param is String and first_param.begins_with('?'):
+			agent_type = AgentType.WILDCARD
+			agent_identifier = first_param.trim_prefix('?')
+
 	for i in range(export_vars.size()):
 		set(export_vars[i], _repr_to_var(json_repr[i+2]))
 
 func trigger(bindings: Dictionary) -> Array:
 	# Uses Template Method
+	if not Agent_Nodes:
+		push_error("trigger() should be implemented if Agent_Nodes = false")
+		return []
+
 	var results := []
 	for agent in _get_agent_nodes(bindings):
-		var agent_result = _trigger_agent(agent, bindings)
+		var agent_result = _trigger_node(agent, bindings)
 		if agent_result != null:
 			results.append(agent_result)
 	return results
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
 	push_error("Abstract Method")
 	return null
 

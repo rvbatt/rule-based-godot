@@ -1,23 +1,24 @@
 @tool
 extends EditorPlugin
 
-const BOTTOM_PANEL_PATH: String = "res://addons/rule_based_godot/interface/rules_edit_panel.tscn"
-const INSPECTOR_PATH: String = "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
+const RULES_EDITOR_PATH := "res://addons/rule_based_godot/interface/rules_editor.tscn"
+const INSPECTOR_PATH := "res://addons/rule_based_godot/interface/rules_inpector_plugin.gd"
+const SYSTEM_NODE_PATH := "res://addons/rule_based_godot/system/rule_based_system.gd"
 
-var rules_edit_panel: Control
+var rules_editor: Control
 var inspector_plugin: EditorInspectorPlugin
 
 func _enter_tree():
 	# Initialization of the plugin goes here.
 	add_custom_type("RuleBasedSystem", "Timer",
-		preload("system/rule_based_system.gd"),
+		preload(SYSTEM_NODE_PATH),
 		preload("ruler_icon.png"))
 
-	rules_edit_panel = preload(BOTTOM_PANEL_PATH).instantiate()
-	var button = add_control_to_bottom_panel(rules_edit_panel, "Rules Editor")
+	rules_editor = preload(RULES_EDITOR_PATH).instantiate()
+	var button = add_control_to_bottom_panel(rules_editor, "Rules Editor")
 
 	inspector_plugin = preload(INSPECTOR_PATH).new()
-	inspector_plugin.set_rules_editor(rules_edit_panel, button)
+	inspector_plugin.set_rules_editor(rules_editor, button)
 	add_inspector_plugin(inspector_plugin)
 
 func _exit_tree():
@@ -26,5 +27,5 @@ func _exit_tree():
 
 	remove_inspector_plugin(inspector_plugin)
 
-	remove_control_from_bottom_panel(rules_edit_panel)
-	rules_edit_panel.queue_free()
+	remove_control_from_bottom_panel(rules_editor)
+	rules_editor.queue_free()

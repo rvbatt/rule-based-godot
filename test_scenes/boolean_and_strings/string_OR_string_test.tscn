@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_fwqsd"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_xh355"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="5_t5eq1"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="6_k165o"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="6_2triq"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_beao0"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_h5vtr"]
 
@@ -20,27 +20,27 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
-[sub_resource type="Resource" id="Resource_uw0s2"]
-script = ExtResource("6_k165o")
+[sub_resource type="Resource" id="Resource_n4w7l"]
+script = ExtResource("6_2triq")
 string_value = "black"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit")
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"text"
-retrieval_should_retrieve = false
 
-[sub_resource type="Resource" id="Resource_jvkxl"]
-script = ExtResource("6_k165o")
+[sub_resource type="Resource" id="Resource_05aa2"]
+script = ExtResource("6_2triq")
 string_value = "black"
 tester_is_wildcard = false
 tester_path = NodePath("../LineEdit2")
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"text"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_eywxm"]
 script = ExtResource("5_t5eq1")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_uw0s2"), SubResource("Resource_jvkxl")])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_n4w7l"), SubResource("Resource_05aa2")])
 
 [sub_resource type="Resource" id="Resource_lakai"]
 script = ExtResource("7_beao0")

@@ -1,15 +1,15 @@
 @tool
 class_name AreaDetectionMatch
-extends AbstractDatumMatch
+extends AbstractAtomicMatch
 
-@export_node_path("Area2D", "Area3D") var area_path: NodePath = ^""
+@export_node_path("Area2D", "Area3D") var area_path := ^""
 var _area # Area2D or Area3D
 # Keep list of areas and bodies overllaping, because the get_overllaping_*
 # methods are not updated immediately after objects have moved
 var _overlapping := []
 
 func _init():
-	Data_Retrieval = false
+	Data_Based_Node = false
 	_preset_node_path("area_path", "_area")
 	_pre_connect("_area", "area_entered", _add_overlapping)
 	_pre_connect("_area", "body_entered", _add_overlapping)

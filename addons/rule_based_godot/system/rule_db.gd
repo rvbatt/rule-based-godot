@@ -1,4 +1,4 @@
-class_name RuleFactory
+class_name RuleDB
 extends Object
 # Uses Factory method to build Matches, Actions and Rules
 # from JSON representations
@@ -19,8 +19,8 @@ func _init():
 	var all_classes = ProjectSettings.get_global_class_list()
 	matches = _id_to_script_dict(all_classes,
 		func(class_dict):
-			return class_dict["base"] == "AbstractDatumMatch" or \
-				class_dict["base"] == "AbstractMultiBoolMatch" or \
+			return class_dict["base"] == "AbstractAtomicMatch" or \
+				class_dict["base"] == "AbstractBooleanMatch" or \
 				class_dict["class"] == "NOTMatch"
 	)
 	actions = _id_to_script_dict(all_classes,
@@ -28,7 +28,7 @@ func _init():
 	)
 	_can_edit = false
 
-func build_match(json_repr: Array) -> AbstractMatch:
+func match_from_json(json_repr: Array) -> AbstractMatch:
 	# Representation: ["Identifier", configuration]
 	if json_repr.is_empty():
 		print_debug("Invalid match representation")
@@ -52,7 +52,7 @@ func get_match_format(match_id: String) -> String:
 
 	return match_script.new().json_format()
 
-func build_action(json_repr: Array) -> AbstractAction:
+func action_from_json(json_repr: Array) -> AbstractAction:
 	# Representation: ["Identifier", configuration]
 	if json_repr.is_empty():
 		print_debug("Invalid action representation")
@@ -76,7 +76,7 @@ func get_action_format(action_id: String) -> String:
 
 	return action_script.new().json_format()
 
-func build_rule(json_repr: Dictionary) -> Rule:
+func rule_from_json(json_repr: Dictionary) -> Rule:
 	# Representation: {"if": condition, "then": [actions]}
 	if not json_repr.has("if") or not json_repr.has("then"):
 		push_error(error_string(ERR_INVALID_PARAMETER))
@@ -84,9 +84,9 @@ func build_rule(json_repr: Dictionary) -> Rule:
 
 	var new_rule = Rule.new()
 	new_rule.set_factory(self)
-	new_rule.condition = build_match(json_repr["if"])
+	new_rule.condition = match_from_json(json_repr["if"])
 	for action_repr in json_repr["then"]:
-		new_rule.actions.append(build_action(action_repr))
+		new_rule.actions.append(action_from_json(action_repr))
 	return new_rule
 
 func get_rule_format() -> String:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://e5tryq24e7b7"]
+[gd_scene load_steps=5 format=3 uid="uid://e5tryq24e7b7"]
 
 [ext_resource type="Script" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.gd" id="1_7cntl"]
 [ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="2_8trk7"]
+[ext_resource type="Texture2D" uid="uid://d1h8cfa1meslh" path="res://test_scenes/area_detection_and_distance/components/point_light.webp" id="2_irqpv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q72k7"]
 size = Vector2(127, 127)
@@ -9,6 +10,11 @@ size = Vector2(127, 127)
 [node name="MovableArea2D" type="Area2D" groups=["collider"]]
 position = Vector2(100, 100)
 script = ExtResource("1_7cntl")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+texture = ExtResource("2_irqpv")
+texture_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)

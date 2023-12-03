@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="1_ihwfs"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/least_recently_used_arbiter.gd" id="3_2gpba"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_m4yu8"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/hierarchy_match.gd" id="5_xb1r4"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/hierarchy_match.gd" id="5_ykmlp"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_74hg6"]
 [ext_resource type="Script" path="res://test_scenes/hierarchy_and_wildcard/components/button_tree.gd" id="7_80qkv"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="7_aqvhy"]
@@ -18,16 +18,17 @@ property_and_value = {
 "text": "yes"
 }
 agent_type = 0
-agent_path = NodePath("../Statements/AParentB/answer")
+agent_path = NodePath("../Statements/BsiblingC/answer")
 
 [sub_resource type="Resource" id="Resource_i6i0l"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren")
-relation = "Parent of"
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A/AChildren/B")
+relation = 1
 tester_is_wildcard = false
-tester_path = NodePath("../Root/A/AChildren/B")
+tester_path = NodePath("../Root/A/AChildren/B/BChildren/C")
 
 [sub_resource type="Resource" id="Resource_gnt0p"]
+resource_name = "B sibling C"
 script = ExtResource("6_74hg6")
 condition = SubResource("Resource_i6i0l")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_2trtu")])
@@ -38,16 +39,17 @@ property_and_value = {
 "text": "yes"
 }
 agent_type = 0
-agent_path = NodePath("../Statements/CChildA/answer")
+agent_path = NodePath("../Statements/CparentA/answer")
 
 [sub_resource type="Resource" id="Resource_t3r2a"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren/C")
-relation = "Child of"
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A/AChildren/B/BChildren/C/CChildren")
+relation = 0
 tester_is_wildcard = false
-tester_path = NodePath("../Root/A/AChildren")
+tester_path = NodePath("../Root/A")
 
 [sub_resource type="Resource" id="Resource_jafnd"]
+resource_name = "C parent A"
 script = ExtResource("6_74hg6")
 condition = SubResource("Resource_t3r2a")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_6nv5k")])
@@ -58,16 +60,17 @@ property_and_value = {
 "text": "yes"
 }
 agent_type = 0
-agent_path = NodePath("../Statements/BSibliingC/answer")
+agent_path = NodePath("../Statements/AChildB/answer")
 
 [sub_resource type="Resource" id="Resource_s4gdo"]
-script = ExtResource("5_xb1r4")
-source_node_path = NodePath("../Root/A/AChildren/B")
-relation = "Sibling of"
+script = ExtResource("5_ykmlp")
+source_path = NodePath("../Root/A")
+relation = 2
 tester_is_wildcard = false
-tester_path = NodePath("../Root/A/AChildren/C")
+tester_path = NodePath("../Root/A/AChildren/B/BChildren")
 
 [sub_resource type="Resource" id="Resource_13468"]
+resource_name = "A child B"
 script = ExtResource("6_74hg6")
 condition = SubResource("Resource_s4gdo")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_6jarg")])
@@ -91,17 +94,17 @@ arbiter = SubResource("Resource_113tm")
 rule_list = SubResource("Resource_a8ujj")
 
 [node name="Root" type="VBoxContainer" parent="."]
-offset_left = 273.0
-offset_top = 239.0
-offset_right = 320.0
-offset_bottom = 276.0
+offset_left = 352.0
+offset_top = 255.0
+offset_right = 399.0
+offset_bottom = 287.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("7_80qkv")
 
 [node name="A" type="Button" parent="Root"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 toggle_mode = true
 text = "A"
@@ -123,7 +126,7 @@ grow_vertical = 0
 
 [node name="B" type="Button" parent="Root/A/AChildren"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 toggle_mode = true
 text = "B"
@@ -138,20 +141,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 3.0
 offset_right = 40.0
-offset_bottom = 34.0
+offset_bottom = 85.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="C" type="Button" parent="Root/A/AChildren"]
-unique_name_in_owner = true
+[node name="C" type="Button" parent="Root/A/AChildren/B/BChildren"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
 toggle_mode = true
 text = "C"
 script = SubResource("GDScript_eiek8")
 
-[node name="CChildren" type="VBoxContainer" parent="Root/A/AChildren/C"]
+[node name="CChildren" type="VBoxContainer" parent="Root/A/AChildren/B/BChildren/C"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -160,7 +162,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 3.0
 offset_right = 40.0
-offset_bottom = 38.0
+offset_bottom = 85.0
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -170,39 +172,56 @@ offset_top = 261.0
 offset_right = 674.0
 offset_bottom = 347.0
 
-[node name="AParentB" type="HBoxContainer" parent="Statements"]
+[node name="BsiblingC" type="HBoxContainer" parent="Statements"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Statements/AParentB"]
-layout_mode = 2
-text = "A is parent of B: "
-
-[node name="answer" type="Label" parent="Statements/AParentB"]
-layout_mode = 2
-text = "?"
-
-[node name="CChildA" type="HBoxContainer" parent="Statements"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Statements/CChildA"]
-layout_mode = 2
-text = "C is child of A: "
-
-[node name="answer" type="Label" parent="Statements/CChildA"]
-layout_mode = 2
-text = "?"
-
-[node name="BSibliingC" type="HBoxContainer" parent="Statements"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Statements/BSibliingC"]
+[node name="Label" type="Label" parent="Statements/BsiblingC"]
 layout_mode = 2
 text = "B is sibling of C: "
 
-[node name="answer" type="Label" parent="Statements/BSibliingC"]
+[node name="answer" type="Label" parent="Statements/BsiblingC"]
 layout_mode = 2
 text = "?"
 
+[node name="CparentA" type="HBoxContainer" parent="Statements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statements/CparentA"]
+layout_mode = 2
+text = "C is parent of A: "
+
+[node name="answer" type="Label" parent="Statements/CparentA"]
+layout_mode = 2
+text = "?"
+
+[node name="AChildB" type="HBoxContainer" parent="Statements"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Statements/AChildB"]
+layout_mode = 2
+text = "A is child of B: "
+
+[node name="answer" type="Label" parent="Statements/AChildB"]
+layout_mode = 2
+text = "?"
+
+[node name="LineDefault" type="Line2D" parent="."]
+position = Vector2(379, 290)
+points = PackedVector2Array(0, 0, 0, 15, 20, 15)
+width = 2.0
+
+[node name="LineDepth2" type="Line2D" parent="."]
+position = Vector2(422, 322)
+points = PackedVector2Array(0, 0, 0, 15, 20, 15)
+width = 2.0
+
+[node name="LineDepth1" type="Line2D" parent="."]
+visible = false
+position = Vector2(377, 290)
+points = PackedVector2Array(0, 0, 0, 50, 20, 50)
+width = 2.0
+
+[connection signal="changed" from="Root" to="." method="run_tests"]
 [connection signal="pressed" from="Root/A" to="Root" method="_on_a_pressed"]
 [connection signal="pressed" from="Root/A/AChildren/B" to="Root" method="_on_b_pressed"]
-[connection signal="pressed" from="Root/A/AChildren/C" to="Root" method="_on_c_pressed"]
+[connection signal="pressed" from="Root/A/AChildren/B/BChildren/C" to="Root" method="_on_c_pressed"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="1_s25me"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/OR_match.gd" id="2_he4wt"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="3_hob70"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="3_hob70"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="4_7ce65"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="5_lq1mh"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="6_akd3w"]

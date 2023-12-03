@@ -1,12 +1,12 @@
 @tool
 class_name NumericMatch
-extends AbstractDatumMatch
+extends AbstractAtomicMatch
 
-@export var min_value: float = 0
-@export var max_value: float = 0
+@export var min_value := 0.0
+@export var max_value := 0.0
 
 func _init():
-	Data_Extraction = true
+	Get_Node_Data_Preset = true
 
 func _data_satisfies_match(data: Variant) -> bool:
 	if not (data is float or data is int): return false

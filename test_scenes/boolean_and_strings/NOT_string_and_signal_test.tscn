@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_kgpmu"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_iqrdk"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/emit_signal_action.gd" id="5_p6egh"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/datum/string_match.gd" id="6_ah43p"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="6_ah43p"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/NOT_match.gd" id="7_4ogbf"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="8_lht7q"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="9_1ts4m"]
@@ -34,9 +34,9 @@ script = ExtResource("6_ah43p")
 string_value = ""
 tester_is_wildcard = false
 tester_path = NodePath("LineEdit")
+should_retrieve_data = false
 extraction_type = 0
 extraction_property = &"text"
-retrieval_should_retrieve = false
 
 [sub_resource type="Resource" id="Resource_rq540"]
 script = ExtResource("7_4ogbf")

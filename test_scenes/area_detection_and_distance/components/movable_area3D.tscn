@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://2k3bffm3kikw"]
 
 [ext_resource type="Script" path="res://test_scenes/area_detection_and_distance/components/movable_area3D.gd" id="1_erpa6"]
 

@@ -2,11 +2,17 @@
 class_name CallMethodAction
 extends AbstractAction
 
-@export var method: StringName = &""
-@export var arguments: Array = []
+@export var method := &""
+@export var arguments := []
 
-func _trigger_agent(agent: Node, bindings: Dictionary) -> Variant:
+func _trigger_node(agent: Node, bindings: Dictionary) -> Variant:
 	if agent.has_method(method):
-		return agent.callv(method, arguments)
+		var args = arguments.duplicate(true)
+		for i in range(len(args)):
+			var arg = args[i]
+			if arg is String and arg.begins_with('?'):
+				args[i] = bindings.get(arg.trim_prefix('?'))
+		return agent.callv(method, args)
+
 	print_debug("Invalid CallMethodAction method")
 	return null
