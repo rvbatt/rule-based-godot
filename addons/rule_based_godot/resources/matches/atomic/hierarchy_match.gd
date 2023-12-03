@@ -2,9 +2,11 @@
 class_name HierarchyMatch
 extends AbstractAtomicMatch
 
+enum Relation {PARENT_OF, SIBLING_OF, CHILD_OF}
+
 @export_node_path var source_path := ^""
 var _source_node: Node
-@export_enum("Parent of", "Sibling of", "Child of") var relation := "Parent of"
+@export var relation: Relation = Relation.PARENT_OF
 
 func _init():
 	Data_Based_Node = false
@@ -13,12 +15,12 @@ func _init():
 func _get_candidates() -> Array[Node]:
 	var candidates = []
 	match relation:
-		"Parent of":
+		Relation.PARENT_OF:
 			candidates = _system_node.get_children()
-		"Sibling of":
+		Relation.SIBLING_OF:
 			candidates = _system_node.get_parent().get_children()
 			candidates.erase(_system_node)
-		"Child of":
+		Relation.CHILD_OF:
 			candidates = [_system_node.get_parent()]
 
 	# Groups are filters, if none is provided take all candidates
@@ -31,11 +33,11 @@ func _node_satisfies_match(target_node: Node, bindings: Dictionary) -> bool:
 
 	var relative_path = _source_node.get_path_to(target_node).get_concatenated_names()
 	match relation:
-		"Parent of":
+		Relation.PARENT_OF:
 			return relative_path == target_node.name
-		"Sibling of":
+		Relation.SIBLING_OF:
 			return relative_path == "../" + target_node.name
-		"Child of":
+		Relation.CHILD_OF:
 			return relative_path == ".."
 		_:
 			push_error("Invalid relation in HierarchyMatch")

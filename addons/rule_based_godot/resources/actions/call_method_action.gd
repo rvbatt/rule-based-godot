@@ -7,7 +7,7 @@ extends AbstractAction
 
 func _trigger_node(agent: Node, bindings: Dictionary) -> Variant:
 	if agent.has_method(method):
-		var args =  arguments.duplicate(true)
+		var args = arguments.duplicate(true)
 		for i in range(len(args)):
 			var arg = args[i]
 			if arg is String and arg.begins_with('?'):

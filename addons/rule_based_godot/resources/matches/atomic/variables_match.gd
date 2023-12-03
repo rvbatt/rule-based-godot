@@ -16,7 +16,6 @@ func is_satisfied(bindings: Dictionary) -> bool:
 			return false
 
 		var used = used_candidates[0]
-		print("?", distinct_variables[i], " reserved: ", used)
 		for j in range(i+1, distinct_variables.size()):
 			var candidates = bindings.get(distinct_variables[j], [])
 			candidates.erase(used)
