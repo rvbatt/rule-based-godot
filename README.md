@@ -92,6 +92,26 @@ _RuleBasedSystem_'s rule list. If the syntax is wrong, a JSON parsing error will
 |:---:|
 | RulesEditor after steps 6 and 7 |
 
+## Resources
+### Available
+| Type | Identifier | Description|
+|:---:|---:|:---|
+| Arbiters | FirstApplicable   | selects the first satisfied rule (assumes they are ordered by priority) |
+|          | LeastRecentlyUsed | selects the satisfied rule that was triggered the longest time ago |
+| Boolean Matches | NOT | logic gate |
+|                 | AND | multiple-input logic gate |
+|                 | OR  | multiple-input logic gate |
+| Atomic Matches  | Numeric           | tests if a numeric value, obtained through a property or method call, is in an interval |
+|                 | String            | tests if a string, obtained through a property or method call, is equal to a constant |
+|                 | Hierarchy         | tests if two nodes have a certain relation: the first is *"Parent of"* the second, the first is *"Sibling of"* the second or the first is *"Child of"* the second |
+|                 | Distance          | tests if the distance between the origin of two nodes is in an interval |
+|                 | AreaDetection     | tests if there are objects (specific ones, or any) in an area |
+|                 | DistinctVariables | applies a substitution that makes sure every listed variable has a distinct value |
+| Actions | SetProperty | sets the property of a node |
+|         | CallMethod  | calls the method of a node passing the arguments in a vector |
+|         | EmitSignal  | adds a signal to a Node, if it doesn't have it, and emits it, passing the arguments in a vector |
+
+
 ## JSON syntax
 ### How to read the syntax documentation
 - The term **condition** can be replaced by a _NOTMatch_, subtypes of _MultiBoolMatch_ or subtypes of _DatumMatch_.
