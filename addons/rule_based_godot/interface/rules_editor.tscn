@@ -5,22 +5,23 @@
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_qf84p"]
 number_color = Color(0.631373, 1, 0.878431, 1)
 symbol_color = Color(1, 0.929412, 0.631373, 1)
-function_color = Color(0.388235, 0.760784, 0.34902, 1)
+function_color = Color(0, 1, 0.498039, 1)
 keyword_colors = {
-"AND": Color(1, 0.439216, 0.521569, 1),
-"AreaDetection": Color(1, 0.439216, 0.521569, 1),
-"CallMethod": Color(1, 0.54902, 0.8, 1),
-"Distance": Color(1, 0.439216, 0.521569, 1),
-"EmitSignal": Color(1, 0.54902, 0.8, 1),
-"Hierarchy": Color(1, 0.439216, 0.521569, 1),
-"NOT": Color(1, 0.439216, 0.521569, 1),
-"Numeric": Color(1, 0.439216, 0.521569, 1),
-"OR": Color(1, 0.439216, 0.521569, 1),
-"Rules": Color(1, 0.698039, 0.45098, 1),
-"SetProperty": Color(1, 0.54902, 0.8, 1),
-"String": Color(1, 0.439216, 0.521569, 1),
-"if": Color(0.4, 0.898039, 1, 1),
-"then": Color(0.4, 0.898039, 1, 1)
+"AND": Color(0.941176, 0.501961, 0.501961, 1),
+"AreaDetection": Color(0.941176, 0.501961, 0.501961, 1),
+"CallMethod": Color(1, 0.752941, 0.796078, 1),
+"Distance": Color(0.941176, 0.501961, 0.501961, 1),
+"DistinctVariables": Color(0.941176, 0.501961, 0.501961, 1),
+"EmitSignal": Color(1, 0.752941, 0.796078, 1),
+"Hierarchy": Color(0.941176, 0.501961, 0.501961, 1),
+"NOT": Color(0.941176, 0.501961, 0.501961, 1),
+"Numeric": Color(0.941176, 0.501961, 0.501961, 1),
+"OR": Color(0.941176, 0.501961, 0.501961, 1),
+"Rules": Color(0.956863, 0.643137, 0.376471, 1),
+"SetProperty": Color(1, 0.752941, 0.796078, 1),
+"String": Color(0.941176, 0.501961, 0.501961, 1),
+"if": Color(0.498039, 1, 0.831373, 1),
+"then": Color(0.498039, 1, 0.831373, 1)
 }
 
 [node name="Rules Editor" type="VBoxContainer"]
@@ -81,7 +82,7 @@ text = "New Rule"
 
 [node name="MatchButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
-item_count = 9
+item_count = 10
 selected = 0
 popup/item_0/text = "New Match"
 popup/item_0/id = -1
@@ -92,16 +93,18 @@ popup/item_2/text = "AreaDetection"
 popup/item_2/id = 2
 popup/item_3/text = "Distance"
 popup/item_3/id = 3
-popup/item_4/text = "Hierarchy"
+popup/item_4/text = "DistinctVariables"
 popup/item_4/id = 4
-popup/item_5/text = "NOT"
+popup/item_5/text = "Hierarchy"
 popup/item_5/id = 5
-popup/item_6/text = "Numeric"
+popup/item_6/text = "NOT"
 popup/item_6/id = 6
-popup/item_7/text = "OR"
+popup/item_7/text = "Numeric"
 popup/item_7/id = 7
-popup/item_8/text = "String"
+popup/item_8/text = "OR"
 popup/item_8/id = 8
+popup/item_9/text = "String"
+popup/item_9/id = 9
 
 [node name="ActionButton" type="OptionButton" parent="Buttons"]
 layout_mode = 2
