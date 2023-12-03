@@ -33,10 +33,10 @@ func build_from_repr(json_repr) -> void:
 		push_error(error_string(ERR_INVALID_PARAMETER))
 		return
 
-	condition = _rule_factory.build_match(json_repr["if"])
+	condition = _rule_db.match_from_json(json_repr["if"])
 	actions = []
 	for action_repr in json_repr["then"]:
-		actions.append(_rule_factory.build_action(action_repr))
+		actions.append(_rule_db.action_from_json(action_repr))
 
 func condition_satisfied() -> bool:
 	_bindings.clear()

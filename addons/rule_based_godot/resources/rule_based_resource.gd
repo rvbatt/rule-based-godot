@@ -3,11 +3,11 @@ extends Resource
 # Abstract class for all resources used in defining a RuleList
 
 var _system_node: RuleBasedSystem = null
-var _rule_factory: RuleFactory = null
+var _rule_db: RuleDB = null
 
-func set_factory(rule_factory: RuleFactory) -> void:
+func set_factory(rule_db: RuleDB) -> void:
 	# Abstract method to be called before build_from_repr()
-	_rule_factory = rule_factory
+	_rule_db = rule_db
 
 func setup(system_node: RuleBasedSystem) -> void:
 	# Abstract method called when the RuleBasedSystem is ready
