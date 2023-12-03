@@ -38,35 +38,59 @@ godot −−no−window −s plug.gd install
    - `On Timer`: iterates every _wait\_time_ seconds, which can be defined in the _Timer_ category on the Inspector
    - `On Call`: only iterates when the method _iterate()_ is called explicity. You can connect external signals to this method if you want to have a better control over it
 3. Add an _Arbiter_. **Don't choose the _AbstractArbiter_**, because that's the abstract class and it doesn't implement the necessary function
-   > Recomendation: save and `Quick Load` a resource file instead of creating a new object
-4. Now you can choose to use either the _Inspector_, with a graphical interface, or the _Rules Editor_ bottom panel, with a code driven approach, to declare the rules
+   > Recomendation: save and `Quick Load` a resource file instead of creating a new arbiter
+
+|![[Inspector with basic RuleBasedSystem configuration](screenshots/AddingRules_Inspector_1to3.png)](screenshots/AddingRules_Inspector_1to3.png "Inspector with basic RuleBasedSystem configuration")|
+|:---:|
+| Inspector after following steps 1 to 3 |
+
+Now you can choose to use either the _Inspector_, with a graphical interface, or the _Rules Editor_ bottom panel, with a code driven approach, to declare the rules
 
 ### Creating rules in the Inspector
-> Since the _RuleList_ and all of its components are resources, you can save and load any part of the data structure, sharing common rules, conditions or actions between several systems. The following steps talk about creating new ones from scratch, but you can skip any creation if you load an existing resource instead.
+> Since the _RuleList_ and all of its components are resources, you can save and load any part of the data structure, sharing common rules, conditions or actions between several systems. The following steps talk about creating new ones from scratch, but you can skip any creation step if you load an existing resource instead.
 
-5. Create a new _RuleList_ and start adding rules on the array, as many as you need
-6. For each _Rule_, create its components (**never choose the ones that start with _Abstract_**):
+4. Create a new _RuleList_ and start adding rules on the array, as many as you need
+5. For each _Rule_, create its components (**never choose the ones that start with _Abstract_**):
    1. Create a _Condition_. If you choose a boolean match (NOT, OR, AND), you can then create its subconditions, repeating this step. If you choose a datum match,
    edit its properties, and don't forget to expand the groups to check them out
    2. Add an _Action_ to the array, then edit its properties, including the ones on
    the groups. You can repeat this step as many times as you want
-7. (optional) Once you have defined the behavior you want, you can save a part or all of
-the list of rules as a resource file. You can save a _Condition_, an individual _Action_, a _Rule_ or the whole _RuleList_
+6. (optional) Once you have defined the behavior you want, you can save a part or all of the list of rules as a resource file. You can save a _Condition_, an individual _Action_, a _Rule_ or the whole _RuleList_
 
-> Obs.: You can give _Rules_, _Matches_ and _Actions_ a name, by editing the Name property on the Resource group (it's actually _resource_name_) 
+> Obs.: You can give _Rules_, _Matches_ and _Actions_ a name, by editing the Name property on the Resource group (it's actually _resource_name_)
+
+|![[Inspector with rule declaration](screenshots/AddingRules_Inspector_4to5.png)](screenshots/AddingRules_Inspector_4to5.png "Inspector with rule declaration")|
+|:---:|
+| Inspector after following steps 4 and 5 |
 
 ### Declaring rules in the Rules Editor
 > You can define rules in the **Rules Editor** bottom panel using a JSON syntax. The panel connects itself to the last _RuleBasedSystem_ that you've clicked, which will be the one showing on the Inspector.
 
-5. Open the **Rules Editor** and use the `Reset` button if there is some leftover text in the editor
-6. Delete the "condition", keep the caret at that position and click the `New Match` button. Choose one of the options that popped up and click it. The format of the selected match will be inserted in the editor, where the caret was
-7. Follow the syntax explained in the [documentation](#syntax-documentation) and replace the placeholders with the configuration you want. If you chose a boolean match, there will be another "condition" or "conditions", so repeat the
-previous step
-8. Delete "actions" and click the `New action` button. Click one option. The JSON format of that type of action will be inserted where the caret was
-9. Like step 7, replace the placeholders with the action properties, following the [syntax](#syntax-documentation)
-10. (optional) Add new rules using the `New Rule` button, which inserts the template on the caret position. Repeat steps 6 to 9 with every new rule
-11. When your rules are done, click the `Apply` button to set the current
-_RuleBasedSystem_'s rule list. If the syntax is wrong, a JSON parsing error will appear and the "apply" will abort
+4. Open the **Rules Editor** and use the `Reset` button if there is some leftover text in the editor
+
+|![[RulesEditor default text](screenshots/AddingRules_Editor_4.png)](screenshots/AddingRules_Editor_4.png "RulesEditor default text")|
+|:---:|
+| RulesEditor after step 4 |
+
+5. Add new rules using the `New Rule` button, as many as you need. **Be careful with the position of the cursor**, because the template will be inserted right at that position
+6. For each rule, replace the *"condition"* and *"actions"* placeholders, using the corresponding buttons. Always be mindful of the cursor position
+   1. Delete the *"condition"*, keep the cursor at that position and click the `New Match` button. Choose one of the options that popped up and click it. The format of the selected match will be inserted in the editor, where the cursor was
+   2. Follow the syntax explained in the [documentation](#syntax-documentation) and replace the match's placeholders with the configuration you want. If you chose a boolean match, there will be another *"condition"* or *"conditions"*, so repeat the previous step
+   3. Delete *"actions"* and click the `New action` button. Click one option. The JSON format of that type of action will be inserted where the cursor was
+   4. Replace the action's placeholders with the action properties, following the [syntax](#syntax-documentation)
+   5. Repeat steps **iii.** (without erasing the placeholder) and **iv.** to add more actions
+
+|![[RulesEditor with match and action templates](screenshots/AddingRules_Editor_5to6.png)](screenshots/AddingRules_Editor_5to6.png "RulesEditor with match and action templates")|
+|:---:|
+| RulesEditor in the middle of step 6 |
+
+7. When your rules are done, click the `Apply` button to set the current
+_RuleBasedSystem_'s rule list. If the syntax is wrong, a JSON parsing error will appear and the *"apply"* will abort
+8. (optional) Save the created text in a *.json* file in case you want to reuse some part later
+
+|![[RulesEditor with rule declaration](screenshots/AddingRules_Editor_6to7.png)](screenshots/AddingRules_Editor_6to7.png "RulesEditor with rule declaration")|
+|:---:|
+| RulesEditor after steps 6 and 7 |
 
 ## JSON syntax
 ### How to read the syntax documentation
