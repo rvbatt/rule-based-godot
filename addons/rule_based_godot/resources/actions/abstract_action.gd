@@ -146,7 +146,10 @@ func _trigger_node(agent_node: Node, bindings: Dictionary) -> Variant:
 	return null
 
 func _get_agent_nodes(bindings: Dictionary) -> Array:
-	# Abstract method
+	if not Agent_Nodes:
+		push_error("_get_agent_nodes should NOT be implemented if Agent_Nodes = false")
+		return []
+
 	var agents := []
 	match agent_type:
 		AgentType.PATH:

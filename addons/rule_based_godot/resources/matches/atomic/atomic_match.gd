@@ -192,7 +192,7 @@ func is_satisfied(bindings: Dictionary) -> bool:
 
 func _get_candidates() -> Array[Node]:
 	# If no group is provided, default to descendants of system node
-	if tester_search_groups.is_empty():
+	if Tester_Node and tester_search_groups.is_empty():
 		return _system_node.get_children(true)
 
 	var scene: SceneTree = _system_node.get_tree()
