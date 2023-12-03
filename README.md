@@ -1,5 +1,33 @@
 # Rule-Based Godot
-A plugin for Godot game engine that  implements a generic Rule-Based System. This was developed as the capstone project for my Computer Science bachelor degree at USP.
+A plugin for [Godot Engine 4.1+](https://godotengine.org/) that functions as a Rule-Based System framework. This was developed as the capstone project for my Computer Science bachelor degree at USP.
+
+## Instalation
+### Using [gd-plug](https://github.com/imjp94/gd-plug)
+Supposing the plugin manager is already installed (check its documentation for details), you need only to:
+1. Add the `plug.gd` file below in the project root. If the file already exists, add the new line in the *_plugging()* function:
+```gdscript
+# plug.gd
+extends "res://addons/gd−plug/plug.gd"
+
+func _plugging():
+	plug("rvbatt/rule−based−godot", {"include": ["addons/rule_based_godot/", "test_scenes/", "script_templates/"]})
+```
+2. Still on the project root, run the following command in the terminal:
+```shell
+godot −−no−window −s plug.gd install
+```
+3. On Godot's Editor, enter the Project menu, click in ProjectSettings, got to the Plugins tab and enable the **Rule-Based Godot** plugin.
+
+|![[Plugins tab with Rule-Based Godot enabled](screenshots/PluginEnabled.png)](screenshots/PluginEnabled.png "Plugins tab with Rule-Based Godot enabled")|
+|:---:|
+| Project > ProjectSettings > Plugins > Rule-Based Godot (Enable) |
+
+### Directly from the Repository
+1. Download or clone this repository. Use the last version on the [main](https://github.com/rvbatt/rule-based-godot/tree/main) branch. If you decide to download, the content will come in a _.zip_ file, so you will need to unpack it
+
+2. Copy the `addons/rule-based-godot/` folder to your Godot's project root. If the _addons_ folder already exists, copy only the *rule_based_godot* subfolder and place it there
+3. (Recommend) Copy the `test_scenes` and `script_templates` folders as well. If the _templates_ folder already exists, copy only its subfolders
+4. Follow the same instructions given on the Step 3 of [Installation Using gd-plug](#using-gd-plug)
 
 ## Adding rules to a scene
 1. Add a _RuleBasedSystem_ node to the scene
@@ -74,10 +102,10 @@ separated by **|** and between **( )**. One choice can have several items separa
 - **Rule**: `{"if": condition, "then": [actions]}`
 - Matches:
    - **NOT**: `["NOT", condition]`
-   - Multi Bool: _[ID, [conditions]]_ (template)
+   - (Multiple-entry) Boolean template: _[ID, [conditions]]_
 	    - **AND**: `["AND", [conditions]]`
 	    - **OR**: `["OR", [conditions]]`
-   - Datum: _[ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]_ (template)
+   - Atomic template: _[ID, <?data>, vars..., (tester_path|?wild, [groups]) <, (prop|method, [args])>]_
        - **DistinctVariables**: `["DistinctVariables", [distinct_variables]]`
 	    - **Area Detection**: `["AreaDetection", area_path, (tester_path|?wild, [groups])]`
           > Obs: _area\_path_ must be the path to either an _Area2D_ or _Area3D_
@@ -87,7 +115,7 @@ separated by **|** and between **( )**. One choice can have several items separa
 	    - **Numeric**: `["Numeric", <?number,>  min_value, max_value, (tester_path|?wild, [groups]), (prop|method, [args])`
           > Obs: _min\_value_ e _max\_value_ are float number, "inf" or "-inf"
 	    - **String**: `["String", <?string,> string_value, (tester_path|?wild, [groups]), (prop|method, [args])`
-- Actions: _[ID, (agent_path|?wild|[groups]|), vars...]_ (template)
+- Action template: _[ID, (agent_path|?wild|[groups]|), vars...]_
    - **Set Property**: `["SetProperty", (agent_path|?wild|[groups]|), {property: value}]`
      > Obs: _{property: value}_ only has only one entry
    - **Call Method**: `["CallMethod", (agent_path|?wild|[groups]|), method, [args]]`
