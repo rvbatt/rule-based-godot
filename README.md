@@ -111,6 +111,34 @@ _RuleBasedSystem_'s rule list. If the syntax is wrong, a JSON parsing error will
 |         | CallMethod  | calls the method of a node passing the arguments in a vector |
 |         | EmitSignal  | adds a signal to a Node, if it doesn't have it, and emits it, passing the arguments in a vector |
 
+### Creating new ones
+To add new types of: **Arbiters**, **Boolean Matches**, **Atomic Matches** and/or **Actions**
+1. Copy the [`script_templates`](https://github.com/rvbatt/rule-based-godot/tree/main/script_templates) folder to your Godot's project root. If this folder already exists, copy all of its subfolders
+2. Create a new script and select the appropriate class to inherit from. Then, check the template box and select the *"New ___"*
+   - Arbiter strategy: inherits from: `AbstractArbiter`
+   - Multiple-entry Boolean Match: inherits from `AbstractBooleanMatch`
+   - Atomic Match: inherits from `AbstractAtomicMatch`
+   - Action command: inherits from `AbstractAction`
+
+|![[Creating a New Action using the template](screenshots/ActionTemplate.png)](screenshots/ActionTemplate.png "Creating a New Action using the template")|
+|:---:|
+| Template option when creating a script |
+3. Follow the instructions given on the template. For actions and matches, there are some flags that define which functions need to be implemented:
+   - **Actions**:
+
+   |Action Flag | Methods that **MUST** be implemented | Methods that *could* be overriden |
+   |:---|:---|:---|
+   | |`trigger(bindings)`| |
+   | Agent Nodes |`trigger_node(agent_node, bindings)`|`get_agent_nodes(bindings)`|
+
+   - **Atomic Matches**:
+
+   |Atomic Match Flags | Methods that **MUST** be implemented | Methods that *could* be overriden |
+   |:---|:---|:---|
+   | |`is_satisfied(bindings)`| |
+   | Tester Node |`node_satisfies_match(node, bindings)`|`get_candidates()`|
+   | Tester Node, Data Based Node |`get_data(node)`, `data_satisfies_match(data)`|`get_candidates()`|
+   | Tester Node, Data Based Node, Get Node Data Preset|`data_satisfies_match(data)`|get_candidates()|
 
 ## JSON syntax
 ### How to read the syntax documentation
