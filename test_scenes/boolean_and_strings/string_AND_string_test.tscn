@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1kanksyu6icj"]
+[gd_scene load_steps=16 format=3 uid="uid://b1kanksyu6icj"]
 
 [ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_kjhnj"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_xk6ot"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_m8wly"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_y286a"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/boolean/AND_match.gd" id="5_lta84"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/string_match.gd" id="6_iyp7b"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_tmnta"]
 [ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_pldog"]
 
@@ -19,9 +20,27 @@ property_and_value = {
 agent_type = 0
 agent_path = NodePath("../ColorRect")
 
+[sub_resource type="Resource" id="Resource_am0ff"]
+script = ExtResource("6_iyp7b")
+string_value = "red"
+tester_is_wildcard = false
+tester_path = NodePath("../LineEdit")
+should_retrieve_data = false
+extraction_type = 0
+extraction_property = &"text"
+
+[sub_resource type="Resource" id="Resource_phh8x"]
+script = ExtResource("6_iyp7b")
+string_value = "yellow"
+tester_is_wildcard = false
+tester_path = NodePath("../LineEdit2")
+should_retrieve_data = false
+extraction_type = 0
+extraction_property = &"text"
+
 [sub_resource type="Resource" id="Resource_e1t5q"]
 script = ExtResource("5_lta84")
-subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([])
+subconditions = Array[Resource("res://addons/rule_based_godot/resources/matches/abstract_match.gd")]([SubResource("Resource_am0ff"), SubResource("Resource_phh8x")])
 
 [sub_resource type="Resource" id="Resource_6gjpv"]
 script = ExtResource("7_tmnta")

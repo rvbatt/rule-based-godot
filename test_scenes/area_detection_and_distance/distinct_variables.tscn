@@ -69,11 +69,11 @@ rule_list = SubResource("Resource_55bs8")
 [node name="MovableArea2D" parent="RuleBasedSystem" instance=ExtResource("2_5dqej")]
 
 [node name="Label" type="Label" parent="RuleBasedSystem/MovableArea2D"]
-offset_left = -44.0
-offset_top = -92.0
-offset_right = 43.0
-offset_bottom = -66.0
-text = "Área Móvel"
+offset_left = -56.0
+offset_top = -95.0
+offset_right = 51.0
+offset_bottom = -69.0
+text = "Movable Area"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)

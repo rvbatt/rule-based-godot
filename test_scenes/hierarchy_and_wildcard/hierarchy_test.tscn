@@ -23,7 +23,7 @@ agent_path = NodePath("../Statements/BsiblingC/answer")
 [sub_resource type="Resource" id="Resource_i6i0l"]
 script = ExtResource("5_ykmlp")
 source_path = NodePath("../Root/A/AChildren/B")
-relation = "Sibling of"
+relation = 1
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/B/BChildren/C")
 
@@ -44,7 +44,7 @@ agent_path = NodePath("../Statements/CparentA/answer")
 [sub_resource type="Resource" id="Resource_t3r2a"]
 script = ExtResource("5_ykmlp")
 source_path = NodePath("../Root/A/AChildren/B/BChildren/C/CChildren")
-relation = "Parent of"
+relation = 0
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A")
 
@@ -65,7 +65,7 @@ agent_path = NodePath("../Statements/AChildB/answer")
 [sub_resource type="Resource" id="Resource_s4gdo"]
 script = ExtResource("5_ykmlp")
 source_path = NodePath("../Root/A")
-relation = "Child of"
+relation = 2
 tester_is_wildcard = false
 tester_path = NodePath("../Root/A/AChildren/B/BChildren")
 
@@ -163,18 +163,6 @@ anchor_bottom = 1.0
 offset_top = 3.0
 offset_right = 40.0
 offset_bottom = 85.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Root@A@AChildren@B@BChildren@C@CChildren" type="VBoxContainer" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 3.0
-offset_right = 40.0
-offset_bottom = 98.0
 grow_horizontal = 0
 grow_vertical = 0
 

@@ -1,28 +1,28 @@
 [gd_scene load_steps=18 format=3 uid="uid://cxfyra0kwmufu"]
 
-[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_shxu2"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_h8bwa"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_e44h4"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="4_cliig"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_partk"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="6_kq74b"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="7_y3whx"]
-[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_8cxdq"]
-[ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="9_eus64"]
-[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="10_eheht"]
+[ext_resource type="Script" path="res://test_scenes/test_rule_based_system.gd" id="1_j5kgb"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/system/rule_based_system.gd" id="2_eqatw"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/arbiters/first_applicable_arbiter.gd" id="3_mvl6q"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/call_method_action.gd" id="4_kfvhl"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/actions/set_property_action.gd" id="5_ok38f"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/matches/atomic/distance_match.gd" id="6_7nbfg"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule.gd" id="7_70w7c"]
+[ext_resource type="Script" path="res://addons/rule_based_godot/resources/rule_list.gd" id="8_bwqen"]
+[ext_resource type="PackedScene" uid="uid://e5tryq24e7b7" path="res://test_scenes/area_detection_and_distance/components/movable_area2D.tscn" id="9_dstv5"]
+[ext_resource type="Texture2D" uid="uid://ww4haq6why2o" path="res://icon.svg" id="10_5111u"]
 
 [sub_resource type="Resource" id="Resource_wt57c"]
-script = ExtResource("3_e44h4")
+script = ExtResource("3_mvl6q")
 
 [sub_resource type="Resource" id="Resource_otyjn"]
-script = ExtResource("4_partk")
+script = ExtResource("4_kfvhl")
 method = &"set_brightness"
 arguments = ["?dist"]
 agent_type = 0
 agent_path = NodePath("MetalDetector")
 
 [sub_resource type="Resource" id="Resource_wxjj5"]
-script = ExtResource("4_cliig")
+script = ExtResource("5_ok38f")
 property_and_value = {
 "text": "?dist"
 }
@@ -30,7 +30,7 @@ agent_type = 1
 agent_groups = Array[StringName]([&"distance_tag"])
 
 [sub_resource type="Resource" id="Resource_uw1vf"]
-script = ExtResource("7_y3whx")
+script = ExtResource("6_7nbfg")
 source_path = NodePath("MetalDetector")
 min_distance = 0.0
 max_distance = inf
@@ -41,28 +41,28 @@ should_retrieve_data = true
 data_variable = &"dist"
 
 [sub_resource type="Resource" id="Resource_8bcl5"]
-script = ExtResource("6_kq74b")
+script = ExtResource("7_70w7c")
 condition = SubResource("Resource_uw1vf")
 actions = Array[Resource("res://addons/rule_based_godot/resources/actions/abstract_action.gd")]([SubResource("Resource_otyjn"), SubResource("Resource_wxjj5")])
 
 [sub_resource type="Resource" id="Resource_fr532"]
-script = ExtResource("8_8cxdq")
+script = ExtResource("8_bwqen")
 _rule_based_godot = &"RuleList"
-rules = Array[ExtResource("6_kq74b")]([SubResource("Resource_8bcl5")])
+rules = Array[ExtResource("7_70w7c")]([SubResource("Resource_8bcl5")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikocs"]
 size = Vector2(30, 30)
 
 [node name="Area2DDetectionTest" type="Node2D"]
-script = ExtResource("1_shxu2")
+script = ExtResource("1_j5kgb")
 
 [node name="RuleBasedSystem" type="Timer" parent="."]
-script = ExtResource("2_h8bwa")
+script = ExtResource("2_eqatw")
 iteration_update = 0
 arbiter = SubResource("Resource_wt57c")
 rule_list = SubResource("Resource_fr532")
 
-[node name="MetalDetector" parent="RuleBasedSystem" instance=ExtResource("9_eus64")]
+[node name="MetalDetector" parent="RuleBasedSystem" instance=ExtResource("9_dstv5")]
 position = Vector2(698, 263)
 
 [node name="Metal" type="Area2D" parent="." groups=["metal"]]
@@ -84,7 +84,7 @@ shape = SubResource("RectangleShape2D_ikocs")
 modulate = Color(0, 0, 0, 1)
 z_index = 1
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("10_eheht")
+texture = ExtResource("10_5111u")
 
 [node name="DistanceValue" type="HBoxContainer" parent="."]
 offset_left = 336.0
