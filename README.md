@@ -11,7 +11,18 @@ A plugin for [Godot Engine 4.1+](https://godotengine.org/) that functions as a R
 3. [Resources](#resources)
    1. [Available](#available)
    2. [Creating new ones](#creating-new-ones)
-4. [JSON syntax](#json-syntax)
+4. [API](#api)
+   1. [RuleBasedSystem](#rulebasedsystem)
+   2. [AbstractArbiter](#abstractarbiter)
+   3. [AbstractBooleanMatch](#abstractbooleanmatch)
+   4. [AbstractAtomicMatch](#abstractatomicmatch)
+   5. [AbstractMatch](#abstractmatch)
+   6. [AbstractAction](#abstractaction)
+   7. [Rule](#rule)
+   8. [RuleList](#rulelist)
+   9. [RuleBasedResource](#rulebasedresource)
+   10. [RuleDB](#ruledb)
+5. [JSON syntax](#json-syntax)
    1. [How to read the syntax documentation](#how-to-read-the-syntax-documentation)
    2. [Syntax documentation](#syntax-documentation)
 
@@ -153,6 +164,152 @@ To add new types of: **Arbiters**, **Boolean Matches**, **Atomic Matches** and/o
    | Tester Node |`node_satisfies_match(node, bindings)`|`get_candidates()`|
    | Tester Node, Data Based Node |`get_data(node)`, `data_satisfies_match(data)`|`get_candidates()`|
    | Tester Node, Data Based Node, Get Node Data Preset|`data_satisfies_match(data)`|get_candidates()|
+
+## API
+### RuleBasedSystem
+Extends *Timer*
+#### Properties
+- `iteration_update`: IterationUpdate
+> Should the system iterate *ON_CALL*, *ON_TIMER* or *EVERY_FRAME*
+- `arbiter`: [AbstractArbiter](#abstractarbiter)
+> The type of rule arbitration strategy used
+- `rule_list`: [RuleList](#rulelist)
+> The list of rules
+#### Methods
+- `iterate()` -> Array
+> Iterates through the `rule_list`, gathers the satisfied ones, asks the `arbiter` to select one of them, triggers the selected rule and returns the results
+
+---
+### AbstractArbiter
+Extends *Resource*
+
+- `select_rule_to_trigger(satisfied_rules: Array[`[Rule](#rule)`])` -> [Rule](#rule)
+> Receives an array of satisfied rules and returns one of them
+
+---
+### AbstractBooleanMatch
+Extends [AbstractMatch](#abstractmatch)
+
+- `subconditions`: Array[[AbstractMatch](#abstractmatch)]
+> The matches children of this boolean operator
+
+---
+### AbstractAtomicMatch
+Extends [AbstractMatch](#abstractmatch)
+
+#### Properties
+- `Tester_Node`: bool
+> **Configuration flag**: is this match node-based?
+- `Data_Based_Node`: bool
+> **Configuration flag**: is this match based on the data from a node? Can only be active if `Tester_Node` = true
+- `Get_Node_Data_Preset`: bool
+> **Configuration flag**: should this match use preset ways of getting data from a node? Can only be active if `Data_Based_Node` = true
+
+#### Methods
+- `_preset_node_path(path_variable: StringName, node_variable: StringName)` -> void
+> Sets the `node_variable` with the node found on the `path_variable` at the moment the system is ready and begins setup
+- `_pre_connect(node_variable: StringName, signal_name: StringName,
+		function: Callable)` -> void
+> Connects the signal `signal_name` to the node's method defined by `node_variable`.`function`. Does this soon after `_preset_node_path`
+- `_get_candidates()` -> Array[Node]
+> Returns the first batch of candidates for this match. If `Tester_Node` = true and the target is a wildcard, use the node search groups. If there are no groups, defaults to children of the [RuleBasedSystem](#rulebasedsystem)
+- `_node_satisfies_match(tester_node: Node, bindings: Dictionary)` -> bool
+> If `Data_Based_Node` = *true*, uses `_get_data` and `_data_satisfies_match` to return *true* if the node satisfies the match, and *false* otherwise. Also saves the data variable, if Should Retrieve Data option was on
+- `_data_satisfies_match(data: Variant)` -> bool:
+> If `Data_Based_Node` = *true*, return *true* if the `data` satisfies the math and *false* otherwise
+- `_get_data(tester_node: Node)` -> Variant:
+> If `Get_Node_Data_Preset` = *true*, extracts the data from the `tester_node`, whether by getting a property value or the return of a mehod call
+
+---
+### AbstractMatch
+Extends [RuleBasedResource](#rulebasedresource)
+
+- `is_satisfied(bindings)` -> bool
+> Receives the Dictionary of bindings between variable names and possible candidates. Returns *true* if the match is satisfied with current variable substitutions, and *false* otherwise
+
+---
+### AbstractAction
+Extends [RuleBasedResource](#rulebasedresource)
+
+#### Properties
+- `Agent_Nodes`: bool
+> **Configuration flag**: is this action node-based?
+
+#### Methods
+- `_pre_add_signal(name_var: StringName, param_to_type_var: StringName)` -> void
+> Adds a user signal with the name defined in the variable named `name_var` and parameters defined by the variable named `param_to_type_var`. See `Object.add_user_signal` for more information
+- `trigger(bindings: Dictionary)` -> Array
+> Receives the Dictionary of bindings between variable names and possible candidates. Returns the results from triggering this action. If `Agent_Nodes`= *true*, uses `_get_agent_nodes` and `_trigger_node` to trigger all necesary nodes
+- `_trigger_node(agent_node: Node, bindings: Dictionary)` -> Variant:
+> If `Agent_Nodes`= *true*, triggers the `agent_node` using the substitutions defined by `bindings`. Returns a value that represents the action's result
+- `_get_agent_nodes(bindings: Dictionary)` -> Array
+> If `Agent_Nodes` = *true*, receives the Dictionary of bindings between variable names and possible candidates. Returns all the nodes that must perform the action
+
+---
+### Rule
+Extends [RuleBasedResource](#rulebasedresource)
+
+#### Properties
+- `condition`: [AbstractMatch](#abstractmatch)
+> Points to the root of the tree of matches that defines the condition
+- `actions`: Array[[Action](#abstractaction)]
+> The actions triggered by this rule. Follows execution order
+- `_bindings`: Dictionary
+> Associations between variable names and possible substitutions
+
+#### Methods
+- `condition_satisfied()` -> bool
+> Clears the `_bindings` and returns whether the `condition` is satisfied
+- `trigger_actions()` -> Array
+> Triggers all the `actions` in the order they appear in the array. Returns the list of all actions results
+
+---
+### RuleList
+Extends [RuleBasedResource](#rulebasedresource)
+
+#### Properties
+- `rules`: Array[[Rule](#rule)]
+> The rules, ordered by priority (descending)
+
+#### Methods
+- `satisfied_rules()` -> Array[[Rule](#rule)]
+> Returns all the rules that are satisfied in the current system iteration, ordered by priority (descending)
+
+---
+### RuleBasedResource
+Extends *Resource*
+#### Properties
+- `_system_node`: [RuleBasedSystem](#rulebasedsystem)
+> A reference to the node of the system this resource belongs to
+- `_rule_db`: [RuleDB](#ruledb)
+> A reference to the Rules DataBase used in the current scope (belongs to the RuleList)
+
+#### Methods
+- `json_format()` -> String
+> Returns a *String* with a template for this resource's JSON representation format
+- `to_json_repr()` -> Variant
+> Returns the JSON representation of this resource, which can be a *Dictionary* ([RuleList](#rulelist) and [Rule](#rule)) or an *Array* ([AbstractBooleanMatch](#abstractbooleanmatch), [AbstractAtomicMatch](#abstractatomicmatch) and [AbstractAction](#abstractaction))
+- `build_from_repr(json_repr)` -> void
+> Receives a JSON representation equal to the one defined in `to_json_repr()` and builds itself with it, setting the corresponding properties
+
+---
+### RuleDB
+Extends *Object*
+
+#### Properties
+- `actions`: Dictionary
+> Associations between the action identifier (without suffix *"Action"*) and the script path
+- `matches`: Dictionary
+> Associations between the match identifier (without suffix *"Match"*) and the script path
+
+#### Methods
+- `match_from_json(json_repr: Array)` -> [AbstractMatch](#abstractmatch):
+> Receives the JSON representation of a match and returns the corresponding object. Uses recursion for boolean matches
+- `action_from_json(json_repr: Array)` -> [AbstractAction](#abstractaction):
+> Receives the JSON representation of a action and returns the corresponding object
+- `rule_from_json(json_repr: Dictionary)` -> [Rule](#rule):
+> Receives the JSON representation of a rule and returns the corresponding object. Uses `match_from_json` and `action_from_json`
+---
 
 ## JSON syntax
 ### How to read the syntax documentation
