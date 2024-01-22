@@ -32,14 +32,14 @@ Supposing the plugin manager is already installed (check its documentation for d
 1. Add the `plug.gd` file below in the project root. If the file already exists, add the new line in the *_plugging()* function:
 ```gdscript
 # plug.gd
-extends "res://addons/gd−plug/plug.gd"
+extends "res://addons/gd-plug/plug.gd"
 
 func _plugging():
-	plug("rvbatt/rule−based−godot", {"include": ["addons/rule_based_godot/", "test_scenes/", "script_templates/"]})
+	plug("rvbatt/rule-based-godot", {"include": ["addons/rule_based_godot/", "test_scenes/", "script_templates/"]})
 ```
 2. Still on the project root, run the following command in the terminal:
 ```shell
-godot −−no−window −s plug.gd install
+godot --no−window -s plug.gd install
 ```
 3. On Godot's Editor, enter the Project menu, click in ProjectSettings, got to the Plugins tab and enable the **Rule-Based Godot** plugin.
 
