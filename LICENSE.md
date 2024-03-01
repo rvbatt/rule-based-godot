@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 Rodrigo Volpe Battistin
+Copyright (c) 2024 Rodrigo Volpe Battistin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
