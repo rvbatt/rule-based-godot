@@ -1,3 +1,5 @@
+![[Rule-Based Godot Icon](rule_based_godot.png)](rule_based_godot.png "Rule-Based Godot Icon") 
+
 # Rule-Based Godot
 A plugin for [Godot Engine 4.1+](https://godotengine.org/) that functions as a Rule-Based System framework. This was developed as the capstone project for my Computer Science bachelor degree at USP.
 
